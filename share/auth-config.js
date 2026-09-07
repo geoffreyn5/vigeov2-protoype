@@ -1,1 +1,1 @@
-window.ALFORA_AUTH = {"publishableKey":"pk_test_YmlnLWJ1enphcmQtNzQ2MC5jbGVyay5hY2NvdW50cy5kZXYk","emails":["anton.bardyn@telenetgroup.be","ben.somers@telenetgroup.be","geoffrey@novemberfive.co","yannick@novemberfive.co"]};
+window.ALFORA_AUTH = {"publishableKey":"pk_test_YmlnLWJ1enphcmQtNzQ2MC5jbGVyay5hY2NvdW50cy5kZXYk","emails":["anton.bardyn@telenetgroup.be","ben.somers@telenetgroup.be","geoffrey@novemberfive.co","ivor.micallef@telenetgroup.be","lode.lauwers@telenetgroup.be","yannick@novemberfive.co"]};
