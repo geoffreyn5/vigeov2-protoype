@@ -1,3 +1,10 @@
 # Invitation-only. One email per line.
 # Managed from the local invite form (npm run invites).
 anton.bardyn@telenetgroup.be
+ben.somers@telenetgroup.be
+geoffrey@novemberfive.co
+geoffroy.verhulst@telenetgroup.be
+ivor.micallef@telenetgroup.be
+lode.lauwers@telenetgroup.be
+yannick.van.elsue@telenetgroup.be
+yannick@novemberfive.co
