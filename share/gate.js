@@ -21,7 +21,7 @@
     });
   }
 
-  loadScript("/auth-config.js?v=allowlist9")
+  loadScript("/auth-config.js?v=allowlist10")
     .then(function(){ return loadScript("/clerk.js"); })
     .then(function(){
       var auth = window.ALFORA_AUTH || {};
