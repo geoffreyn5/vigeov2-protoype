@@ -695,6 +695,251 @@
     box-shadow:none !important;
   }
 
+
+  /* ================= renewed search lobby ================= */
+  .lobby{position:relative}
+  /* warm wash behind the top of the page, as in the design */
+  .sr-glow{position:absolute;left:0;right:0;top:calc((var(--scene-top, 54px) + 26px) * -1);height:520px;z-index:0;pointer-events:none;overflow:hidden}
+  /* the dark scrim is for the ask view; in the lobby it cuts the gradient off.
+     .topfade is a sibling of .scene, so match on the phone via :has() */
+  #phone:has(.scene:not(.is-ask):not(.is-pack)) .topfade{display:none}
+  .sr-glow span{position:absolute;border-radius:50%;filter:blur(70px)}
+  .sr-glow span:nth-child(1){width:406px;height:406px;left:-20px;top:52px;background:rgba(255,110,70,.20)}
+  .sr-glow span:nth-child(2){width:406px;height:406px;left:130px;top:-188px;background:rgba(255,50,95,.18)}
+  .sr-glow span:nth-child(3){width:347px;height:347px;left:-186px;top:-115px;background:rgba(255,228,150,.12)}
+  .lobby > *:not(.sr-glow){position:relative;z-index:1}
+
+  .sr-head{display:flex;align-items:center;gap:12px;padding:8px 16px 0}
+  .sr-head h2{flex:1;font-size:28px;font-weight:800;letter-spacing:-.035em;color:#fff}
+  .sr-history{
+    flex:0 0 auto;width:24px;height:24px;padding:0;background:none;border:0;cursor:pointer;
+    color:rgba(255,255,255,.9);
+  }
+  .sr-history svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+  /* the search bar carries the Ask gradient in its border and its glow */
+  .sr-searchbar{
+    position:relative;margin:23px 16px 0;height:58px;border-radius:29px;
+    display:flex;align-items:center;gap:8px;padding:0 9px 0 18px;cursor:text;
+    background:rgba(255,255,255,.035);
+  }
+  .sr-searchbar::before{
+    content:"";position:absolute;inset:-5px;border-radius:34px;z-index:-1;
+    background:var(--line-candy);filter:blur(15px);opacity:.42;
+  }
+  .sr-searchbar::after{
+    content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+    padding:1.3px;background:var(--line-candy);
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);mask-composite:exclude;
+  }
+  .sr-placeholder{flex:1;font-size:14.5px;font-weight:500;color:rgba(255,255,255,.5);letter-spacing:-.01em}
+  .sr-mic{
+    flex:0 0 auto;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+    background:rgba(255,255,255,.08);
+  }
+  .sr-mic svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round}
+
+  .sr-h{margin:30px 16px 12px;font-size:17px;font-weight:800;letter-spacing:-.03em;color:#fff}
+
+  /* reels lane: full bleed, inset by its own padding, snap respects the inset */
+  .sr-reels{
+    display:flex;gap:9px;overflow-x:auto;scrollbar-width:none;
+    padding:0 16px 4px;scroll-snap-type:x proximity;scroll-padding-inline:16px;
+  }
+  .sr-reels::-webkit-scrollbar{display:none}
+  .sr-reel{
+    position:relative;flex:0 0 167px;width:167px;height:254px;
+    border-radius:14px;overflow:hidden;padding:0;border:0;cursor:pointer;
+    background:#15151a;scroll-snap-align:start;text-align:left;
+    transition:transform .22s var(--ease-jelly, cubic-bezier(.22,.82,.28,1));
+  }
+  .sr-reel:active{transform:scale(.98)}
+  .sr-reel > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  /* the clip sits on top of its poster and only fades in once it is actually
+     running, so a card that never gets to play still shows art, not a black box */
+  .sr-reel > video{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+    opacity:0;transition:opacity .3s ease;pointer-events:none;background:#15151a;
+  }
+  .sr-reel.is-playing > video{opacity:1}
+  .sr-reel-scrim{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,.34) 0%, rgba(0,0,0,0) 34%, rgba(0,0,0,.72) 78%, rgba(0,0,0,.9) 100%);
+  }
+  .sr-hot{
+    position:absolute;left:8px;top:8px;display:inline-flex;align-items:center;gap:5px;
+    height:31px;padding:0 12px;border-radius:999px;
+    font-size:12.5px;font-weight:700;color:#fff;
+    background:rgba(18,14,14,.62);backdrop-filter:blur(10px);
+  }
+  .sr-hot svg{width:14px;height:14px;stroke:#FFB070;fill:none;stroke-width:1.7;stroke-linejoin:round}
+  .sr-reel-desc{
+    position:absolute;left:12px;right:12px;bottom:12px;
+    font-size:13px;font-weight:650;line-height:1.22;letter-spacing:-.01em;color:#fff;
+    text-shadow:0 1px 10px rgba(0,0,0,.7);
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  }
+
+  /* collections */
+  .sr-colls{
+    display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;
+    padding:0 16px 4px;scroll-snap-type:x proximity;scroll-padding-inline:16px;
+  }
+  .sr-colls::-webkit-scrollbar{display:none}
+  .sr-coll{
+    flex:0 0 148px;width:148px;height:128px;scroll-snap-align:start;cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+    padding:9px;border-radius:14px;text-align:center;
+    background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);
+    transition:transform .22s var(--ease-jelly, cubic-bezier(.22,.82,.28,1));
+  }
+  .sr-coll:active{transform:scale(.98)}
+  .sr-coll-art{position:relative;display:block;width:74px;height:56px;flex:0 0 auto}
+  .sr-coll-art img{
+    position:absolute;top:0;width:38px;height:56px;border-radius:5px;object-fit:cover;
+    box-shadow:0 4px 10px rgba(0,0,0,.45);
+    left:calc(var(--i) * 16px);
+    transform:rotate(calc((var(--i) - 1) * 7deg));
+    z-index:calc(3 - var(--i));
+  }
+  .sr-coll-label{font-size:12.5px;font-weight:650;line-height:1.25;color:#fff}
+
+  /* genre chips */
+  .sr-genres-row{
+    display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;
+    margin-top:12px;padding:0 16px 4px;scroll-padding-inline:16px;
+  }
+  .sr-genres-row::-webkit-scrollbar{display:none}
+  /* the lobby carries its own search bar, so the dock is for the ask view only */
+  .scene:not(.is-ask):not(.is-pack) .search.askdock{display:none}
+  .lobby{padding-bottom:28px}
+  .sr-genre{
+    flex:0 0 auto;height:31px;padding:0 12px;border-radius:999px;cursor:pointer;
+    font-size:12.5px;font-weight:600;color:rgba(255,255,255,.92);
+    background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);
+  }
+  .sr-genre:active{transform:scale(.96)}
+
+
+  /* ---------- detail pages (collections + genres) ---------- */
+  .sr-detail{
+    position:absolute;inset:0;z-index:60;display:flex;flex-direction:column;
+    background:linear-gradient(180deg, rgba(24,16,16,.98) 0%, rgba(10,9,10,1) 42%);
+    transform:translateX(100%);opacity:0;pointer-events:none;
+    transition:transform .38s var(--ease-jelly, cubic-bezier(.22,.82,.28,1)), opacity .28s ease;
+  }
+  .sr-detail.is-on{transform:none;opacity:1;pointer-events:auto}
+  .sr-detail-head{
+    display:flex;align-items:center;gap:10px;padding:56px 16px 12px;flex:0 0 auto;
+  }
+  .sr-back{
+    width:34px;height:34px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;
+    background:rgba(255,255,255,.08);border:0;cursor:pointer;color:#fff;
+  }
+  .sr-back svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .sr-detail-title{font-size:20px;font-weight:800;letter-spacing:-.03em;color:#fff}
+  .sr-detail-body{
+    flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;padding:0 16px 96px;
+  }
+  .sr-detail-body::-webkit-scrollbar{display:none}
+  .sr-d-lede{font-size:13.5px;line-height:1.45;color:rgba(255,255,255,.62);margin-bottom:18px}
+
+  .sr-d-sec{margin-bottom:22px}
+  .sr-d-h{
+    font-size:17px;font-weight:800;letter-spacing:-.03em;
+    color:#fff;margin-bottom:12px;
+  }
+  .sr-d-lane{
+    display:flex;gap:9px;overflow-x:auto;scrollbar-width:none;
+    /* a scroll container clips at its padding box, so the winner ring and its
+       glow need room here or they are shaved off at the top and sides */
+    margin:-34px -16px -20px;padding:34px 16px 34px;
+    scroll-snap-type:x proximity;scroll-padding-inline:16px;
+  }
+  .sr-d-lane::-webkit-scrollbar{display:none}
+  .sr-d-grid{
+    display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:11px;
+  }
+  .sr-d-card{
+    flex:0 0 162px;width:162px;padding:0;border:0;background:none;cursor:pointer;text-align:left;
+    scroll-snap-align:start;
+    /* buttons centre their content: without this a one-line caption leaves slack
+       above the poster and the lane no longer starts on a common line */
+    display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;
+    transition:transform .2s var(--ease-jelly, cubic-bezier(.22,.82,.28,1));
+  }
+  .sr-d-grid .sr-d-card{flex:none;width:auto}
+  .sr-d-card:active{transform:scale(.97)}
+  .sr-d-art{
+    position:relative;display:block;width:100%;aspect-ratio:162/246;border-radius:14px;overflow:hidden;
+    background:#15151a;box-shadow:0 8px 18px rgba(0,0,0,.4);
+  }
+  .sr-d-lane .sr-d-art{width:162px}
+  .sr-d-art img{width:100%;height:100%;object-fit:cover;display:block}
+  .sr-d-card.is-win .sr-d-art{
+    box-shadow:0 0 0 2px #FFC061,
+               0 0 18px rgba(255,192,97,.5),
+               0 0 30px rgba(255,160,60,.24),
+               0 8px 18px rgba(0,0,0,.5);
+  }
+  .sr-badge{
+    position:absolute;left:6px;top:6px;z-index:3;
+    display:inline-flex;align-items:center;gap:4px;
+    padding:5px 8px;border-radius:10px;overflow:hidden;line-height:1;color:#fff;
+    background:
+      radial-gradient(110% 90% at 10% 12%, rgba(255,236,140,.16) 0%, transparent 38%),
+      radial-gradient(90% 80% at 70% 40%, rgba(255,90,70,.14) 0%, transparent 48%),
+      radial-gradient(100% 90% at 100% 100%, rgba(255,40,80,.26) 0%, transparent 52%),
+      linear-gradient(180deg, rgba(18,10,14,.82) 0%, rgba(10,8,12,.94) 100%);
+    box-shadow:0 4px 14px rgba(0,0,0,.35);
+  }
+  .sr-badge::before{
+    content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;z-index:0;
+    background:var(--mesh-hi);opacity:.35;
+  }
+  .sr-badge::after{
+    content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;z-index:2;
+    padding:1px;opacity:.58;
+    background:linear-gradient(135deg, rgba(255,228,150,.7), rgba(255,110,70,.45) 48%, rgba(255,50,95,.55));
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;
+    mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite:exclude;
+  }
+  .sr-badge > *{position:relative;z-index:1}
+  .sr-badge b{
+    font-size:9px;font-weight:900;letter-spacing:.12em;
+    color:transparent;
+    background:
+      radial-gradient(90% 70% at 30% 12%, rgba(255,255,255,.98) 0%, transparent 46%),
+      linear-gradient(180deg, rgba(255,255,255,.92) 0%, rgba(255,255,255,.58) 55%, rgba(255,255,255,.8) 100%);
+    -webkit-background-clip:text;background-clip:text;
+  }
+  .sr-badge svg{
+    width:11px;height:11px;fill:none;stroke:rgba(255,230,175,.92);
+    stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;
+  }
+  .sr-d-name{
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+    margin-top:8px;font-size:13px;font-weight:700;line-height:1.22;color:rgba(255,255,255,.92);
+  }
+  .sr-d-sub{
+    display:block;margin-top:2px;font-size:11.5px;font-weight:500;line-height:1.25;
+    color:rgba(255,255,255,.5);
+  }
+
+  .sr-group{margin-bottom:20px}
+  .sr-group h4{
+    font-size:14px;font-weight:750;letter-spacing:-.02em;color:#fff;margin-bottom:10px;
+  }
+  .sr-pills{display:flex;flex-wrap:wrap;gap:7px}
+  .sr-pill{
+    padding:8px 12px;border-radius:999px;font-size:12px;font-weight:600;
+    color:rgba(255,255,255,.88);background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.08);
+  }
+
   /* ================= search lobby: prompts + previous searches ================= */
   .sr-genres{padding:16px 0 4px}
 
@@ -1494,6 +1739,267 @@ function genreChip(id){
 function moodAskIds(){
   return Object.keys(asks).filter(id => asks[id].kind !== "genre");
 }
+// ---------- renewed search lobby ----------
+// Reels: catalogue art plus a line of copy, in the voice of the design.
+// Clips are the vertical reels the home carousel already plays (720x1280, ~15s),
+// so the card, its poster and its footage are the same title.
+const REELS = [
+  {id:"tafel",   clip:"tafel-gert-1",   hot:true,  desc:"Gert over Francken en de heetste zomer ooit"},
+  {id:"familie", clip:"familie-1",      hot:false, desc:"Wie is de vreemde die naar Peter vraagt?"},
+  {id:"zegeuh",  clip:"zeg-eens-euh-1", hot:true,  desc:"E\u00e9n minuut, geen euh, geen verboden woord"},
+  {id:"jade",    clip:"jade-belgen",    hot:false, desc:"Toby Alderweireld naast een vuurspuwer"},
+  {id:"axel",    clip:"axel-amerika",   hot:false, desc:"Axel tussen de Palm Springs Trumpettes"},
+  {id:"agnew",   clip:"alex-agnew",     hot:true,  desc:"Twee jaar in zijn eigen hoofd, dan de Stadsschouwburg"}
+];
+
+// Collections open a detail page; ids match COLLECTION_PAGES below.
+const COLLECTIONS = [
+  {id:"oscars",  label:"98th Academy Awards Winners", art:["opp","barb","dune"]},
+  {id:"leaving", label:"Leaving soon on your services", art:["wed","squid","tlou"]},
+  {id:"free",    label:"Free this month",              art:["thuis","y1985","chantal"]},
+  {id:"belgian", label:"Made in Flanders",             art:["zill","jan","schelde"]}
+];
+
+const GENRES = ["Action", "Comedy", "Drama", "Thriller", "Horror", "Romance"];
+
+// ---------- detail pages ----------
+// 98th Academy Awards, 15 March 2026. Real results; the prototype catalogue holds
+// none of these films, so the art lives in posters/oscars (filenames as supplied).
+const OSCAR_ART = {
+  "One Battle After Another":"one-battle-after-another.jpeg",
+  "Sinners":"sinners.jpg",
+  "Hamnet":"hamnet.jpeg",
+  "Weapons":"weapons.jpeg",
+  "Sentimental Value":"sentimental-value.jpeg",
+  "Marty Supreme":"marty-supreme.jpeg",
+  "Bugonia":"bugonia.jpeg",
+  "Frankenstein":"frankenstein.jpeg",
+  "The Secret Agent":"the-secret-agent.jpeg",
+  "F1":"F1.jpeg",
+  "Train Dreams":"train-dreams.jpeg",
+  "Blue Moon":"blue-moon.jpeg",
+  "If I Had Legs I\u2019d Kick You":"if-I-Had-Legs-id-Kick-You.jpeg",
+  "Song Sung Blue":"song-sung-blue.jpeg"
+};
+const oscarArt = film => "posters/oscars/" + (OSCAR_ART[film] || "");
+
+const OSCARS = [
+  {cat:"Best Picture", entries:[
+    {film:"One Battle After Another", win:true},
+    {film:"Bugonia"}, {film:"F1"}, {film:"Frankenstein"}, {film:"Hamnet"},
+    {film:"Marty Supreme"}, {film:"The Secret Agent"}, {film:"Sentimental Value"},
+    {film:"Sinners"}, {film:"Train Dreams"}
+  ]},
+  {cat:"Directing", entries:[
+    {film:"One Battle After Another", who:"Paul Thomas Anderson", win:true},
+    {film:"Hamnet", who:"Chlo\u00e9 Zhao"},
+    {film:"Marty Supreme", who:"Josh Safdie"},
+    {film:"Sentimental Value", who:"Joachim Trier"},
+    {film:"Sinners", who:"Ryan Coogler"}
+  ]},
+  {cat:"Actor in a Leading Role", entries:[
+    {film:"Sinners", who:"Michael B. Jordan", win:true},
+    {film:"Marty Supreme", who:"Timoth\u00e9e Chalamet"},
+    {film:"One Battle After Another", who:"Leonardo DiCaprio"},
+    {film:"Blue Moon", who:"Ethan Hawke"},
+    {film:"The Secret Agent", who:"Wagner Moura"}
+  ]},
+  {cat:"Actress in a Leading Role", entries:[
+    {film:"Hamnet", who:"Jessie Buckley", win:true},
+    {film:"If I Had Legs I\u2019d Kick You", who:"Rose Byrne"},
+    {film:"Song Sung Blue", who:"Kate Hudson"},
+    {film:"Sentimental Value", who:"Renate Reinsve"},
+    {film:"Bugonia", who:"Emma Stone"}
+  ]},
+  {cat:"Actor in a Supporting Role", entries:[
+    {film:"One Battle After Another", who:"Sean Penn", win:true},
+    {film:"One Battle After Another", who:"Benicio Del Toro"},
+    {film:"Frankenstein", who:"Jacob Elordi"},
+    {film:"Sinners", who:"Delroy Lindo"},
+    {film:"Sentimental Value", who:"Stellan Skarsg\u00e5rd"}
+  ]},
+  {cat:"Actress in a Supporting Role", entries:[
+    {film:"Weapons", who:"Amy Madigan", win:true},
+    {film:"Sentimental Value", who:"Elle Fanning"},
+    {film:"Sentimental Value", who:"Inga Ibsdotter Lilleaas"},
+    {film:"Sinners", who:"Wunmi Mosaku"},
+    {film:"One Battle After Another", who:"Teyana Taylor"}
+  ]}
+];
+
+const COLLECTION_PAGES = {
+  oscars:  {title:"98th Academy Awards",
+            lede:"Held 15 March 2026. One Battle After Another took six, including Best Picture.",
+            awards:OSCARS},
+  leaving: {title:"Leaving soon",
+            lede:"Dropping off the services you already pay for. Finish these first.",
+            byProvider:["wed","squid","tlou","thuis","under","bear","ferry","y1985"]},
+  free:    {title:"Free this month",
+            lede:"No extra subscription needed \u2014 these are included in what you have.",
+            ids:["thuis","y1985","chantal","verraders","gladijs","twaalf"]},
+  belgian: {title:"Made in Flanders",
+            lede:"Belgian films and series, from the crime shelf to the glow and the crash.",
+            ids:["zill","jan","schelde","assisen","twaalf","y1985","chantal","gladijs"]}
+};
+
+const GENRE_PAGES = {
+  Action:   {reels:["verraders","assisen"], ids:["glad","dune","under","ferry","schelde","jan"],
+             groups:[
+               {label:"Directors who define it", items:["James Cameron","Kathryn Bigelow","George Miller","Ryan Coogler","Chad Stahelski"]},
+               {label:"Action heroes", items:["Arnold Schwarzenegger","Sylvester Stallone","Keanu Reeves","Charlize Theron","Michelle Yeoh"]},
+               {label:"Superheroes", items:["Superman","Batman","Black Panther","Spider-Man","Wonder Woman"]}
+             ]},
+  Comedy:   {reels:["gladijs","chantal"], ids:["abbott","barb","gladijs","chefbbq","chantal"],
+             groups:[{label:"Flemish funny", items:["Glad IJs","Zeg Eens Euh","Jade en de Belgen"]}]},
+  Drama:    {reels:["chantal","zill"], ids:["opp","tlou","bear","chantal","y1985","thuis","schelde"],
+             groups:[{label:"Prestige nights", items:["Oppenheimer","The Last of Us","1985"]}]},
+  Thriller: {reels:["verraders","twaalf"], ids:["under","twaalf","assisen","penguin","squid","jan"],
+             groups:[{label:"Belgian crime", items:["Undercover","De Twaalf","Assisen","Jan de Lichte"]}]},
+  Horror:   {reels:["twaalf"], ids:["wed","squid","tlou","penguin"],
+             groups:[{label:"Soft scares, not screams", items:["Wednesday","The Last of Us"]}]},
+  Romance:  {reels:["chantal"], ids:["barb","chantal","bear","abbott"],
+             groups:[{label:"Warm endings", items:["Barbie","The Bear"]}]}
+};
+
+const detailEl = () => document.getElementById("srDetail");
+
+function trophySvg(){
+  return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 6H4.5a2.5 2.5 0 0 0 2.5 2.5"/><path d="M17 6h2.5A2.5 2.5 0 0 1 17 8.5"/><path d="M12 14v3"/><path d="M8.5 20h7"/><path d="M10 17h4l.5 3h-5z"/></svg>';
+}
+
+// one poster card, used by every lane and grid on these pages
+function artCard(o){
+  return `<button class="sr-d-card${o.win ? " is-win" : ""}" type="button"${o.open ? ` data-open-title="${esc(o.open)}"` : ""}>
+    <span class="sr-d-art">
+      <img src="${o.src}" alt="" loading="lazy">
+      ${o.win ? `<span class="sr-badge">${trophySvg()}<b>WINNER</b></span>` : ""}
+    </span>
+    <span class="sr-d-name">${esc(o.name)}</span>
+    ${o.sub ? `<span class="sr-d-sub">${esc(o.sub)}</span>` : ""}
+  </button>`;
+}
+function titleCard(id){
+  const t = titles[id] || {};
+  return artCard({src:t.poster || "", name:t.title || id, open:t.title || id});
+}
+function laneOf(html){ return `<div class="sr-d-lane">${html}</div>`; }
+function gridOf(html){ return `<div class="sr-d-grid">${html}</div>`; }
+function sectionOf(label, inner){
+  return `<section class="sr-d-sec"><h4 class="sr-d-h">${esc(label)}</h4>${inner}</section>`;
+}
+
+function awardsHtml(list){
+  return list.map(a => sectionOf(a.cat, laneOf(
+    a.entries.map(e => artCard({
+      src: oscarArt(e.film),
+      name: e.who || e.film,
+      sub: e.who ? e.film : "",
+      win: !!e.win
+    })).join("")
+  ))).join("");
+}
+
+function byProviderHtml(ids){
+  const groups = new Map();
+  ids.forEach(id => {
+    const t = titles[id];
+    if (!t) return;
+    const key = t.provider || "Other";
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(id);
+  });
+  return [...groups.entries()]
+    .map(([provider, list]) => sectionOf(provider, laneOf(list.map(titleCard).join("")))).join("");
+}
+
+function openCollection(id){
+  const page = COLLECTION_PAGES[id];
+  if (!page) return;
+  let body;
+  if (page.awards)          body = awardsHtml(page.awards);
+  else if (page.byProvider) body = byProviderHtml(page.byProvider);
+  // a page with a single lane reads better as a grid of everything
+  else                      body = gridOf(page.ids.map(titleCard).join(""));
+  showDetail(page.title, `<p class="sr-d-lede">${esc(page.lede)}</p>${body}`);
+}
+
+function openGenre(name){
+  const page = GENRE_PAGES[name];
+  if (!page) return;
+  const films  = page.ids.filter(id => (titles[id] || {}).kind === "Film");
+  const series = page.ids.filter(id => (titles[id] || {}).kind !== "Film");
+  const reels  = (page.reels || []).map(id => {
+    const t = titles[id] || {};
+    const r = REELS.find(x => x.id === id);
+    return artCard({src:t.poster || "", name:(r && r.desc) || t.title || id});
+  }).join("");
+
+  let body = "";
+  if (reels)         body += sectionOf("Reels", laneOf(reels));
+  if (films.length)  body += sectionOf("Movies", laneOf(films.map(titleCard).join("")));
+  if (series.length) body += sectionOf("Series", laneOf(series.map(titleCard).join("")));
+  body += (page.groups || []).map(g => sectionOf(g.label,
+    `<div class="sr-pills">${g.items.map(i => `<span class="sr-pill">${esc(i)}</span>`).join("")}</div>`)).join("");
+
+  showDetail(name, `<p class="sr-d-lede">Reels, films and series in ${esc(name.toLowerCase())}.</p>${body}`);
+}
+
+function showDetail(title, html){
+  const el = detailEl();
+  if (!el) return;
+  el.querySelector(".sr-detail-title").textContent = title;
+  el.querySelector(".sr-detail-body").innerHTML = html;
+  el.setAttribute("aria-hidden", "false");
+  void el.offsetHeight;
+  el.classList.add("is-on");
+  el.querySelector(".sr-detail-body").scrollTop = 0;
+  syncReels();
+}
+function closeDetail(){
+  const el = detailEl();
+  if (!el) return;
+  el.classList.remove("is-on");
+  el.setAttribute("aria-hidden", "true");
+  syncReels();
+}
+
+function openComposer(){
+  scene.classList.add("is-ask");
+  syncReels();
+  const el = scene.querySelector(".search.askdock input");
+  if (el) { el.focus({preventScroll:true}); }
+}
+
+function flameSvg(){
+  return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3s1 3-1.5 5.5S7 13 7 15a5 5 0 0 0 10 0c0-2-1-3.5-2-5-1.5 1-2 2-2 2s1-4-1-9z"/></svg>';
+}
+function reelCard(r){
+  const t = titles[r.id] || {};
+  return `<button class="sr-reel" type="button" data-open-reel="${r.id}" data-clip="${r.clip || ""}">
+    <img src="${t.poster || ""}" alt="" loading="lazy">
+    <span class="sr-reel-scrim" aria-hidden="true"></span>
+    ${r.hot ? `<span class="sr-hot">${flameSvg()}Hot</span>` : ""}
+    <span class="sr-reel-desc">${esc(r.desc)}</span>
+  </button>`;
+}
+function reelsLaneHtml(){ return REELS.map(reelCard).join(""); }
+
+function collectionCard(c){
+  const art = c.art.map((id, i) => {
+    const t = titles[id] || {};
+    return `<img src="${t.poster || ""}" alt="" loading="lazy" style="--i:${i}">`;
+  }).join("");
+  return `<button class="sr-coll" type="button" data-open-collection="${c.id}">
+    <span class="sr-coll-art">${art}</span>
+    <span class="sr-coll-label">${esc(c.label)}</span>
+  </button>`;
+}
+function collectionsHtml(){ return COLLECTIONS.map(collectionCard).join(""); }
+
+function genreChipsHtml(){
+  return GENRES.map(g => `<button class="sr-genre" type="button" data-open-genre="${esc(g)}">${esc(g)}</button>`).join("");
+}
+
 const QI = {
   buzz:'<svg viewBox="0 0 24 24"><path d="M20.5 11.5a7.5 7.5 0 0 1-7.5 7.5H9l-4.5 3v-4.7A7.5 7.5 0 0 1 3 11.5 7.5 7.5 0 0 1 10.5 4h2.5a7.5 7.5 0 0 1 7.5 7.5z"/></svg>',
   leaving:'<svg viewBox="0 0 24 24"><path d="M14.5 4H18a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3.5"/><path d="M10 8.5l3.5 3.5L10 15.5"/><path d="M13.5 12H4"/></svg>',
@@ -1564,20 +2070,31 @@ scene.innerHTML = `
     <div class="ask-head-fade" aria-hidden="true"></div>
   </div>
   <div class="lobby">
-    <div class="hello">
-      <h2>How can I help?</h2>
-      <p>Tap one, or type your own</p>
+    <div class="sr-glow" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="sr-head">
+      <h2>Search</h2>
+      <button class="sr-history" type="button" data-open-history aria-label="Previous searches">
+        <svg viewBox="0 0 24 24"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.2 4.6v4.2h4.2"/><path d="M12 7.6V12l3 1.8"/></svg>
+      </button>
     </div>
-    <div class="genre-block sr-genres">
-      <div class="genres">
-        <div class="genre-track">${genreTrackHtml()}</div>
-      </div>
+    <div class="sr-searchbar" data-open-ask-field>
+      <span class="sr-placeholder">Search for genre, actor, mood, title, …</span>
+      <span class="sr-mic" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6.5 11a5.5 5.5 0 0 0 11 0"/><path d="M12 16.5V21"/></svg>
+      </span>
     </div>
-    <div class="qgrid">${qGridHtml()}</div>
-    <div class="prev">
-      <h3>Previous searches</h3>
-      <div class="prev-lane">${prevLaneHtml()}</div>
+    <h3 class="sr-h">Reels</h3>
+    <div class="sr-reels">${reelsLaneHtml()}</div>
+    <h3 class="sr-h">Search by</h3>
+    <div class="sr-colls">${collectionsHtml()}</div>
+    <div class="sr-genres-row">${genreChipsHtml()}</div>
+  </div>
+  <div class="sr-detail" id="srDetail" aria-hidden="true">
+    <div class="sr-detail-head">
+      <button class="sr-back" type="button" data-detail-close aria-label="Back to Search">${chevSvg}</button>
+      <span class="sr-detail-title"></span>
     </div>
+    <div class="sr-detail-body"></div>
   </div>
   <div class="convo">
     <div class="thread" id="thread"></div>
@@ -1836,6 +2353,7 @@ function closeAsk(){
   setTyped();
   setPlaceholder();
   scene.querySelector(".lobby")?.scrollTo({top: 0, behavior: reduceMotion ? "auto" : "smooth"});
+  syncReels();
 }
 function pausePack(){
   try { packFrame.contentWindow?.postMessage({type:"app-pause"}, "*"); } catch (_) {}
@@ -1852,12 +2370,14 @@ function closePack(){
   packFrame.src = "about:blank";
   scene.classList.remove("is-pack");
   scene.querySelector(".lobby")?.scrollTo({top: 0, behavior: reduceMotion ? "auto" : "smooth"});
+  syncReels();
 }
 function openPack(id){
   const pack = packs.find(p => p.id === id);
   if (!pack) return;
   closeAsk();
   scene.classList.add("is-pack");
+  syncReels();
   packFrame.src = `ah-gummy-ask-carousel.html?app=1&bare=1&pack=${encodeURIComponent(id)}&v=sep1j`;
 }
 
@@ -1869,6 +2389,17 @@ input.addEventListener("keydown", e => {
   }
 });
 phone.addEventListener("click", e => {
+  // renewed lobby
+  if (e.target.closest("[data-detail-close]")) { closeDetail(); return; }
+  const coll = e.target.closest("[data-open-collection]");
+  if (coll) { openCollection(coll.getAttribute("data-open-collection")); return; }
+  const gen = e.target.closest("[data-open-genre]");
+  if (gen) { openGenre(gen.getAttribute("data-open-genre")); return; }
+  const reel = e.target.closest("[data-open-reel]");
+  if (reel) { goPrototype("gummy-ask-carousel", "ah-gummy-ask-carousel.html"); return; }
+  if (e.target.closest("[data-open-history]")) { openCollection("leaving"); return; }
+  if (e.target.closest("[data-open-ask-field]")) { openComposer(); return; }
+
   if (e.target.closest("[data-pack-back]")) { closePack(); return; }
   if (e.target.closest("[data-back]")) { closeAsk(); return; }
   if (e.target.closest("[data-ask-send]")) {
@@ -1900,6 +2431,113 @@ phone.addEventListener("click", e => {
   const poster = e.target.closest(".lane-card");
   if (poster) { openTitleFrom(poster); return; }
 });
+// ---------- reels: only the snapped card plays, muted ----------
+// The lane is start-aligned scroll-snap, so the snapped card is whichever one sits
+// on the lane's own left inset. Driven by scroll events and a settle timer rather
+// than IntersectionObserver: this page runs inside the shell's iframe, where
+// observer and frame callbacks are not dependable.
+let reelsAwake = true;
+let reelSettle = 0;
+
+function reelsLane(){ return scene.querySelector(".sr-reels"); }
+
+function reelsAllowed(lane){
+  if (!reelsAwake || document.hidden) return false;
+  if (scene.classList.contains("is-ask") || scene.classList.contains("is-pack")) return false;
+  if (detailEl()?.classList.contains("is-on")) return false;
+  const lobby = scene.querySelector(".lobby");
+  if (!lobby || !lane) return false;
+  // nothing plays once the lane has been scrolled out of the lobby's viewport
+  const lr = lane.getBoundingClientRect(), vr = lobby.getBoundingClientRect();
+  return lr.bottom > vr.top + 8 && lr.top < vr.bottom - 8;
+}
+
+function reelVideo(card){
+  let video = card.querySelector("video");
+  if (video) return video;
+  const clip = card.dataset.clip;
+  if (!clip) return null;
+  video = document.createElement("video");
+  video.muted = true;
+  video.defaultMuted = true;
+  video.volume = 0;
+  video.loop = true;
+  video.playsInline = true;
+  video.preload = "auto";
+  video.disableRemotePlayback = true;
+  video.setAttribute("muted", "");
+  video.setAttribute("playsinline", "");
+  video.setAttribute("disablepictureinpicture", "");
+  video.src = `trailers/${clip}.mp4`;
+  card.insertBefore(video, card.querySelector(".sr-reel-scrim"));
+  return video;
+}
+
+function stopReel(card){
+  card.classList.remove("is-playing");
+  const video = card.querySelector("video");
+  if (!video) return;
+  try { video.pause(); video.currentTime = 0; } catch (_) {}
+}
+
+function snappedReel(lane){
+  const cards = [...lane.querySelectorAll(".sr-reel")];
+  if (!cards.length) return -1;
+  // the tail of the lane can never reach the inset, so the end of the scroll
+  // range belongs to the last card however far its left edge still sits
+  if (lane.scrollLeft >= lane.scrollWidth - lane.clientWidth - 2) return cards.length - 1;
+  const edge = lane.getBoundingClientRect().left + (parseFloat(getComputedStyle(lane).paddingLeft) || 0);
+  let best = 0, near = Infinity;
+  cards.forEach((card, i) => {
+    const d = Math.abs(card.getBoundingClientRect().left - edge);
+    if (d < near) { near = d; best = i; }
+  });
+  return best;
+}
+
+function syncReels(){
+  const lane = reelsLane();
+  if (!lane) return;
+  const cards = [...lane.querySelectorAll(".sr-reel")];
+  const i = reelsAllowed(lane) ? snappedReel(lane) : -1;
+  cards.forEach((card, idx) => { if (idx !== i) stopReel(card); });
+  if (i < 0) return;
+  const card = cards[i];
+  const video = reelVideo(card);
+  if (!video) return;
+  video.muted = true;
+  video.volume = 0;
+  // clear the fade both on the event and on a timer, so a tab that never fires
+  // "playing" cannot strand the clip at opacity 0 over its own poster
+  const show = () => { if (cards[snappedReel(lane)] === card) card.classList.add("is-playing"); };
+  video.addEventListener("playing", show, { once: true });
+  setTimeout(() => { if (!video.paused) show(); }, 420);
+  const started = video.play();
+  if (started && started.catch) started.catch(() => {});
+}
+
+(function wireReels(){
+  const lane = reelsLane();
+  if (!lane) return;
+  lane.addEventListener("scroll", () => {
+    // stop the outgoing card the moment it stops being the snapped one,
+    // then settle before committing to whatever the lane lands on
+    const i = snappedReel(lane);
+    [...lane.querySelectorAll(".sr-reel")].forEach((card, idx) => {
+      if (idx !== i && card.classList.contains("is-playing")) stopReel(card);
+    });
+    clearTimeout(reelSettle);
+    reelSettle = setTimeout(syncReels, 90);
+  }, { passive: true });
+  scene.querySelector(".lobby")?.addEventListener("scroll", () => {
+    clearTimeout(reelSettle);
+    reelSettle = setTimeout(syncReels, 90);
+  }, { passive: true });
+  document.addEventListener("visibilitychange", syncReels);
+  window.addEventListener("pagehide", () => { reelsAwake = false; syncReels(); });
+  syncReels();
+})();
+
 document.querySelector(".tabbar")?.addEventListener("click", e => {
   const btn = e.target.closest(".navitem");
   if (!btn) return;
@@ -1916,7 +2554,8 @@ window.addEventListener("message", e => {
   const d = e.data;
   if (!d || typeof d !== "object") return;
   if (d.type === "pack-back") closePack();
-  if (d.type === "app-pause") pausePack();
+  if (d.type === "app-pause") { reelsAwake = false; pausePack(); syncReels(); }
+  if (d.type === "app-resume") { reelsAwake = true; syncReels(); }
 });
 (function bootDemo(){
   const demo = new URLSearchParams(location.search);
