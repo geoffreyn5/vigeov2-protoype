@@ -1348,10 +1348,10 @@ function meshTone(cls){
 function laneQHTML(ids){
   const items = ids.map(id => moods.find(m => m.id === id)).filter(Boolean);
   if (!items.length) return "";
-  return `<div class="lane-q" data-lane-q data-mesh="${(items[1] || items[0]).cls}">
+  return `<div class="lane-q" data-lane-q data-mesh="${items[0].cls}">
     <div class="qcard">
       <div class="qcard-track" data-qtrack>
-        ${items.map((m, i) => `<button class="qcard-q${i === 1 ? " is-on" : ""}" type="button" data-ask-start="${m.id}" data-mesh="${m.cls}" data-q="${esc(m.q)}"><span class="q-copy">${esc(m.q)}</span></button>`).join("")}
+        ${items.map((m, i) => `<button class="qcard-q${i === 0 ? " is-on" : ""}" type="button" data-ask-start="${m.id}" data-mesh="${m.cls}" data-q="${esc(m.q)}"><span class="q-copy">${esc(m.q)}</span></button>`).join("")}
       </div>
     </div>
     <div class="qbeam">
@@ -1638,7 +1638,8 @@ function bindLaneQs(){
     const track = wrap.querySelector("[data-qtrack]");
     const qBtns = [...(track?.querySelectorAll(".qcard-q") || [])];
     if (!track || !qBtns.length) return;
-    const startI = qBtns.length >= 3 ? 1 : 0;
+    // the rail opens on the first question, never mid-set
+    const startI = 0;
     wrap._qOn = startI;
     const padKey = () => `${track.clientWidth}:${qBtns.map(b => b.offsetWidth).join(",")}`;
     const centerQ = (i, smooth) => {

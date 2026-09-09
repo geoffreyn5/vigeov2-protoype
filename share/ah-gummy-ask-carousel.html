@@ -1486,7 +1486,7 @@ function patchHTML(item){
 }
 
 function slideHTML(item, i){
-  const qs = item.qs.map((chip, qi) => `<button class="qcard-q${qi === 1 ? " is-on" : ""}" type="button" data-q="${qi}">${esc(chip.q)}</button>`).join("");
+  const qs = item.qs.map((chip, qi) => `<button class="qcard-q${qi === 0 ? " is-on" : ""}" type="button" data-q="${qi}">${esc(chip.q)}</button>`).join("");
   return `<article class="slide${item.ad ? " is-ad" : ""}" data-i="${i}" data-start="${Number.isFinite(item.start) ? item.start : 0}">
     <div class="videowrap" data-video>
       <div class="video-poster" style="background-image:url('${item.backdrop}')"></div>
@@ -1864,7 +1864,8 @@ function bindQcard(slide){
   const blob = slide.querySelector("[data-ask]");
   const qBtns = [...(track?.querySelectorAll(".qcard-q") || [])];
   if (!track) return;
-  const startI = qBtns.length >= 3 ? 1 : 0;
+  // the rail opens on the first question, never mid-set
+  const startI = 0;
   slide._qOn = startI;
   const padKey = () => `${track.clientWidth}:${qBtns.map(b => b.offsetWidth).join(",")}`;
   const centerQ = (i, smooth) => {
