@@ -978,7 +978,7 @@ const SERVICES = [
       {id:"squid", title:"Squid Game", poster:POSTER("/1QdXdRYfktUSONkl1oD5gc6Be0s.jpg")}
     ],
     still:STILL("/x2kmiy3RS3hC0SQC0N2sLN3rsdB.jpg")},
-  {id:"disney", name:"Disney+", short:"Disney+", price:6.99, logo:"disney-plus-logo.png", on:true,
+  {id:"disney", name:"Disney+", short:"Disney+", price:10.99, logo:"disney-plus-logo.png", on:true,
     like:"The Bear", blurb:"The Bear is the reason. Kitchen panic, thirty minutes, locked until this is on.",
     reason:"You keep saving The Bear",
     titles:[
@@ -986,7 +986,7 @@ const SERVICES = [
       {id:"abbott", title:"Abbott Elementary", poster:POSTER("/nBe1e3JJEZ6veGrVXNF0fRoLu56.jpg")}
     ],
     still:STILL("/aZz0AOpYcDyYwfET9k6j3QQXPuS.jpg")},
-  {id:"hbo", name:"HBO Max", short:"HBO Max", price:9.99, logo:"hbo-max-new-logo.jpg", on:false,
+  {id:"hbo", name:"HBO Max", short:"HBO Max", price:6.99, logo:"hbo-max-new-logo.jpg", on:false,
     like:"Dune: Part Two", blurb:"Dune is already on your Watch List, barely started. Last of Us is mid-season.",
     reason:"Dune is parked on your Watch List",
     titles:[
@@ -995,7 +995,7 @@ const SERVICES = [
       {id:"barb", title:"Barbie", poster:POSTER("/tnS9DqsJvFjmg4FK4R2LghvOhs5.jpg")}
     ],
     still:STILL("/eZ239CUp1d6OryZEBPnO2n87gMG.jpg")},
-  {id:"apple", name:"Apple TV+", short:"Apple TV+", price:9.99, logo:"apple tv logo.jpg", on:false,
+  {id:"apple", name:"Apple TV", short:"Apple TV", price:9.99, logo:"apple tv logo.jpg", on:false,
     like:"Gladiator II", blurb:"Gladiator II is saved with a lock. Severance if you wanted strange and slow.",
     reason:"Gladiator II is locked on your list",
     titles:[
@@ -1010,14 +1010,14 @@ const SERVICES = [
       {id:"zill", title:"Zillion", poster:POSTER("/ns7LIqVWrPbO2FYPQ0ec6mfziSc.jpg")}
     ],
     still:POSTER("/ns7LIqVWrPbO2FYPQ0ec6mfziSc.jpg")},
-  {id:"playsports", name:"Play Sports", short:"Play Sports", price:14.99, logo:"play sports logo.png", on:false,
+  {id:"playsports", name:"Play Sports", short:"Play Sports", price:19.99, logo:"play sports logo.png", on:false,
     like:"F1 Sprint · Belgium", blurb:"This weekend’s sprint. A sports add-on, not a night in.",
     reason:"F1 Sprint is this weekend",
     titles:[
       {title:"F1 Sprint · Belgium", poster:STILL("/xefmNmSGCApfRPaqhIRTaAjFlpo.jpg")}
     ],
     still:STILL("/xefmNmSGCApfRPaqhIRTaAjFlpo.jpg")},
-  {id:"vtm", name:"VTM GO", short:"VTM GO", price:5.99, logo:"vtm-go-logo.png", on:false,
+  {id:"vtm", name:"VTM GO+", short:"VTM GO+", price:4.95, logo:"vtm-go-logo.png", on:false,
     like:"De Verraders", blurb:"The Belgian sofa one. Assisen if the room can stay quiet.",
     reason:"De Verraders is the sofa one",
     titles:[
@@ -1050,46 +1050,94 @@ function monthDue(){
 }
 function yearDue(){ return monthDue() * 12; }
 
+// Reviewed copy, 9 September 2026. The answers quote the subscription profile
+// in the reference sheet, so they are held as text rather than rebuilt from
+// the price model on every render.
+const SHOP_COPY = {
+  "netflix-like": "Netflix gives you Undercover, Wednesday, Ferry and Squid Game. Undercover is the series you are already watching, and Ferry is the easiest film to finish in one evening.",
+  "netflix-like-now": "Undercover is available tonight because Netflix is subscribed. You are already midway through the season.",
+  "netflix-like-else": "Wednesday for something lighter, or Ferry for a film that’s done in 1h 46.",
+  "netflix-worth": "Netflix Standard costs € 16,99 a month before the Telenet combination discount. You use it regularly for Undercover, Wednesday, Squid Game and Ferry, so it is worth keeping.",
+  "netflix-worth-combo": "Netflix and Disney+ together cost € 26,58 a month after Telenet’s 5% combination discount. The discount saves € 1,40 each month.",
+  "netflix-drop": "You would lose Undercover, Wednesday, Squid Game, Ferry and the rest of Netflix. Your total would fall from € 26,58 to € 10,99 a month because Disney+ would no longer qualify for the 5% combination discount.",
+
+  "disney-like": "Disney+ gives you The Bear and Abbott Elementary. The Bear is the main draw, while Abbott is the shorter, lighter option.",
+  "disney-like-now": "The Bear is available tonight because Disney+ is subscribed.",
+  "disney-worth": "Disney+ Standard costs € 10,99 a month before the Telenet combination discount. You mainly use it for The Bear and Abbott Elementary, so whether it is worth keeping depends on how often you watch them.",
+  "disney-worth-combo": "Netflix and Disney+ together cost € 26,58 a month after Telenet’s 5% combination discount. The discount saves € 1,40 each month.",
+  "disney-drop": "You would lose The Bear and Abbott Elementary. Your total would fall from € 26,58 to € 16,99 a month because Netflix would no longer qualify for the 5% combination discount.",
+
+  "hbo-like": "Dune: Part Two, The Last of Us and Barbie are all on HBO Max. The cheapest plan is Basic with Ads at € 6,99 a month. HBO Max is not currently subscribed.",
+  "hbo-like-now": "Not yet. You need to add HBO Max first. Dune: Part Two is the best place to start because it is already on your list.",
+  "hbo-like-else": "Try Barbie. It runs for 1h 54 and is much easier to fit into an evening than Dune.",
+  "hbo-worth": "It could be worth adding for one month. Basic with Ads costs € 6,99, and you already have Dune, The Last of Us and Barbie waiting. I would not keep it permanently unless you start using it regularly.",
+  "hbo-worth-combo": "No. HBO Max is not part of Telenet’s 5% combination discount. Adding the € 6,99 plan would bring your monthly total to € 33,57.",
+  "hbo-drop": "You would unlock Dune: Part Two, The Last of Us, Barbie and the rest of HBO Max. Basic with Ads would add € 6,99 a month, bringing the total to € 33,57.",
+
+  "apple-like": "Gladiator II and Severance are both on Apple TV. Apple TV costs € 9,99 a month and is not currently subscribed.",
+  "apple-like-now": "Not yet. You need to add Apple TV first. Gladiator II is already on your list.",
+  "apple-worth": "Probably not for Gladiator II alone. Apple TV costs € 9,99 a month. It makes more sense if you also want to watch Severance or other Apple originals.",
+  "apple-worth-combo": "No. Apple TV is not part of Telenet’s 5% combination discount. Adding it would bring your monthly total to € 36,57.",
+  "apple-drop": "You would unlock Gladiator II, Severance and the rest of Apple TV. It would add € 9,99 a month, bringing your total to € 36,57.",
+
+  "streamz-like": "Zillion is the clearest match for you on Streamz, especially if you liked Ferry. Streamz Basic costs € 9,99 a month and is not currently subscribed.",
+  "streamz-like-now": "Not yet. You need to add Streamz first. Zillion is the title to start with.",
+  "streamz-worth": "It is worth trying for a month if you want Zillion and more Belgian series. Streamz Basic costs € 9,99 monthly. Keep it only if you continue using the wider catalogue.",
+  "streamz-worth-combo": "Yes. Streamz qualifies for Telenet’s 5% combination discount. Adding Basic would bring the total to € 36,07 a month.",
+  "streamz-drop": "You would unlock Zillion and the rest of the Streamz catalogue. With the Telenet discount, Streamz Basic would add € 9,49 and bring the total to € 36,07 a month.",
+
+  "playsports-like": "Play Sports includes the Belgian F1 Sprint and its wider live-sports schedule. It costs € 19,99 a month and is not currently subscribed.",
+  "playsports-like-now": "Not yet. You need to add Play Sports first. The F1 Sprint is this weekend.",
+  "playsports-worth": "Probably not for one race weekend. Play Sports costs € 19,99 a month. It makes sense if you watch football, Formula 1 or other live sport most weeks.",
+  "playsports-worth-combo": "Yes. Play Sports qualifies for Telenet’s 5% combination discount. Adding it would bring the total to € 45,57 a month.",
+  "playsports-drop": "You would unlock the F1 Sprint and the rest of Play Sports. With the Telenet discount, it would add € 18,99 and bring your total to € 45,57 a month.",
+
+  "vtm-like": "De Verraders and Assisen are the strongest matches on VTM GO+. The service costs € 4,95 a month and is not currently subscribed. The regular VTM GO app remains free.",
+  "vtm-like-now": "Not yet on VTM GO+. You need to add the subscription first. De Verraders is the best place to start.",
+  "vtm-worth": "It may be worth trying for a month if you watch De Verraders every week or want the extra catalogue without ads. VTM GO+ costs € 4,95 a month.",
+  "vtm-worth-combo": "No. VTM GO+ is not part of Telenet’s 5% combination discount. Adding it would bring your monthly total to € 31,53.",
+  "vtm-drop": "You would unlock the extra VTM GO+ catalogue and remove ads from supported programmes. It would add € 4,95 a month, bringing the total to € 31,53.",
+
+  "sub-double": "Nothing in your current subscriptions is duplicated. Netflix and Disney+ have different catalogues. If you add both HBO Max and Streamz, some films may overlap, so check the titles you actually plan to watch.",
+  "dbl-fix": "HBO Max is the better one-month choice if you want to clear Dune, The Last of Us and Barbie from your list. Choose Streamz instead if Belgian films and series matter more.",
+  "sub-idle": "Disney+ is the paid service you use least. After the Telenet discount, it costs about € 10,44 a month, or € 125,28 a year. You mainly use it for The Bear and Abbott Elementary.",
+  "idle-pause": "You can cancel it and restart later. Access continues until the end of the billing period, and your profiles and watch list should still be there when you return.",
+  "idle-combo": "Yes. With only Netflix left, you would lose the 5% combination discount. Your new total would be € 16,99 a month.",
+  "sub-optim": "You currently pay € 26,58 a month for Netflix Standard and Disney+ Standard after the Telenet discount. Keep those while you use them regularly, and add other services for a month when there is something specific to watch.",
+  "opt-tier": "Netflix Standard and Disney+ Standard both suit a two-screen household. Keep them unless you need 4K or more simultaneous streams. Disney+ also has a cheaper ad-supported plan if ads are acceptable.",
+  "opt-telenet": "The 5% combination discount is useful because both current subscriptions are billed through Telenet. The separate six-month streaming promotion only matters if you are also changing or renewing your internet plan.",
+  "fy-ten": "Start with Dune: Part Two and The Last of Us because you have already begun them. The other saved titles are Barbie, Oppenheimer, The Penguin, The White Lotus, House of the Dragon, Succession, Chernobyl and Game of Thrones.",
+  "ten-worth": "Yes, for one month. HBO Max Basic with Ads costs € 6,99, and you have several titles waiting. Cancel again if you stop using it after those.",
+  "fy-compare": "HBO Max Basic with Ads costs € 6,99 and has Dune, The Last of Us and Barbie. Streamz Basic costs € 9,99 and is stronger for Belgian series and films such as Zillion. Choose HBO Max for the existing backlog and Streamz for more local content.",
+  "cmp-both": "Together they would add € 16,48 after the Telenet discount on Streamz, bringing your total to € 43,06 a month. There is some overlap, so subscribing to one at a time is cheaper.",
+  "fy-tier": "For monthly billing, Streamz Basic costs € 9,99, Premium costs € 14,99 and Premium+ costs € 22,99. Basic includes ads and one stream. Premium removes ads and allows four streams and downloads. Premium+ adds recent blockbusters.",
+  "tier-open": "Tap the Streamz switch in the catalogue. The tiers open there, and you can take the offer in the same step.",
+  "plan": "You have Netflix Standard and Disney+ Standard. After Telenet’s 5% combination discount, they cost € 26,58 a month or € 318,96 a year."
+};
+
 function askBankFor(s){
   const likeId = `${s.id}-like`;
   const worthId = `${s.id}-worth`;
   const dropId = `${s.id}-drop`;
+  const copy = id => SHOP_COPY[id] || "";
+  const likeFollow = [
+    {id:`${s.id}-like-now`, q: s.id === "vtm" ? "Which of those can I watch tonight?" : "Which of those can I press play on tonight?",
+      a: copy(`${s.id}-like-now`)}
+  ];
+  if (SHOP_COPY[`${s.id}-like-else`]) {
+    likeFollow.push({id:`${s.id}-like-else`, q:"Something easier than that?", a: copy(`${s.id}-like-else`)});
+  }
   return [
-    {id:likeId, q:`Show me what I’d like on ${s.short}`, keys:`like content ${s.short} ${s.like}`,
-      a(){
-        const names = s.titles.map(t => t.title).join(", ");
-        return s.on
-          ? `${names}. ${s.blurb} Already in the plan — Play is sitting there.`
-          : `${names}. ${s.blurb} That’s locked until you add ${s.short} for ${euro(s.price)} a month.`;
-      },
-      follow:[
-        {id:`${s.id}-like-now`, q:"Which of those can I press play on tonight?",
-          a: s.on
-            ? `${s.like} — that’s the one. ${s.short} is already on.`
-            : `None of them, until ${s.short} is on. ${s.like} is the one you’d start.`},
-        {id:`${s.id}-like-else`, q:"Something easier than that?",
-          a: s.id === "hbo" ? "Barbie. Pink, 1h 54, same app. Dune can wait for Friday."
-            : s.id === "netflix" ? "Wednesday if you want it lighter. Ferry if you want it done in 1h 46."
-            : `${s.like} is already the easy read for you on ${s.short}.`}
-      ]},
+    {id:likeId, q:`Show me what I\u2019d like on ${s.short}`, keys:`like content ${s.short} ${s.like}`,
+      a: copy(likeId), follow: likeFollow},
     {id:worthId, q:`Is ${s.short} worth it for me?`, keys:`worth price ${s.short}`,
-      a(){
-        return s.on
-          ? `You’re already paying ${euro(s.price)} for it. ${s.like} is the title that justifies the line. Drop it and that goes behind a lock.`
-          : `${euro(s.price)} a month. ${s.reason}. If ${s.like} is a real night, add it; if it’s a maybe, leave it off.`;
-      },
+      a: copy(worthId),
       follow:[
-        {id:`${s.id}-worth-combo`, q:"Does it change the combo price?",
-          a(){
-            const before = monthDue();
-            return `Right now you’re at ${euro(before)} this month. Netflix + Disney+ is the € 2,40 combo. HBO on top deepens it.`;
-          }}
+        {id:`${s.id}-worth-combo`, q:"Does it change the combo price?", a: copy(`${s.id}-worth-combo`)}
       ]},
     {id:dropId, q: s.on ? `What do I lose if I drop ${s.short}?` : `What do I unlock if I add ${s.short}?`,
       keys:`drop add lose unlock ${s.short}`,
-      a: s.on
-        ? `${s.like}, and the rest of that list. The month total drops by ${euro(s.price)} unless a combo was carrying you.`
-        : `${s.like} comes off the lock. The month goes up by ${euro(s.price)}, minus any combo.`}
+      a: copy(dropId)}
   ];
 }
 function onNames(){ return allSubs().filter(x => x.on).map(x => x.name); }
@@ -1102,80 +1150,55 @@ function streamzTierLine(){
 function globalAsk(){
   return [
     {id:"sub-double", q:"What am I paying for twice?",
-      a(){
-        const on = onNames();
-        if (on.length < 2) return `Only ${on[0] || "nothing"} is running, so nothing is doubled up yet.`;
-        return `Nothing is a straight duplicate today \u2014 ${on.join(" and ")} barely overlap. The overlap starts if you put HBO Max and Streamz on together: both carry a lot of the same films, and you would be paying twice for one shelf.`;
-      },
+      a: SHOP_COPY["sub-double"],
       follow:[
         {id:"dbl-fix", q:"So which one would I drop?",
-          a(){ return `Keep the one your list actually points at. Ten of your saved titles sit on HBO Max; Streamz is the Belgian shelf \u2014 Zillion, local drama. If your list is mostly the ten, HBO Max wins.`; }}
+          a: SHOP_COPY["dbl-fix"]}
       ]},
 
     {id:"sub-idle", q:"Which subscription do I hardly use?",
-      a(){
-        const on = allSubs().filter(x => x.on);
-        if (!on.length) return "Nothing is on right now, so nothing is going to waste.";
-        const idle = on.find(x => x.id === "disney") || on[on.length - 1];
-        return `${idle.name}. It has been on all month at ${euro(subPrice(idle))} and the only thing you keep saving from it is The Bear. That is roughly ${euro(subPrice(idle) * 12)} a year for one show.`;
-      },
+      a: SHOP_COPY["sub-idle"],
       follow:[
         {id:"idle-pause", q:"Can I pause it instead of cancelling?",
-          a:"Switch it off here and it stops at the end of the month. Your list and profiles stay, so turning it back on for a season is a tap."},
+          a: SHOP_COPY["idle-pause"]},
         {id:"idle-combo", q:"Do I lose the combo discount if I drop it?",
-          a(){ return subsDiscount()
-            ? `Yes \u2014 the 5% combo needs two subscriptions running. Dropping to one takes ${euro(subsDiscount())} a month with it, so the real saving is smaller than the sticker price.`
-            : `The 5% combo needs two subscriptions running at Telenet, so there is nothing to lose right now.`; }}
+          a: SHOP_COPY["idle-combo"]}
       ]},
 
     {id:"sub-optim", q:"Help me optimise my subscriptions",
-      a(){
-        const on = onNames();
-        return `You are at ${euro(subsMonthly())} a month across ${on.length} ${on.length === 1 ? "subscription" : "subscriptions"}${subsDiscount() ? `, after ${euro(subsDiscount())} combo discount` : ""}. The honest move: keep the two you watch weekly, and take the rest as a month on, month off rather than standing orders. Streamz starts at ${euro(fromPrice(subById("streamz")))} on its lowest tier \u2014 cheaper than the tier most people default to.`;
-      },
+      a: SHOP_COPY["sub-optim"],
       follow:[
         {id:"opt-tier", q:"Am I on the right tier?",
-          a(){ return `Netflix Standard and Disney+ Premium are both mid-tier. If nobody watches on two screens at once, the step down pays for itself \u2014 that is usually where the quiet money is.`; }},
+          a: SHOP_COPY["opt-tier"]},
         {id:"opt-telenet", q:"Is the Telenet offer worth it?",
-          a:"Six months free on one streaming subscription, plus 5% off the rest if you have two or more. Worth it if your internet is up for renewal anyway. Not worth switching internet for on its own."}
+          a: SHOP_COPY["opt-telenet"]}
       ]},
 
     {id:"fy-ten", q:"Show me those ten titles on HBO Max",
       posterTitles: ["Dune: Part Two","The Last of Us","Barbie","Oppenheimer","The Penguin","The White Lotus","House of the Dragon","Succession","Chernobyl","Game of Thrones"],
-      a:"All ten, in the order I would clear them: Dune: Part Two and The Last of Us first \u2014 you are part-way into both \u2014 then Barbie, Oppenheimer, The Penguin, The White Lotus, House of the Dragon, Succession, Chernobyl and Game of Thrones. Three you have started; the rest you saved this year and have not opened.",
+      a: SHOP_COPY["fy-ten"],
       follow:[
         {id:"ten-worth", q:"Is that worth a subscription?",
-          a(){ const hbo = subById("hbomax");
-            return `${euro(hbo.from)} a month for ten titles is fine for one month, poor as a standing order. Take it, clear the three you started, then switch it off here.`; }}
+          a: SHOP_COPY["ten-worth"]}
       ]},
 
     {id:"fy-compare", q:"Compare HBO Max with Streamz",
       posterTitles:["Dune: Part Two","The Last of Us","Barbie","Zillion"],
-      a(){
-        const hbo = subById("hbomax"), sz = subById("streamz");
-        return `HBO Max is ${euro(hbo.from)} and holds the ten from your list \u2014 Dune, Last of Us, Barbie. Streamz starts at ${euro(fromPrice(sz))} and is the Belgian shelf: Zillion, local drama, the things nothing else carries. Different jobs. HBO Max clears your backlog; Streamz is for the nights you want something from here.`;
-      },
+      a: SHOP_COPY["fy-compare"],
       follow:[
         {id:"cmp-both", q:"What if I took both?",
-          a(){ const hbo = subById("hbomax"), sz = subById("streamz");
-            return `${euro(hbo.from + fromPrice(sz))} on top of what you pay now. That is where the doubling-up starts \u2014 both carry a lot of the same films. One at a time is the cheaper habit.`; }}
+          a: SHOP_COPY["cmp-both"]}
       ]},
 
     {id:"fy-tier", q:"Which tier should I take?",
-      a(){
-        const sz = subById("streamz");
-        return `For Streamz: ${streamzTierLine()}. Premium is the one that fits how you watch \u2014 four screens, no ads, downloads. Basic is ads and one screen, which will annoy you by the second night. Premium+ only earns it if you want the recent blockbusters.`;
-      },
+      a: SHOP_COPY["fy-tier"],
       follow:[
         {id:"tier-open", q:"Open the tiers so I can pick",
-          a:"Tap the Streamz switch in the catalog \u2014 the tiers open there and you can take the offer in the same step."}
+          a: SHOP_COPY["tier-open"]}
       ]},
 
     {id:"plan", q:"What am I paying right now?",
-      a(){ const on = onNames();
-        return on.length
-          ? `${on.join(", ")}. That is ${euro(subsMonthly())} a month${subsDiscount() ? `, after ${euro(subsDiscount())} combo discount` : ""} \u2014 ${euro(subsMonthly() * 12)} across a year.`
-          : "Nothing is on. Your bill is zero this month."; }}
+      a: SHOP_COPY["plan"]}
   ];
 }
 
@@ -1325,21 +1348,23 @@ const SUBA = f => encodeURI("subscription cards/" + f);
 // Telenet gives 5% off when you combine two or more streaming services
 const COMBO_RATE = 0.05;
 // and only once you are a Telenet customer, which is what subscribing makes you
-let telenetCustomer = false;
+// both current subscriptions are billed through Telenet, so the combination
+// discount is already running when the page opens
+let telenetCustomer = true;
 
 const OWNED = [
-  {id:"netflix", name:"Netflix", tier:"Standard", price:13.99, card:"card-netflix.svg", logo:"logo-netflix.svg", on:true},
-  {id:"disney",  name:"Disney+", tier:"Premium",  price:15.99, card:"card-disney.svg",  logo:"logo-disney.svg",  on:true}
+  {id:"netflix", name:"Netflix", tier:"Standard", price:16.99, card:"card-netflix.svg", logo:"logo-netflix.svg", on:true},
+  {id:"disney",  name:"Disney+", tier:"Standard", price:10.99, card:"card-disney.svg",  logo:"logo-disney.svg",  on:true}
 ];
 
 const CATALOG = [
-  {id:"streamz",   name:"Streamz",         from:30.99, card:"Card-streamz.svg",         logo:"logo-streamz.svg",         on:false,
+  {id:"streamz",   name:"Streamz",         from:9.99, card:"Card-streamz.svg",         logo:"logo-streamz.svg",         on:false,
     // no portrait card art exists, so the top-row card is drawn from the brand gradient
     portrait:{c1:"#0A1B63", c2:"#01001F"},
     tiers:[
-      {id:"basic",    name:"Basic",     price:7.95,  specs:["Max. 1 screen at the same time","Max. 2 profiles","With ads","No downloads"]},
-      {id:"premium",  name:"Premium",   price:12.95, specs:["Max. 4 screens at the same time","Max. 5 profiles","Ad-free","Download & watch offline"]},
-      {id:"premplus", name:"Premium+",  price:20.95, specs:["Everything in Streamz Premium","Access to recent blockbusters","Ad-free","Download & watch offline"]}
+      {id:"basic",    name:"Basic",     price:9.99,  specs:["Max. 1 screen at the same time","Max. 2 profiles","With ads","No downloads"]},
+      {id:"premium",  name:"Premium",   price:14.99, specs:["Max. 4 screens at the same time","Max. 5 profiles","Ad-free","Download & watch offline"]},
+      {id:"premplus", name:"Premium+",  price:22.99, specs:["Everything in Streamz Premium","Access to recent blockbusters","Ad-free","Download & watch offline"]}
     ], picked:"premium"},
   {id:"playmore",  name:"Play More",       from:27.99, card:"Card-playmore.svg",        logo:"logo-play-more.svg",       on:false,
     portrait:{c1:"#0A3560", c2:"#000B16"},
@@ -1439,10 +1464,10 @@ function meshTone(cls){
 }
 function laneQHTML(items){
   if (!items.length) return "";
-  return `<div class="lane-q" data-lane-q data-mesh="${(items[1] || items[0]).cls}">
+  return `<div class="lane-q" data-lane-q data-mesh="${items[0].cls}">
     <div class="qcard">
       <div class="qcard-track" data-qtrack>
-        ${items.map((m, i) => `<button class="qcard-q${i === 1 ? " is-on" : ""}" type="button" data-sub-ask="${m.id}" data-mesh="${m.cls}"><span class="q-copy">${esc(m.q)}</span></button>`).join("")}
+        ${items.map((m, i) => `<button class="qcard-q${i === 0 ? " is-on" : ""}" type="button" data-sub-ask="${m.id}" data-mesh="${m.cls}"><span class="q-copy">${esc(m.q)}</span></button>`).join("")}
       </div>
     </div>
     <div class="qbeam">
@@ -1458,7 +1483,8 @@ function bindLaneQs(){
     const track = wrap.querySelector("[data-qtrack]");
     const qBtns = [...(track?.querySelectorAll(".qcard-q") || [])];
     if (!track || !qBtns.length) return;
-    const startI = qBtns.length >= 3 ? 1 : 0;
+    // the rail opens on the first question, never mid-set
+    const startI = 0;
     wrap._qOn = startI;
     const padKey = () => `${track.clientWidth}:${qBtns.map(b => b.offsetWidth).join(",")}`;
     const centerQ = (i, smooth) => {

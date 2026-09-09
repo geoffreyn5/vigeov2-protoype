@@ -1100,147 +1100,147 @@ const recs = [
 
 const moods = [
   {id:"wl-tonight", q:"What’s waiting for a proper night?", cls:"c2", tag:"friday", line:"Bigger nights, from what you already saved.",
-    a:"Dune is the one you’ve barely started — 2h 46, HBO Max, already in your plan. Barbie if you want it pink and done in under two hours. Gladiator II is saved too, but that’s Apple TV, so it carries a lock.",
+    a:"Dune: Part Two is the big film waiting on your list, but it needs HBO Max and runs for 2h 46. Ferry is already included with Netflix and is under two hours. Gladiator II needs Apple TV.",
     follow:[
-      {id:"wl-tonight-dune", q:"Is Dune too long for a weeknight?", a:"Yes. 2h 46 is a Friday film. You’ve only dipped in, so starting tonight means finishing after midnight unless you split it at the time jump."},
-      {id:"wl-tonight-barb", q:"Would Barbie work if the room wants something lighter?", a:"That’s the one. 1h 54, HBO Max, in your plan. Pink on the outside, a gut punch if the room can take it — but nobody has to sit up for sandworms."},
-      {id:"wl-tonight-leave", q:"What’s leaving before I get to these?", a:"Wednesday, Squid Game, The Last of Us, and Thuis. Dune isn’t going anywhere. I’d steal a night for Last of Us first — you’re already 67% in."}
+      {id:"wl-tonight-dune", q:"Is Dune too long for a weeknight?", a:"For most weeknights, yes. 2h 46 means finishing after midnight unless you split it at the mid-film time jump. It’s really a Friday film."},
+      {id:"wl-tonight-barb", q:"Would Barbie work if the room wants something lighter?", a:"It would work well for a lighter group watch, but Barbie needs HBO Max. If you want something already included, try Inside Out 2 on Disney+."},
+      {id:"wl-tonight-leave", q:"What’s leaving before I get to these?", a:"Wednesday, Squid Game, The Last of Us and Thuis are all marked as leaving. You can already watch Wednesday, Squid Game and Thuis. The Last of Us needs HBO Max."}
     ]},
   {id:"wl-leave", q:"Will I lose anything if I wait a week?", cls:"ask", tag:"leaving", line:"These drop off soon.",
-    a:"Wednesday, Squid Game, The Last of Us, and Thuis are marked leaving. You’re mid-Wednesday and deep into Last of Us — those two first. Both already in your plan.",
+    a:"Wednesday and Squid Game are included with Netflix, and Thuis is free on VRT MAX. The Last of Us is also leaving soon, but it needs HBO Max. Finish Wednesday first because you are already halfway through.",
     follow:[
-      {id:"wl-leave-far", q:"Which of those am I furthest into?", a:"The Last of Us — S2 E3, 67% in. Then Squid Game at 55%, Wednesday at 42%, Thuis a little over halfway. Last of Us is the one you’ll feel if it goes."},
-      {id:"wl-leave-wed", q:"Can I finish Wednesday tonight?", a:"You’re on S2 E4. Episodes are ~50 minutes. One tonight, maybe two if the house is quiet. Netflix, already in your plan — Play is sitting right there."},
-      {id:"wl-leave-thuis", q:"And Thuis — is that actually leaving?", a:"Yes. Daily, ~25 minutes, VRT MAX. You’re already in it. Easy to chip away this week without making it the night."}
+      {id:"wl-leave-far", q:"Which of those am I furthest into?", a:"You are furthest into The Last of Us, followed by Squid Game, Wednesday and Thuis. The Last of Us now needs HBO Max. Squid Game and Wednesday are included with Netflix, and Thuis is free."},
+      {id:"wl-leave-wed", q:"Can I finish Wednesday tonight?", a:"You are on season 2, episode 4. Episodes run for about 50 minutes, so you could watch one or two tonight. Wednesday is included with Netflix."},
+      {id:"wl-leave-thuis", q:"And Thuis. Is that actually leaving?", a:"Yes. The daily, ~25 minutes on VRT MAX. Easy to chip away at during the week without giving it the whole evening."}
     ]},
   {id:"wl-finish", q:"What can I finish before bed?", cls:"c3", tag:"short", line:"Under two hours, or an episode you can actually finish.",
-    a:"Ferry is 1h 46 on Netflix. Barbie is 1h 54 on HBO Max. Thuis is 25 minutes on VRT MAX. The Bear is ~30 minutes if you add Disney+ — that’s locked.",
+    a:"The Bear is about 30 minutes on Disney+, and Thuis is 25 minutes on VRT MAX. If you want a film, Ferry runs for 1h 46 on Netflix. Barbie needs HBO Max.",
     follow:[
-      {id:"wl-finish-ferry", q:"Is Ferry the crime one with the origin story?", a:"That’s it — Undercover’s Ferry, before the camping. 1h 46, Netflix, in your plan. Watch this after Undercover if you want the long game; tonight it also works as a closed film."},
-      {id:"wl-finish-40", q:"What if I only have about forty minutes?", a:"Thuis, 25 minutes, already in your plan. An Undercover episode is ~50 — tight. The Bear would fit, but Disney+ isn’t in your subscriptions."},
-      {id:"wl-finish-plan", q:"Which of these can I press play on now?", a:"Ferry, Barbie, Thuis — Netflix, HBO Max, VRT MAX. The Bear waits unless you add Disney+."}
+      {id:"wl-finish-ferry", q:"Is Ferry the crime one with the origin story?", a:"Yes. Ferry tells Ferry Bouman’s story before Undercover. It runs for 1h 46, is included with Netflix and also works as a standalone film."},
+      {id:"wl-finish-40", q:"What if I only have about forty minutes?", a:"The Bear fits at about 30 minutes and is included with Disney+. Thuis is even shorter at 25 minutes on VRT MAX. An Undercover episode is closer to 50 minutes."},
+      {id:"wl-finish-plan", q:"Which of these can I press play on now?", a:"Ferry, The Bear and Thuis are all available now on Netflix, Disney+ and VRT MAX. Barbie needs HBO Max."}
     ]},
   {id:"wl-share", q:"What can we put on with people here?", cls:"c4", tag:"friends", line:"Easy to share a sofa with — jokes, tension, talking after.",
-    a:"Squid Game if you want talking after. Barbie if you want it light. Undercover if crime can stay in the room. De Verraders is the Belgian sofa one — but that’s VTM GO, so it carries a lock.",
+    a:"Try Squid Game if everyone wants something tense, Undercover for crime, or Abbott Elementary for something light. De Verraders is on VTM GO+.",
     follow:[
-      {id:"wl-share-talk", q:"Something we can talk over without pausing?", a:"Barbie, or Thuis if the room is local. Squid Game will keep pulling people back to the screen. Undercover can run if crime is background for this crowd."},
-      {id:"wl-share-dark", q:"Too dark for this room?", a:"Skip Last of Us and Squid Game then. Barbie, Chantal, or Wednesday if someone still wants a plot. All three are in your plan."},
-      {id:"wl-share-belgian", q:"What’s the Belgian option we can share?", a:"Thuis and Chantal on VRT MAX, no lock. De Verraders if you add VTM GO — that’s the one people talk over. Assisen is together-but-quiet, also locked."}
+      {id:"wl-share-talk", q:"Something we can talk over without pausing?", a:"Barbie, or Thuis if everyone is local. Both survive conversation. Squid Game will keep pulling people back to the screen."},
+      {id:"wl-share-dark", q:"Too dark for this room?", a:"Skip The Last of Us and Squid Game if you want something lighter. Wednesday is included with Netflix, Chantal is free on VRT MAX, and Inside Out 2 is included with Disney+."},
+      {id:"wl-share-belgian", q:"What’s the Belgian option we can share?", a:"Thuis and Chantal are free on VRT MAX. De Verraders and Assisen are on VTM GO+."}
     ]},
-  {id:"cr-night", q:"Is it another crime night?", cls:"ask", tag:"friends", line:"Crooks, cases, traitors — you keep saving them.",
-    a:"You’re stacking them — Undercover, Ferry, Assisen, Jan de Lichte, De Verraders. Undercover and Ferry play now on Netflix. Assisen and Jan de Lichte need another app.",
+  {id:"cr-night", q:"What crime shows are on my list?", cls:"ask", tag:"friends", line:"Crooks, cases, traitors — you keep saving them.",
+    a:"Crime is clearly what you usually watch. Undercover (season 3), Ferry, Assisen, Jan de Lichte and De Verraders are all on your list. Undercover and Ferry play now on Netflix. The rest need extra apps.",
     follow:[
-      {id:"cr-night-fl", q:"Which of these is actually Flemish?", a:"Ferry is Dutch-Belgian border — Limburg, same world as Undercover. Jan de Lichte and Assisen are the local ones. Zillion is Ghent nightlife, not quite crooks."},
-      {id:"cr-night-netflix", q:"Can I stay inside Netflix tonight?", a:"Undercover if you want to continue — you’re on S3 E2. Ferry if you want a film that’s done. That’s the crime night without adding an app."},
-      {id:"cr-night-twist", q:"Something twisty rather than violent?", a:"Assisen and 1985 turn the room. De Verraders is format-twist, not story-twist. Last of Us if you want it to land rather than puzzle — not crime, but it’s the heavy one you already like."}
+      {id:"cr-night-fl", q:"Which of these is actually Flemish?", a:"Ferry is Dutch-Belgian border crime, same world as Undercover. Jan de Lichte and Assisen are the properly Flemish ones. Zillion is Antwerp nightlife. Adjacent, not quite crooks."},
+      {id:"cr-night-netflix", q:"Can I stay inside Netflix tonight?", a:"Yes. Continue Undercover (you’re on S3 E2) or watch Ferry as a closed film. That’s a full crime night without adding an app."},
+      {id:"cr-night-twist", q:"Something twisty rather than violent?", a:"Assisen and 1985 have the strongest plot turns. De Verraders is an unscripted game rather than a mystery. The Last of Us is more emotional but needs HBO Max."}
     ]},
   {id:"cr-case", q:"Got a case I can finish before bed?", cls:"c3", tag:"short", line:"A case you can crack before bed.",
-    a:"Assisen is ~45 minutes, but it’s locked on VTM GO. Undercover episodes are ~50 minutes and already in your plan — that’s the case you can start now. Thuis isn’t a case, but it’s 25 minutes if the night is done.",
+    a:"Undercover is included with Netflix and its episodes run for about 50 minutes. Assisen is slightly shorter but needs VTM GO+. Thuis is the 25-minute option if it does not need to be a crime story.",
     follow:[
-      {id:"cr-case-under", q:"Is Undercover too violent for tonight?", a:"Crime-show tense, not torture. Camping, XTC, double lives. Fine if you like Narcos energy without the homework. Skip if the room wants pink."},
-      {id:"cr-case-assisen", q:"What about Assisen if I added VTM GO?", a:"Courtroom, Flemish, ~45 minutes. It’s the short case on your list. The lock is the only reason it isn’t the answer tonight."},
-      {id:"cr-case-belgian", q:"Something Belgian and shorter than a film?", a:"Thuis is 25 minutes and in-plan. Assisen is the case, locked. Chantal is ~45 on VRT MAX if you want Flanders without the file."}
+      {id:"cr-case-under", q:"Is Undercover too violent for tonight?", a:"It’s tense rather than violent. Double lives, not gore. Fine for a weeknight if you like crime. Skip it if everyone wanted something light."},
+      {id:"cr-case-assisen", q:"What about Assisen on VTM GO+?", a:"Assisen is a Flemish courtroom drama with episodes of about 45 minutes. It is available with VTM GO+."},
+      {id:"cr-case-belgian", q:"Something Belgian and shorter than a film?", a:"Thuis runs for 25 minutes and Chantal for about 45, both free on VRT MAX. Assisen is the courtroom option on VTM GO+."}
     ]},
   {id:"cr-belgian", q:"Belgian crooks I haven’t started?", cls:"c2", tag:"friday", line:"Ferry, Jan de Lichte, Assisen.",
-    a:"Ferry on Netflix — 1h 46, that’s the one you can press play on tonight. Jan de Lichte and Assisen are the local ones with a lock. Zillion is Ghent nightlife, Streamz — also locked, not quite crooks.",
+    a:"Ferry is included with Netflix and runs for 1h 46. Jan de Lichte is on Play, Assisen is on VTM GO+, and Zillion is on Streamz.",
     follow:[
-      {id:"cr-belgian-order", q:"Should I watch Ferry before I go back to Undercover?", a:"After is cleaner — Ferry is the origin glow-up. You’re already in Undercover S3, so finish that streak, then Ferry as the closed film. Either order works if tonight is just the film."},
-      {id:"cr-belgian-jan", q:"What’s Jan de Lichte actually like?", a:"18th-century Flemish gang, Play, ~50 minute episodes. Grittier folklore than Undercover’s camping. Lock unless you add Play.", who:"Jan de Lichte"},
-      {id:"cr-belgian-inplan", q:"Anything Belgian without another app?", a:"Ferry, and Undercover. That’s the Netflix pair. 1985 is Flanders and in-plan on VRT MAX, but it’s archive-heavy, not crooks."}
+      {id:"cr-belgian-order", q:"Should I watch Ferry before I go back to Undercover?", a:"After works better. You’re already in Undercover S3, so finish that run and keep Ferry as a closed evening. Either order works if tonight is just the film."},
+      {id:"cr-belgian-jan", q:"What’s Jan de Lichte actually like?", a:"An 18th-century Flemish outlaw gang. Grittier and more folkloric than Undercover. Episodes of ~50 minutes on Play, which you’d need to add.", who:"Jan de Lichte"},
+      {id:"cr-belgian-inplan", q:"Anything Belgian without another app?", a:"Ferry and Undercover are included with Netflix. For something fully Flemish, 1985 is free on VRT MAX, although it is historical drama rather than crime."}
     ]},
-  {id:"cr-twist", q:"Which of these turns on you halfway?", cls:"c4", tag:"acclaimed", line:"The ones that turn on you.",
-    a:"1985 and Assisen are the ones that rewrite the room. The Last of Us if you want it to land rather than puzzle. De Verraders is format-twist — fun to shout at, not a story that folds.",
+  {id:"cr-twist", q:"Which of these has the best plot twists?", cls:"c4", tag:"acclaimed", line:"The ones that turn on you.",
+    a:"1985 and Assisen have the real mid-story turns. The Last of Us hits hard rather than twists. De Verraders twists the format. Fun to shout at, different thing.",
     follow:[
-      {id:"cr-twist-1985", q:"Is 1985 too heavy for tonight?", a:"It’s Flanders in the archive, ~50 minutes, VRT MAX, in your plan. Heavy in the right way if you can sit still. Not a weeknight if you wanted easy crime.", who:"1985"},
-      {id:"cr-twist-play", q:"Something twisty I can already play?", a:"1985 and Last of Us — both in-plan. Assisen is the twisty case, locked on VTM GO. I’d start 1985 if you want local; Last of Us if you want to continue."},
-      {id:"cr-twist-like", q:"More like Assisen or more like Last of Us?", a:"Assisen is courtroom and turns. Last of Us is care in a ruined road — you already know that one, you’re 67% in. If you meant plot-turns, 1985 sits closer to Assisen and you can play it tonight."}
+      {id:"cr-twist-1985", q:"Is 1985 too heavy for tonight?", a:"It is serious and needs your attention, but episodes run for about 50 minutes. It is free on VRT MAX.", who:"1985"},
+      {id:"cr-twist-play", q:"Something twisty I can already play?", a:"1985 is free on VRT MAX and ready to watch. The Last of Us is another strong option, but it needs HBO Max. Assisen is on VTM GO+."},
+      {id:"cr-twist-like", q:"More like Assisen or more like Last of Us?", a:"Plot-wise, 1985 sits closer to Assisen. And you can play it tonight. The Last of Us you already know: heavy, not twisty, and you’re 67% in."}
     ]},
   {id:"fi-night", q:"Have I saved a film for tonight?", cls:"c2", tag:"friday", line:"The films you parked — still waiting.",
-    a:"Dune is waiting — you’ve barely started it, HBO Max. Barbie if the night wants colour. Ferry if you want Belgian and done. Gladiator II is saved but locked on Apple TV.",
+    a:"Yes. Dune: Part Two is waiting on HBO Max, barely started. Barbie for colour, Ferry for Belgian-and-done. Gladiator II is saved but needs Apple TV.",
     follow:[
-      {id:"fi-night-week", q:"Is Dune a weeknight film?", a:"2h 46. Friday, or a split at the time jump. You’ve only had 18% — starting now is a late night unless that’s the point."},
-      {id:"fi-night-short", q:"What’s the shortest film on here?", a:"Ferry, 1h 46, Netflix. Then Barbie at 1h 54. Both in your plan. Zillion is 2h 03 and locked on Streamz."},
-      {id:"fi-night-glad", q:"Do I need another app for Gladiator II?", a:"Yes — Apple TV. It’s 2h 28, arena-brutal, and not in your subscriptions. Dune covers spectacle tonight without the lock."}
+      {id:"fi-night-week", q:"Is Dune a weeknight film?", a:"At 2h 46, not really. You’re 18% in, so starting now means a late night. Friday, or split it at the time jump."},
+      {id:"fi-night-short", q:"What’s the shortest film on here?", a:"Ferry is the shortest film at 1h 46 and is included with Netflix. Barbie runs for 1h 54 but needs HBO Max. Zillion is just over two hours and needs Streamz."},
+      {id:"fi-night-glad", q:"Do I need another app for Gladiator II?", a:"Yes. Apple TV, which isn’t in your subscriptions. It’s 2h 28 of arena spectacle. Dune covers that slot tonight without the extra app."}
     ]},
   {id:"fi-two", q:"A film I can finish under two hours?", cls:"c3", tag:"short", line:"A film you can actually finish.",
-    a:"Ferry, 1h 46, Netflix. Barbie, 1h 54, HBO Max. Both in your plan. Zillion is 2h 03 on Streamz — just over, and locked.",
+    a:"Ferry fits at 1h 46 and is included with Netflix. Barbie also fits at 1h 54, but it needs HBO Max. Zillion runs for 2h 03 and needs Streamz.",
     follow:[
-      {id:"fi-two-which", q:"Ferry or Barbie if I have to pick one?", a:"Ferry if you want crime and done. Barbie if the room wants colour. Same length-ish; different morning after."},
-      {id:"fi-two-people", q:"Which one works with people in the room?", a:"Barbie. Ferry is fine if this crowd likes crooks. Skip Dune and Oppenheimer if anyone still wants to talk."},
-      {id:"fi-two-longer", q:"What if I have a bit longer than two hours?", a:"Zillion is 2h 03, locked. Dune is 2h 46 and you’ve started it. De Slag om de Schelde is 2h 04 on Play — also locked."}
+      {id:"fi-two-which", q:"Ferry or Barbie if I have to pick one?", a:"Ferry for crime with an ending, Barbie for colour with a sting. Same length, very different mood."},
+      {id:"fi-two-people", q:"Which one works with people in the room?", a:"Barbie. It’s built for company. Ferry works if this crowd likes crime. Skip Dune and Oppenheimer while people still want to talk."},
+      {id:"fi-two-longer", q:"What if I have a bit longer than two hours?", a:"Zillion runs for 2h 03 on Streamz, De Slag om de Schelde runs for 2h 04 on Play, and Dune runs for 2h 46 on HBO Max. None of those paid services are currently subscribed, although Play itself is free."}
     ]},
   {id:"fi-big", q:"Which long ones have I been putting off?", cls:"c4", tag:"acclaimed", line:"The long ones you keep putting off.",
-    a:"Oppenheimer is three hours. Dune is 2h 46 and you’ve started it. Gladiator II is 2h 28 on Apple TV — locked. These are Friday films, not Tuesday after work.",
+    a:"The longest titles are Oppenheimer at three hours, Dune at 2h 46 and Gladiator II at 2h 28. Oppenheimer and Dune need HBO Max, while Gladiator II needs Apple TV.",
     follow:[
-      {id:"fi-big-dune", q:"Should I just finish Dune first?", a:"That’s the honest one. You’re 18% in, HBO Max, already in the plan. Oppenheimer can wait; Gladiator II needs another app.", who:"Dune"},
-      {id:"fi-big-opp", q:"Is Oppenheimer too much for tonight?", a:"Three hours. A weekend film. Not a Tuesday after work unless you like finishing at 1am. The physics is flavour; the film is guilt.", who:"Oppenheimer"},
-      {id:"fi-big-plan", q:"Anything big that’s already in my plan?", a:"Dune and Oppenheimer, both HBO Max. Gladiator II and De Slag om de Schelde sit behind Apple TV and Play."}
+      {id:"fi-big-dune", q:"Should I just finish Dune first?", a:"Only if you add HBO Max first. You are 18% into Dune, but HBO Max is not currently subscribed. Oppenheimer is on the same service.", who:"Dune"},
+      {id:"fi-big-opp", q:"Is Oppenheimer too much for tonight?", a:"At three hours, probably. It’s a weekend film. Worth it when you can give it the whole evening. The physics is scenery, the guilt is the film.", who:"Oppenheimer"},
+      {id:"fi-big-plan", q:"Anything big that’s already in my plan?", a:"Dune and Oppenheimer, both on HBO Max. Gladiator II and De Slag om de Schelde wait behind Apple TV and Play."}
     ]},
   {id:"fi-easy", q:"An easy movie if I don’t want homework?", cls:"ask", tag:"easy", line:"Low homework. High comfort.",
-    a:"Barbie. Ferry if easy still means crime but done. Zillion is Belgian glow — locked on Streamz. Skip Oppenheimer and Dune if easy is the brief.",
+    a:"Barbie. Easy with a wink. Ferry if easy can still mean crime, as long as it ends tonight. Skip Oppenheimer and Dune. Zillion needs Streamz.",
     follow:[
-      {id:"fi-easy-barb", q:"Would Barbie still work with someone else here?", a:"Yes — that’s the sofa version of easy. Pink, funny, a gut punch if they can take it. 1h 54, HBO Max.", who:"Barbie"},
-      {id:"fi-easy-ferry", q:"Is Ferry actually easy, or is it still crime homework?", a:"Crime-hard, not torture. 1h 46 and it ends. You don’t need Undercover first, though you’ll smirk more if you’ve met him.", who:"Ferry"},
-      {id:"fi-easy-fl", q:"What’s the Flemish easy one?", a:"There isn’t a sit-back Flemish film on this list. Thuis if you meant easy Flanders in 25 minutes. Zillion if glow is easy and you add Streamz."}
+      {id:"fi-easy-barb", q:"Would Barbie still work with someone else here?", a:"Yes. It is funny, colourful and under two hours. It does need HBO Max, which is not currently subscribed.", who:"Barbie"},
+      {id:"fi-easy-ferry", q:"Is Ferry actually easy, or is it still crime homework?", a:"It’s crime, but self-contained. 1h 46 with a proper ending, and no need to know Undercover first. Easy in the sense that matters tonight.", who:"Ferry"},
+      {id:"fi-easy-fl", q:"What’s the Flemish easy one?", a:"There is no truly light Flemish film on your list. Thuis is the easiest Flemish option at 25 minutes. Zillion is a darker film and needs Streamz."}
     ]},
   {id:"fl-easy", q:"What did they talk about yesterday at De Tafel?", cls:"c3", tag:"easy", line:"Last night’s table, then the daily.",
-    a:"De Tafel van Gert is last night’s news — Dolly, the hottest summer, Francken’s climate post. You’re 74% into that episode on Play. Familie if you wanted Mechelen and Victor instead of the paper.",
+    a:"Last night’s De Tafel covered Dolly Parton, the record summer and Francken’s climate post. And you’re already 74% into it on Play. Familie is the other daily if you’d rather have Mechelen than the news.",
     follow:[
-      {id:"fl-easy-tafel", q:"Do I need last night, or any night?", a:"Last night if you want the conversation the house is still having. A week-old table is already stale. Play keeps it.", who:"De Tafel van Gert"},
-      {id:"fl-easy-which", q:"Tafel or Familie if tonight is just sitting?", a:"Tafel if you want to argue with the news. Familie if you want 25 minutes and the pub. Both dailies. Different rooms."},
-      {id:"fl-easy-euh", q:"Something we can shout at after?", a:"Zeg Eens Euh — James Cooke, no euh, four Vlamingen with a buzzer. Play, after De Tafel. That’s the night they built."}
+      {id:"fl-easy-tafel", q:"Do I need last night, or any night?", a:"Last night’s, ideally. The discussions are still current. Play keeps every episode, but a week-old news show is a different experience.", who:"De Tafel van Gert"},
+      {id:"fl-easy-which", q:"Tafel or Familie if tonight is just sitting?", a:"De Tafel if you want to react to the news, Familie if you want 25 minutes of story. Both dailies, very different energy."},
+      {id:"fl-easy-euh", q:"Something we can shout at after?", a:"Try Zeg Eens Euh on Play. It is a simple word game hosted by James Cooke and works well with a group."}
     ]},
   {id:"fl-sofa", q:"Flemish we could watch together?", cls:"ask", tag:"friends", line:"Flanders, easy to share a sofa with.",
-    a:"De Tafel if the room wants last night’s news. Zeg Eens Euh if they want a buzzer. Jade if they want Belgians roasting the Ring. Familie if the sofa is a daily habit.",
+    a:"De Tafel works if you want to react to the news, Zeg Eens Euh for a game and Jade en de Belgen for comedy. Familie is the choice if everyone follows the daily story.",
     follow:[
-      {id:"fl-sofa-talk", q:"Something we can talk through?", a:"De Tafel — that’s the point. Jade too. Skip Familie if comments will bury Victor. Agnew if one person wanted to sit still for two hours."},
-      {id:"fl-sofa-play", q:"What’s actually on Play tonight?", a:"De Tafel at 20:00, Zeg Eens Euh after 22:00. Jade on Thursday. Axel on Tuesday. The logos on those cards are Play, not VRT MAX."},
-      {id:"fl-sofa-soap", q:"Too soapy for this room?", a:"Skip Familie and Thuis. De Tafel is the paper. Axel if they wanted America. Agnew if they wanted one man, no soap."}
+      {id:"fl-sofa-talk", q:"Something we can talk through?", a:"De Tafel and Jade. Both invite commentary. Skip Familie if the talking would bury the plot. Agnew needs two quiet hours."},
+      {id:"fl-sofa-play", q:"What’s actually on Play tonight?", a:"De Tafel at 20:00 and Zeg Eens Euh after 22:00 tonight. Jade on Thursday, Axel on Tuesday. All on Play."},
+      {id:"fl-sofa-soap", q:"Too soapy for this room?", a:"Then skip Familie and Thuis. De Tafel is news, Axel is America, Agnew is stand-up. No soap in any of them."}
     ]},
   {id:"fl-new", q:"What’s new from Flanders on my list?", cls:"c2", tag:"friday", line:"The table, the pub, the word fight.",
-    a:"De Tafel van Gert, Familie, Zeg Eens Euh, Jade en de Belgen, Axel Terug Naar Amerika, and Agnew’s zaalshow. Play and VTM GO. The clips in your Home feed are these — not a Netflix leftover.",
+    a:"Your Flemish list right now: De Tafel van Gert, Familie, Zeg Eens Euh, Jade en de Belgen, Axel Terug Naar Amerika and Alex Agnew’s show. Spread across Play and VTM GO.",
     follow:[
-      {id:"fl-new-play", q:"Which of those can I put on tonight?", a:"De Tafel if you want last night. Familie if you want the daily. Zeg Eens Euh after 22:00. Agnew if the sofa is yours for 2h 43."},
-      {id:"fl-new-axel", q:"What’s Axel actually doing in America?", a:"Season two opened in Trumpland — border, Trumpettes, a Trumborrito. Sedona next: aliens and the QAnon shaman. Tuesday, Play, about an hour.", who:"Axel Terug Naar Amerika"},
-      {id:"fl-new-jade", q:"Is Jade just Geubels with a new host?", a:"The format, yes. The voice is hers. Episode one is traffic — the Ring, fatbikes, the keuring. Thursday, Play.", who:"Jade en de Belgen"}
+      {id:"fl-new-play", q:"Which of those can I put on tonight?", a:"Tonight: De Tafel for last night’s news, Familie for the daily, Zeg Eens Euh after 22:00. Agnew needs a free 2h 43."},
+      {id:"fl-new-axel", q:"What’s Axel actually doing in America?", a:"Season two opened at the Mexican border and in Palm Springs among Trump superfans. Next stop is Sedona, aliens included. Tuesdays on Play, about an hour.", who:"Axel Terug Naar Amerika"},
+      {id:"fl-new-jade", q:"Is Jade just Geubels with a new host?", a:"The format is Geubels’, the voice is hers. Episode one takes on traffic. The Ring, fatbikes, the keuring. Thursdays on Play.", who:"Jade en de Belgen"}
     ]},
   {id:"fl-leave", q:"Will I miss last night’s table if I wait?", cls:"c4", tag:"leaving", line:"Dailies that go stale.",
-    a:"De Tafel van Gert is last night’s paper — you’re 74% in. Familie is the other daily, 61%. Wait a week and both are a different conversation. Thuis on VRT MAX is marked leaving too.",
+    a:"The dailies age fastest: you’re 74% into last night’s De Tafel and 61% into this week’s Familie. In a week, both are old news. Thuis is also marked leaving on VRT MAX.",
     follow:[
-      {id:"fl-leave-tafel", q:"Can I finish last night’s Tafel tonight?", a:"Yes. About an hour, Play, and you’re already most of the way. That’s the one that goes stale first.", who:"De Tafel van Gert"},
-      {id:"fl-leave-fam", q:"And Familie — did they find Victor yet?", a:"That’s week one. Mathias is still looking. 25 minutes, VTM GO, you’re over halfway this week. Chip tonight so Thursday isn’t a pile-up.", who:"Familie"},
-      {id:"fl-leave-thuis", q:"Is Thuis still the VRT daily that’s leaving?", a:"Yes. 25 minutes, VRT MAX. Familie is the VTM one. Two dailies if that’s the habit. One if you pick a village."}
+      {id:"fl-leave-tafel", q:"Can I finish last night’s Tafel tonight?", a:"Yes. About an hour on Play, and you’re most of the way through. It’s the one that dates first.", who:"De Tafel van Gert"},
+      {id:"fl-leave-fam", q:"And Familie. Did they find Victor yet?", a:"Not yet. Mathias is still looking for Victor. That is the main storyline this week, and episodes run for about 25 minutes on VTM GO.", who:"Familie"},
+      {id:"fl-leave-thuis", q:"Is Thuis still the VRT daily that’s leaving?", a:"Yes. Thuis is the VRT daily that’s leaving, 25 minutes on VRT MAX. Familie is the VTM one. Two dailies is a habit. One is a choice."}
     ]},
-  {id:"mo-tlou", q:"Liked Last of Us — what else is here?", cls:"c4", tag:"acclaimed", line:"Close to how you watch the heavy ones.",
-    a:"You’re 67% into S2. Squid Game if you want stakes without the fungus. 1985 if you want it closer to home. The Penguin isn’t saved yet — that’s the next-door pick on HBO Max.",
+  {id:"mo-tlou", q:"Liked Last of Us. What else is here?", cls:"c4", tag:"acclaimed", line:"Close to how you watch the heavy ones.",
+    a:"You’re 67% into S2. From your list, Squid Game has the stakes without the fungus, and 1985 has the weight closer to home. The Penguin isn’t saved yet, but it’s the natural next pick on HBO Max.",
     who:"The Last of Us",
     follow:[
-      {id:"mo-tlou-finish", q:"Should I just finish The Last of Us first?", a:"That’s the one. E4 lands tomorrow on HBO Max. Finish E3 tonight so Tuesday is clean — you’re already most of the way there.", who:"The Last of Us"},
-      {id:"mo-tlou-squid", q:"Is Squid Game the same kind of heavy?", a:"Stakes, yes. Care, no. Squid Game wants talking and wincing. Last of Us wants you quiet. Both in your plan; different mornings.", who:"Squid Game"},
-      {id:"mo-tlou-penguin", q:"What’s The Penguin like compared to this?", a:"Gotham crime that limps — HBO Max, in your plan, not on this list yet. Closer to Undercover’s double lives than to fungus and the road.", who:"The Penguin"}
+      {id:"mo-tlou-finish", q:"Should I just finish The Last of Us first?", a:"Only if you add HBO Max again. The next episode arrives tomorrow, but the service is not currently subscribed.", who:"The Last of Us"},
+      {id:"mo-tlou-squid", q:"Is Squid Game the same kind of heavy?", a:"They are both heavy, but in different ways. Squid Game is tense and included with Netflix. The Last of Us is more emotional and needs HBO Max.", who:"Squid Game"},
+      {id:"mo-tlou-penguin", q:"What’s The Penguin like compared to this?", a:"It is a Gotham crime drama and feels closer to Undercover than The Last of Us. It is on HBO Max, which is not currently subscribed.", who:"The Penguin"}
     ]},
   {id:"mo-under", q:"More like Undercover I haven’t saved?", cls:"ask", tag:"friends", line:"Crime-adjacent, not quite saved yet.",
-    a:"Ferry is the origin — already on your list, Netflix. The Penguin if you want crime that limps instead of camps. Jan de Lichte if you want Belgian crooks with a lock.",
+    a:"Ferry is the direct one. The origin film, already on your list, on Netflix. The Penguin brings the same double-life tension in Gotham. Jan de Lichte is the Flemish pick, behind Play.",
     who:"Undercover",
     follow:[
-      {id:"mo-under-ferry", q:"Should I watch Ferry next?", a:"Yes if you want more Bouman. It’s the origin glow-up, 1h 46, already saved. You’re in Undercover S3 — Ferry still works as a closed night.", who:"Ferry"},
-      {id:"mo-under-penguin", q:"Is The Penguin in my plan?", a:"HBO Max, so yes. Not saved yet. Crime with a limp, not a camping. Play if you want the next-door pick without adding an app.", who:"The Penguin"},
-      {id:"mo-under-now", q:"Something Belgian I can play now?", a:"Ferry. That’s the Netflix one. Jan de Lichte and Assisen wait on Play and VTM GO."}
+      {id:"mo-under-ferry", q:"Should I watch Ferry next?", a:"Yes, if you want more Bouman. 1h 46, already saved. You’re in Undercover S3, and the film works fine as a stand-alone night.", who:"Ferry"},
+      {id:"mo-under-penguin", q:"Is The Penguin in my plan?", a:"No. The Penguin is on HBO Max, and HBO Max is not currently subscribed. It is not on your list yet either.", who:"The Penguin"},
+      {id:"mo-under-now", q:"Something Belgian I can play now?", a:"Ferry is the Belgian crime film already included with Netflix. Jan de Lichte is on Play, and Assisen is on VTM GO+."}
     ]},
-  {id:"mo-bear", q:"As short as The Bear that I can finish?", cls:"c3", tag:"short", line:"Tight episodes, same energy.",
-    a:"The Bear is ~30 minutes but Disney+ is locked. Thuis is 25 minutes and already in your plan. Chef’s Table: BBQ is Netflix if kitchen is the brief — not saved yet. Abbott Elementary is 22 minutes, also Disney+.",
+  {id:"mo-bear", q:"Something as short as The Bear I can watch now", cls:"c3", tag:"short", line:"Tight episodes, same energy.",
+    a:"The Bear is included with Disney+, and its episodes are about 30 minutes. Abbott Elementary is even shorter at 22 minutes on the same service. Thuis is the free 25-minute option on VRT MAX.",
     who:"The Bear",
     follow:[
-      {id:"mo-bear-no", q:"I don’t have Disney+ — then what?", a:"Thuis, 25 minutes, VRT MAX. An Undercover episode is ~50 if you can stretch. Chef’s Table: BBQ on Netflix if you wanted to keep the kitchen without the panic."},
-      {id:"mo-bear-kitchen", q:"Keep the kitchen energy?", a:"Chef’s Table: BBQ is the same fire, calmer, Netflix. The Bear stays locked. Don’t copy it beat for beat — BBQ is the sit-down version."},
-      {id:"mo-bear-thuis", q:"Is Thuis actually that short?", a:"~25 minutes, daily, and you’re already in it. Not a kitchen. It is the in-plan episode you can finish before the next thing.", who:"Thuis"}
+      {id:"mo-bear-no", q:"What can I watch outside Disney+?", a:"Try Thuis on VRT MAX or Chef’s Table: BBQ on Netflix if you want something outside Disney+. An Undercover episode also works if you have about 50 minutes."},
+      {id:"mo-bear-kitchen", q:"Keep the kitchen energy?", a:"Chef’s Table: BBQ. The same fire, calmer, on Netflix. It’s the sit-down version of The Bear’s panic."},
+      {id:"mo-bear-thuis", q:"Is Thuis actually that short?", a:"Yes. About 25 minutes, daily, and you’re already in it. Not a kitchen, but it’s the episode you can finish before the next thing.", who:"Thuis"}
     ]},
-  {id:"mo-close", q:"Close to what I like, not saved yet?", cls:"c2", tag:"acclaimed", line:"Not saved yet. Close to what you already like.",
-    a:"Severance if you liked the unease of Last of Us without the fungus — that’s Apple TV, locked. The Penguin if Undercover is the crime streak — HBO Max, in-plan. Arcane if the craft is what you keep coming back for — Netflix.",
+  {id:"mo-close", q:"Suggest something new based on my list", cls:"c2", tag:"acclaimed", line:"Not saved yet. Close to what you already like.",
+    a:"Severance matches the unease you like but needs Apple TV. The Penguin fits your crime streak but needs HBO Max. Arcane is already included with Netflix.",
     follow:[
-      {id:"mo-close-why", q:"Why Severance?", a:"Same ‘something is wrong in the room’ feeling you already sit with in Last of Us. Office instead of fungus. Not on your list, and Apple TV isn’t in your plan.", who:"Severance"},
-      {id:"mo-close-play", q:"Which of those can I play now?", a:"The Penguin and Arcane. Severance waits on Apple TV. Penguin if crime; Arcane if you wanted the craft."},
-      {id:"mo-close-no", q:"Not really what I meant", a:"Then say what landed — the crime, the length, or that it was Flemish. I can stay on this list or go looking. What should I use?"}
+      {id:"mo-close-why", q:"Why Severance?", a:"Severance has the same sense that something is wrong, but the setting is an office rather than a ruined world. It is not on your list and needs Apple TV.", who:"Severance"},
+      {id:"mo-close-play", q:"Which of those can I play now?", a:"The Penguin and Arcane. HBO Max and Netflix. Severance waits behind Apple TV."},
+      {id:"mo-close-no", q:"Not really what I meant", a:"Tell me what I got wrong (the genre, the length, or that it should be Flemish) and whether to stay on your list or look wider."}
     ]}
 ];
 
@@ -1348,10 +1348,10 @@ function meshTone(cls){
 function laneQHTML(ids){
   const items = ids.map(id => moods.find(m => m.id === id)).filter(Boolean);
   if (!items.length) return "";
-  return `<div class="lane-q" data-lane-q data-mesh="${(items[1] || items[0]).cls}">
+  return `<div class="lane-q" data-lane-q data-mesh="${items[0].cls}">
     <div class="qcard">
       <div class="qcard-track" data-qtrack>
-        ${items.map((m, i) => `<button class="qcard-q${i === 1 ? " is-on" : ""}" type="button" data-ask-start="${m.id}" data-mesh="${m.cls}" data-q="${esc(m.q)}"><span class="q-copy">${esc(m.q)}</span></button>`).join("")}
+        ${items.map((m, i) => `<button class="qcard-q${i === 0 ? " is-on" : ""}" type="button" data-ask-start="${m.id}" data-mesh="${m.cls}" data-q="${esc(m.q)}"><span class="q-copy">${esc(m.q)}</span></button>`).join("")}
       </div>
     </div>
     <div class="qbeam">
@@ -1638,7 +1638,8 @@ function bindLaneQs(){
     const track = wrap.querySelector("[data-qtrack]");
     const qBtns = [...(track?.querySelectorAll(".qcard-q") || [])];
     if (!track || !qBtns.length) return;
-    const startI = qBtns.length >= 3 ? 1 : 0;
+    // the rail opens on the first question, never mid-set
+    const startI = 0;
     wrap._qOn = startI;
     const padKey = () => `${track.clientWidth}:${qBtns.map(b => b.offsetWidth).join(",")}`;
     const centerQ = (i, smooth) => {
@@ -1752,48 +1753,48 @@ function asAsk(m){
 const FY_ASK = [
   {id:"fy-crime", q:"More crime stories",
     posterTitles:["Undercover","Ferry","Zillion"],
-    a:"Noted \u2014 more crime. That is already the strongest signal on your list: Undercover in season three, Ferry saved, Zillion parked. I will push Belgian and Dutch crime up and stop offering you the gentle stuff.",
+    a:"Noted. More crime. It\u2019s already your strongest signal: Undercover in season three, Ferry saved, Zillion parked. I\u2019ll rank Belgian and Dutch crime higher and ease off the gentler suggestions.",
     follow:[
-      {id:"fy-crime-next", q:"What is the next one then?", a:"Ferry. 1h 46, Netflix, in your plan \u2014 the origin story for the Undercover you are already inside. Closed in one night, no season to commit to."},
-      {id:"fy-crime-belg", q:"Keep it Belgian?", a:"Zillion for the Antwerp nightlife rise and crash, Undercover for the camping. Assisen and Jan de Lichte sit behind a lock, so they are a different conversation."}
+      {id:"fy-crime-next", q:"What is the next one then?", a:"Ferry is next. It runs for 1h 46, is included with Netflix and tells the earlier story of the Undercover character you already know."},
+      {id:"fy-crime-belg", q:"Keep it Belgian?", a:"Undercover for the campsite, Zillion for Antwerp nightlife (needs Streamz). Assisen and Jan de Lichte are also Belgian, but behind extra apps."}
     ]},
   {id:"fy-humour", q:"More West-Flemish humour",
-    a:"Got it. That is a narrower shelf than crime, but it is there: Jade en de Belgen on Play does the Belgian clich\u00e9 by the week, and Zeg Eens Euh is the word game if you want a laugh you can talk over.",
+    a:"Noted. It\u2019s a smaller shelf than crime, but it exists: Jade en de Belgen does a Belgian clich\u00e9 per week on Play, and Zeg Eens Euh is the word game you can laugh along with.",
     follow:[
-      {id:"fy-hum-jade", q:"Start with Jade?", a:"Episode one is traffic \u2014 the Ring, fatbikes, the keuring. About 40 minutes on Play, Thursday. Nothing carries over, so any episode is a fine entry."},
-      {id:"fy-hum-more", q:"Anything longer in that lane?", a:"Alex Agnew, but that is 2h 43 and R-rated Antwerp rather than West-Flemish warmth. A Friday, not a weeknight."}
+      {id:"fy-hum-jade", q:"Start with Jade?", a:"Good starting point. Episode one is about traffic: the Ring, fatbikes, the keuring. About 40 minutes on Play, and episodes work in any order."},
+      {id:"fy-hum-more", q:"Anything longer in that lane?", a:"Alex Agnew. But that’s 2h 43 of R-rated Antwerp rather than gentle humour. One for a free Friday."}
     ]},
   {id:"fy-loved", q:"I loved all of it",
-    a:"Then I will keep the whole shape of Chantal in play \u2014 the Flemish drama, the pace, the humour underneath. Expect more like Familie and Thuis near the top, and I will stop treating the funny bits as a separate thing from the drama.",
+    a:"Good to know. I\u2019ll keep the whole profile of Chantal in play: Flemish drama, that pace, the humour underneath. Expect Familie and Thuis to rank higher.",
     follow:[
-      {id:"fy-loved-next", q:"So what is closest to it?", a:"Familie is the daily that scratches the same itch \u2014 25 minutes, Mechelen, VTM GO. Thuis if you would rather chip at VRT MAX instead."}
+      {id:"fy-loved-next", q:"So what is closest to it?", a:"Familie is the closest. A daily 25 minutes from Mechelen on VTM GO. Thuis is the VRT MAX alternative if that suits your apps better."}
     ]},
   {id:"fy-nope", q:"I didn\u2019t like it",
-    a:"Useful \u2014 that is the more valuable answer. I will stop leading with Flemish drama of that shape and lean on what you actually finish: crime you are already inside, and films that close in one night.",
+    a:"That helps. I will stop prioritising this type of Flemish drama and put more weight on the crime series and shorter films you actually finish.",
     follow:[
-      {id:"fy-nope-what", q:"What do I actually finish?", a:"Series you are mid-way through \u2014 Last of Us at 67%, Undercover in season three. Films you save and park; those are the ones that need a Friday, not a Tuesday."},
-      {id:"fy-nope-less", q:"Show me less of this generally", a:"Done. Flemish daily drama drops down the list. Say the word if that goes too far \u2014 De Tafel van Gert is the same shelf and you do watch that."}
+      {id:"fy-nope-what", q:"What do I actually finish?", a:"Series you\u2019re mid-way through. The Last of Us at 67%, Undercover in season three. The films you save tend to wait for a free Friday."},
+      {id:"fy-nope-less", q:"Show me less of this generally", a:"Done. Flemish daily drama moves down your list. Tell me if that goes too far. De Tafel van Gert is technically the same shelf, and you do watch that."}
     ]},
 
   {id:"wl-short", q:"Show me something under 30 minutes",
     posterTitles:["Thuis"],
-    a(){ return "From your list: Familie at ~25 minutes and Thuis at about the same, both dailies you are already part-way into. De Tafel van Gert is an hour, so it does not make the cut tonight."; },
+    a(){ return "Under 30 minutes on your list: Familie and Thuis, both ~25-minute dailies you’re already part-way into. De Tafel is an hour, so it misses the cut."; },
     follow:[
-      {id:"wl-short-pick", q:"Which of those two?", a:"Familie if you want the kidnapping week \u2014 Victor is still gone and Erik just walked into the Jan & Alleman. Thuis if you would rather not pick up three fires at once."}
+      {id:"wl-short-pick", q:"Which of those two?", a:"Familie if you want this week\u2019s kidnapping storyline. Thuis if you\u2019d rather not pick up three plotlines at once."}
     ]},
   {id:"wl-light", q:"Show me something light",
     posterTitles:["Barbie"],
-    a:"Barbie is the one \u2014 1h 54 on HBO Max, funny until it turns, and nobody has to sit up for sandworms. Zeg Eens Euh if you want something you can talk over and leave whenever.",
+    a:"Barbie. 1h 54 on HBO Max, funny with one sharper turn, and easy company. Zeg Eens Euh if you\u2019d rather have something you can talk over and leave.",
     follow:[
-      {id:"wl-light-room", q:"Something the whole room can watch?", a:"Barbie. Kids get the pink, you get the speech. Jade en de Belgen also works if the room wants Belgians roasting the Ring."},
-      {id:"wl-light-not", q:"What should I avoid tonight then?", a:"Dune: Part Two and Oppenheimer \u2014 both are Friday films. Alex Agnew is 2h 43 and not light in any sense."}
+      {id:"wl-light-room", q:"Something the whole room can watch?", a:"Barbie. Kids get the pink, adults get the jokes. Jade en de Belgen works too if everyone wants Belgian humour."},
+      {id:"wl-light-not", q:"What should I avoid tonight then?", a:"Tonight, skip Dune: Part Two and Oppenheimer (both need a full evening) and Alex Agnew, which is 2h 43 and anything but light."}
     ]},
   {id:"wl-flemish", q:"Only Flemish",
     posterTitles:["Thuis","Zillion"],
-    a:"Then the list is De Tafel van Gert for last night\u2019s news, Familie for the daily, Zeg Eens Euh for the word game, and Jade en de Belgen on Thursday. Zillion if you want a film rather than a night of telly.",
+    a:"The Flemish picks on your list: De Tafel van Gert for last night\u2019s news, Familie for the daily, Zeg Eens Euh for the game, Jade en de Belgen on Thursdays. Zillion is the film option, but needs Streamz.",
     follow:[
-      {id:"wl-fl-tonight", q:"Which one for tonight?", a:"De Tafel van Gert if you want the conversation the house is still having \u2014 about an hour, Play, and last night is the one that counts."},
-      {id:"wl-fl-film", q:"Make it a film", a:"Zillion \u2014 Antwerp nightlife, 2h 03, Streamz. It carries a lock if Streamz is not in your plan; Ferry on Netflix is the in-plan alternative."}
+      {id:"wl-fl-tonight", q:"Which one for tonight?", a:"De Tafel van Gert, about an hour on Play, and last night\u2019s episode is the one people are still talking about."},
+      {id:"wl-fl-film", q:"Make it a film", a:"Zillion (Antwerp nightlife, 2h 03) but it needs Streamz. Ferry on Netflix is the in-plan Belgian film instead."}
     ]}
 ];
 
@@ -1804,70 +1805,32 @@ const askBank = [
     id:"tonight",
     q:"What should I watch from this list tonight?",
     keys:"tonight watch sofa night",
-    a(){
-      const {mood, can} = askContext();
-      const cont = continuing().find(t => inPlan(t.provider));
-      const pick = cont || can[0];
-      const extra = mood ? ` You’re looking at “${mood.q}”.` : "";
-      if (!pick) return "Nothing in this view is in your plan. Say if you want to look outside it.";
-      const mid = pick.progress ? ` You’re ${Math.round(pick.progress*100)}% in.` : "";
-      return `${pick.title} on ${pick.provider} — already in your plan.${mid}${extra} Barbie if you want a film that’s done; Last of Us if you want to continue the heavy one.`;
-    },
+    a:"Finish last night’s De Tafel first because you are already 74% through it. The Bear is a short option on Disney+. Barbie and The Last of Us both need HBO Max.",
     follow:[
-      {id:"tonight-started", q:"What if I just finished something I’ve already started?", a(){
-        const [top, ...rest] = continuing().filter(t => inPlan(t.provider));
-        if (!top) return "You’re not mid-anything in-plan. Ferry or Barbie if you want a closed film tonight.";
-        const more = rest.slice(0,2).map(t => t.title).join(" and ");
-        return `${top.title} — ${top.ep || "in progress"}, ${Math.round(top.progress*100)}% in.${more ? ` Then ${more}.` : ""} That’s the honest order.`;
-      }},
-      {id:"tonight-people", q:"What if someone else is on the sofa?", a:"Barbie if you want colour. Squid Game if talking after is allowed. Skip Last of Us and Oppenheimer if the room still wants to chat."},
-      {id:"tonight-lock", q:"Which of these would need another app?", a(){
-        const {cant, mood} = askContext();
-        const scope = mood ? `for “${mood.q}”` : "on this list";
-        return cant.length ? `${scope}: ${names(cant)}. Look for the lock on the app icon.` : `${scope}: none — everything here is in your plan.`;
-      }}
+      {id:"tonight-started", q:"What if I just finished something I’ve already started?", a:"In order of closest-to-done: De Tafel (74%), then The Last of Us and Familie. Finishing the first takes fifteen minutes."},
+      {id:"tonight-people", q:"Is this okay to watch with other people around?", a:"Choose Abbott Elementary or Wednesday if people want to talk while watching. Squid Game is better if everyone wants something tense. The Last of Us and Oppenheimer need HBO Max."},
+      {id:"tonight-lock", q:"Which of these would need another app?", a:"Three on your list: The Bear (Disney+), Zillion (Streamz) and Gladiator II (Apple TV). The lock icon on the card marks them."}
     ]
   },
   {
     id:"finish",
     q:"What should I finish first from what I started?",
     keys:"finish continue progress furthest",
-    a(){
-      const [top, ...rest] = continuing();
-      if (!top) return "You’re not mid-anything on this list. Ferry or Barbie if you want a night that actually ends.";
-      const next = rest.filter(t => inPlan(t.provider)).slice(0,2).map(t => t.title).join(" and ");
-      const locked = continuing().filter(t => !inPlan(t.provider));
-      return `${top.title} — you’re ${Math.round(top.progress*100)}% in${top.ep ? ` (${top.ep})` : ""}.${next ? ` Then ${next}.` : ""}${locked.length ? ` ${names(locked)} can wait unless you add the extra app.` : ""}`;
-    },
+    a:"Finish De Tafel first because you are already 74% through it. The Bear is also started and is included with Disney+. The Last of Us needs HBO Max.",
     follow:[
-      {id:"finish-tlou", q:"Is The Last of Us the one I should protect?", a:"Yes. 67% in, E4 tomorrow on HBO Max. Finish E3 tonight so Tuesday isn’t a pile-up. Squid Game can wait until Saturday.", who:"The Last of Us"},
-      {id:"finish-short", q:"What if I only have one episode in me?", a:"Thuis is 25 minutes. The Bear is ~30 but locked on Disney+. An Undercover episode is ~50 if you can stretch."},
-      {id:"finish-film", q:"I’d rather finish a film than a series.", a:"Dune is the film you started — 18% in, 2h 46 left-ish. Ferry if you’d rather a closed 1h 46 you haven’t really begun."}
+      {id:"finish-tlou", q:"Is The Last of Us the one I should protect?", a:"It would be, but HBO Max is not currently subscribed. Finish Squid Game or Wednesday first if you want to stay with the services you already have.", who:"The Last of Us"},
+      {id:"finish-short", q:"What if I only have one episode in me?", a:"The Bear is the best fit at about 30 minutes and is included with Disney+. Thuis is 25 minutes on VRT MAX. An Undercover episode is closer to 50 minutes."},
+      {id:"finish-film", q:"I’d rather finish a film than a series.", a:"Dune is the film you’ve started. 18% in, so most of its 2h 46 remains. Ferry is the fresh 1h 46 if you’d rather finish something tonight."}
     ]
   },
   {
     id:"can",
     q:"Which of these can I already play?",
     keys:"subscription plan lock play now netflix hbo",
-    a(){
-      const {can, mood} = askContext();
-      const scope = mood ? `for “${mood.q}”` : "in your Watch List";
-      return `Netflix, HBO Max and VRT MAX are yours. ${scope}: ${names(can)}. Service icon, no lock — those play tonight.`;
-    },
+    a:"Netflix and Disney+ are subscribed, while VRT MAX, VTM GO and Play are free. You can already watch Wednesday, Undercover, Ferry, The Bear, Abbott Elementary and the Flemish titles on the free services. HBO Max, Apple TV, Streamz, Play Sports and VTM GO+ still require a subscription.",
     follow:[
-      {id:"need", q:"Which ones would need another subscription?", a(){
-        const {cant, mood} = askContext();
-        const scope = mood ? `for “${mood.q}”` : "on your Watch List";
-        return cant.length
-          ? `${scope}: ${names(cant)}. Play, VTM GO, Disney+ and Streamz are the extras.`
-          : `${scope}: none — everything in this view is in your plan.`;
-      }},
-      {id:"can-tonight", q:"Of those, what’s actually a tonight?", a(){
-        const can = curated().filter(t => inPlan(t.provider));
-        const short = can.filter(t => t.mins <= 120);
-        const pick = short[0] || can[0];
-        return pick ? `${pick.title} — ${pick.kind.toLowerCase()} on ${pick.provider}. ${short.length ? "That’s the in-plan one you can actually finish." : "It’s in-plan; length is another question."}` : "Nothing in-plan in this view.";
-      }}
+      {id:"need", q:"Which ones would need another subscription?", a:"Three titles: The Bear (Disney+), Zillion (Streamz) and Gladiator II (Apple TV). Play and VTM GO titles also carry a lock."},
+      {id:"can-tonight", q:"Of those, what’s actually a tonight?", a:"Wednesday. A Netflix series you’re already into, with episodes short enough to actually finish tonight."}
     ]
   }
 ];

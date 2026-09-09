@@ -1050,61 +1050,61 @@ const locked = events.filter(e => !inPlan(e.provider));
 
 const askBank = [
   {id:"week", q:"What’s coming this week from my follows?", keys:"week coming tonight thursday",
-    a:"Tonight: De Tafel van Gert at 20:00 on Play — last night’s news. Familie at 20:00 on VTM GO. Zeg Eens Euh at 22:10. Wednesday at 21:00 if you still want Netflix. Tomorrow Axel is back in Trumpland, then Last of Us.",
+    a:"This week from your follows. Tonight: De Tafel van Gert at 20:00 (Play), Familie at 20:00 (VTM GO), Zeg Eens Euh at 22:10, and a new Wednesday at 21:00 on Netflix. Tomorrow: Axel’s new episode, then The Last of Us.",
     follow:[
-      {id:"week-tonight", q:"If I can only watch one thing tonight, what is it?", a:"Wednesday at 21:00. You’re already in it, Netflix, in your plan. Thuis at 20:20 if you want 25 minutes first. Last of Us can wait until tomorrow’s episode."},
-      {id:"week-lock", q:"What on this week would need another app?", a:"Assisen tomorrow, De Verraders and Glad IJs at the weekend, Jan de Lichte on Saturday — VTM GO and Play. Wednesday, Last of Us, Undercover, 1985 and Thuis play on what you already have."},
-      {id:"week-friday", q:"Is Friday really empty?", a:"Nothing new from your follows. Dune is already in your Watch List and your plan, and you’ve barely started it. That’s the Friday, unless you want Barbie short and pink instead."}
+      {id:"week-tonight", q:"If I can only watch one thing tonight, what is it?", a:"Watch Wednesday at 21:00. You are already midway through the season and it is included with Netflix. Thuis at 20:20 is a short alternative. The Last of Us needs HBO Max."},
+      {id:"week-lock", q:"What on this week would need another app?", a:"Assisen (tomorrow), De Verraders and Glad IJs (weekend) and Jan de Lichte (Saturday). All on VTM GO or Play, which you’d need to add. Wednesday, The Last of Us, Undercover, 1985 and Thuis play on what you have."},
+      {id:"week-friday", q:"Is Friday really empty?", a:"Nothing new from your followed titles arrives on Friday. Use it for Ferry or another film already included. Dune and Barbie both need HBO Max."}
     ]},
   {id:"can", q:"Watch this week without another app?", keys:"subscription plan lock play now",
-    a:"Netflix, HBO Max and VRT MAX are yours. Wednesday, Thuis, Last of Us, Undercover, 1985, Squid Game. Assisen, De Verraders, Glad IJs, Jan de Lichte and De Slag om de Schelde carry a lock.",
+    a:"On your current apps (Netflix, HBO Max, VRT MAX): Wednesday, Thuis, The Last of Us, Undercover, 1985 and Squid Game. Assisen, De Verraders, Glad IJs, Jan de Lichte and De Slag om de Schelde need VTM GO+ or Play.",
     follow:[
-      {id:"can-tonight", q:"Of those, what’s on tonight?", a:"Wednesday at 21:00 and Thuis at 20:20. Both in-plan. Club Brugge vs Anderlecht is on Play Sports — that’s locked if you only wanted the follows you can already play."},
-      {id:"can-skip", q:"What should I skip so I don’t pile up locked stuff?", a:"Let Assisen, De Verraders and Jan de Lichte wait. They shout locally; they also need VTM GO or Play. Keep Thursday for Undercover’s premiere — that’s yours."}
+      {id:"can-tonight", q:"Of those, what’s on tonight?", a:"Wednesday at 21:00 and Thuis at 20:20 are both available now. Club Brugge–Anderlecht is also on tonight, but it needs Play Sports."},
+      {id:"can-skip", q:"What should I skip so I don’t pile up locked stuff?", a:"Leave Assisen and De Verraders for later because they need VTM GO+. Jan de Lichte is free on Play. Prioritise the Undercover premiere because it is included with Netflix."}
     ]},
   {id:"weekend", q:"How should I spend this weekend?", keys:"weekend saturday sunday plan",
-    a:"Saturday: Squid Game on Netflix, and De Bende van Jan de Lichte on Play — that’s locked. Sunday: De Verraders and Glad IJs on VTM GO, also locked. If you stay in-plan: Squid Game Saturday, and leave Sunday for Dune from your Watch List.",
+    a:"Saturday works well for Squid Game on Netflix. Jan de Lichte is also new on Play. On Sunday, De Verraders and Glad IJs are on VTM GO+. If you want to avoid another paid service, use Sunday for Ferry or Wednesday.",
     follow:[
-      {id:"weekend-inplan", q:"If I don’t want another app this weekend?", a:"Squid Game Saturday. Sunday is empty from in-plan follows — Dune from the Watch List, or Barbie if 2h 46 is a no."},
-      {id:"weekend-sport", q:"Where does the F1 sprint sit?", a:"Saturday 15:00 on Play Sports. That’s locked unless you have it. It doesn’t collide with Squid Game in the evening if you wanted both worlds."}
+      {id:"weekend-inplan", q:"If I don’t want another app this weekend?", a:"Watch Squid Game on Saturday. For Sunday, Ferry or Wednesday are already included. Dune needs HBO Max, and Barbie does too."},
+      {id:"weekend-sport", q:"Where does the F1 sprint sit?", a:"The F1 Sprint starts Saturday at 15:00 on Play Sports. Play Sports is not currently subscribed, so you would need to add it."}
     ]},
   {id:"catchup", q:"Catch up before the next episode?", keys:"catch finish first last of us wednesday",
-    a:"The Last of Us — you’re deep into S2 E3 and E4 lands tomorrow. Finish tonight so Tuesday is clean. Wednesday’s new episode is tonight at 21:00; you’re mid-season, so a catch-up before 21:00 is the other urgent one. Squid Game can wait until Saturday.",
+    a:"Finish Wednesday before the new episode at 21:00 if you can. The next Last of Us episode also arrives tomorrow, but HBO Max is not currently subscribed. Squid Game can wait until Saturday.",
     follow:[
-      {id:"catchup-tlou", q:"How far into Last of Us am I really?", a:"S2 E3, most of the way through. Tomorrow is E4 on HBO Max. One episode tonight and you’re not behind when it drops.", who:"The Last of Us"},
-      {id:"catchup-wed", q:"Do I need to catch Wednesday before 21:00?", a:"You’re on S2 E4, new one at 21:00. One episode if you can; you’ll follow it either way. Netflix, already in your plan.", who:"Wednesday"}
+      {id:"catchup-tlou", q:"How far into Last of Us am I really?", a:"S2 E3, most of the way through. E4 arrives tomorrow on HBO Max. One sitting tonight and you’re fully caught up.", who:"The Last of Us"},
+      {id:"catchup-wed", q:"Do I need to catch Wednesday before 21:00?", a:"Watch one episode before 21:00 if you have time. You are on season 2, episode 4, and Wednesday is included with Netflix.", who:"Wednesday"}
     ]},
   {id:"plan", q:"Plan my week around what I follow?", keys:"plan my week viewing",
-    a:"Tonight: Wednesday at 21:00, then Thuis. Tomorrow: Last of Us on HBO Max — in your plan — and Assisen on VTM GO if you add it. Thursday: Undercover premiere and 1985. Friday’s empty from follows, so that’s Dune. Weekend: Squid Game Saturday; the Flemish three on VTM GO and Play are locked.",
+    a:"The week, planned: tonight Wednesday at 21:00 (plus Thuis). Tomorrow The Last of Us. Assisen too if you add VTM GO. Thursday: the Undercover premiere and 1985. Friday is free. That’s Dune. Saturday: Squid Game.",
     follow:[
-      {id:"plan-change", q:"What if Thursday is too much?", a:"Watch the Undercover premiere — that’s the one you follow. Keep 1985 for later in the evening or slide it to Sunday if Dune doesn’t win Friday."},
-      {id:"plan-love", q:"What on this plan am I most likely to love?", a:"Wednesday tonight — you’re already in it. Last of Us tomorrow, because you’re mid-season. Undercover Thursday is the premiere you actually follow. Assisen is loud locally, but it’s locked."}
+      {id:"plan-change", q:"What if Thursday is too much?", a:"Prioritise the Undercover premiere because it is included with Netflix and you already follow it. Move 1985 to Sunday if Thursday is too busy."},
+      {id:"plan-love", q:"What on this plan am I most likely to love?", a:"Wednesday tonight (you’re mid-season), The Last of Us tomorrow, and Thursday’s Undercover premiere. Assisen has local buzz, but it needs VTM GO+."}
     ]},
   {id:"next", q:"What’s next I can press play on?", keys:"what’s next tonight clock",
-    a:"Next on the clock: Thuis at 20:20 on VRT MAX, then Wednesday at 21:00 on Netflix. Tomorrow is Last of Us. The first thing you can actually press play on tonight is Wednesday — already in your plan — or Thuis if you want 25 minutes first.",
+    a:"Thuis is on VRT MAX at 20:20, followed by Wednesday on Netflix at 21:00. Both are available now. The new Last of Us episode needs HBO Max.",
     follow:[
-      {id:"next-sport", q:"What about the match tonight?", a:"Club Brugge vs Anderlecht, 20:45, Play Sports. Locked if you don’t have it. It overlaps Thuis; it sits just before Wednesday."}
+      {id:"next-sport", q:"What about the match tonight?", a:"Club Brugge–Anderlecht at 20:45 on Play Sports, which you’d need to add. It overlaps Thuis and ends just before Wednesday gets going."}
     ]},
   {id:"prio", q:"What should I prioritise this week?", keys:"prioritise busy thursday",
-    a:"Thursday is busy: Undercover S4 premiere (yours) and 1985 on VRT MAX (also yours). I’d watch the premiere and keep 1985 for later in the evening. Before that: finish Last of Us tonight so tomorrow’s episode isn’t a pile-up.",
+    a:"Watch the Undercover premiere first on Thursday, then keep 1985 for later. Both are available with the current profile. The Last of Us also has a new episode, but HBO Max is not subscribed.",
     follow:[
-      {id:"prio-thu", q:"Is the Undercover premiere more important than 1985?", a:"For you, yes — you follow it, S4 starts, Netflix. 1985 will still be there. Don’t start both and finish neither."}
+      {id:"prio-thu", q:"Is the Undercover premiere more important than 1985?", a:"For you, yes. You follow Undercover and S4 starts that day. 1985 isn’t going anywhere. Better one finished than two half-watched."}
     ]},
   {id:"big", q:"Anything big I should protect a night?", keys:"big premiere gladiator squid",
-    a:"Three flags. Thursday: Undercover’s S4 premiere, in your plan. Weekend: Squid Game on Netflix. Next week Gladiator II opens on Apple TV — that’s locked. The Flemish ones to watch for: Assisen, De Verraders, and De Bende van Jan de Lichte, all locked unless you add VTM GO or Play.",
+    a:"Plan around the Undercover premiere on Thursday and the Squid Game episode at the weekend. Gladiator II arrives next week on Apple TV, which is not subscribed. Assisen and De Verraders need VTM GO+, while Jan de Lichte is free on Play.",
     follow:[
-      {id:"big-glad", q:"Should I care about Gladiator II yet?", a:"Not this week. Watch window opens Wednesday 2 Sep on Apple TV, and that’s not in your plan. Protect Thursday for Undercover instead."}
+      {id:"big-glad", q:"Should I care about Gladiator II yet?", a:"Not yet. It opens Wednesday 2 September on Apple TV, which you don’t have. This week, Thursday’s Undercover premiere is the one to protect."}
     ]},
   {id:"love", q:"What am I most likely to love this week?", keys:"love likely",
-    a:"Three. Wednesday tonight — you’re already in it, Netflix, 21:00. Last of Us tomorrow, because you’re mid-season and it’s in your plan. Undercover Thursday is the premiere you actually follow. Assisen and De Verraders are loud locally, but they’re locked; they can wait.",
+    a:"Three good bets: Wednesday tonight at 21:00 (you’re mid-season), The Last of Us tomorrow, and Thursday’s Undercover premiere. Assisen and De Verraders have the local buzz, but both need VTM GO+.",
     follow:[
-      {id:"love-not", q:"Not really — I wanted the Flemish ones.", a:"Then Assisen tomorrow and De Verraders Sunday, knowing they need VTM GO. 1985 is the Flemish one you can already play, Thursday, on VRT MAX."}
+      {id:"love-not", q:"Not really. I wanted the Flemish ones.", a:"Then Assisen tomorrow and De Verraders on Sunday. Both need VTM GO+. The Flemish one you can already play is 1985, Thursday on VRT MAX."}
     ]},
   {id:"friday", q:"Keep Friday for my Watch List?", keys:"friday dune watch list",
-    a:"Nothing new from your follows on Friday. Dune: Part Two is on HBO Max, already in your plan, and you’ve barely started it. That’s the Friday. Barbie if you want it short and pink instead.",
+    a:"Friday is free for your Watch List. Ferry is the easiest choice because it is included with Netflix. Dune and Barbie both need HBO Max.",
     follow:[
-      {id:"friday-dune", q:"Is Dune really the one for Friday?", a:"2h 46, you’ve only dipped in, HBO Max. Yes if you wanted a proper night. Barbie if Friday still has people in the room.", who:"Dune"},
-      {id:"friday-else", q:"What if I don’t want a long film?", a:"Barbie, 1h 54, same plan. Or steal Friday to finish something short from My Stuff — Ferry is 1h 46 on Netflix."}
+      {id:"friday-dune", q:"Is Dune really the one for Friday?", a:"If Friday is a proper film night, yes. 2h 46, HBO Max, and you’ve only dipped in. If people are still around, Barbie travels better.", who:"Dune"},
+      {id:"friday-else", q:"What if I don’t want a long film?", a:"Barbie runs for 1h 54 but needs HBO Max. Ferry is shorter at 1h 46 and is already included with Netflix."}
     ]}
 ];
 
