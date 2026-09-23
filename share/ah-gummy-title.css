@@ -84,20 +84,115 @@ html.is-app .tpage-back{top: calc(10px + var(--status-h, 54px))}
   margin-top:22px;font-size:11px;font-weight:700;letter-spacing:.08em;
   text-transform:uppercase;color:rgba(255,255,255,.45);
 }
-.tpage-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.tpage-chip{
-  display:inline-flex;align-items:center;gap:7px;
-  max-width:100%;padding:8px 12px;border-radius:16px;
-  font-size:12.5px;font-weight:500;line-height:1.35;text-align:left;
-  color:rgba(255,255,255,.92);
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.12);
-  cursor:pointer;
-}
-.tpage-chip img,.tpage-chip .star{
-  width:8px;height:9px;flex-shrink:0;
-  filter:brightness(0) invert(1);opacity:.9;
-}
+/* the question rail, same component the reel feed and the lanes use, scoped here
+   so it wins over whichever page the title view happens to be sitting on */
+.tpage .lane-q{margin-top:14px}
+.tpage .lane-q{
+    position:relative;height:44px;margin:0;
+    background:none;border:0;box-shadow:none;
+    overflow:visible;
+    --tone-0:0;
+    --tone-1:1;
+    --tone-2:0;
+  }
+.tpage .lane-q .qcard{
+    position:absolute;inset:0;z-index:2;
+  }
+.tpage .lane-q .qcard-track{
+    position:absolute;inset:0;z-index:1;
+    display:flex;align-items:stretch;gap:36px;
+    overflow-x:auto;scroll-snap-type:x mandatory;
+    scrollbar-width:none;touch-action:pan-x;
+    overscroll-behavior-x:contain;
+    -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
+    mask-image:linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
+  }
+.tpage .lane-q .qcard-track::-webkit-scrollbar{display:none}
+.tpage .lane-q .qcard-q{
+    position:relative;
+    flex:0 0 auto;height:100%;
+    display:grid;grid-template-columns:max-content;justify-content:center;justify-items:center;align-items:center;
+    padding:0 4px 8px;
+    font-size:12.5px;font-weight:400;line-height:1;text-align:center;
+    color:rgba(255,255,255,.92);
+    white-space:nowrap;
+    scroll-snap-align:center;scroll-snap-stop:normal;
+    opacity:.42;
+    outline:none;
+  }
+.tpage .lane-q .q-copy{grid-area:1/1;font-weight:400}
+.tpage .lane-q .qcard-q.is-on{opacity:1}
+.tpage .lane-q .qcard-q.is-on .q-copy{font-weight:500}
+.tpage .lane-q .qcard-q::after{
+    content:attr(data-q);
+    grid-area:1/1;
+    font-weight:500;
+    visibility:hidden;
+    pointer-events:none;
+  }
+.tpage .lane-q .q-star,
+.tpage .lane-q .qcard-q.is-on .q-star{display:none !important}
+.tpage .lane-q .q-star-off{
+    position:absolute;right:100%;top:50%;
+    width:12px;height:13px;margin-right:4px;margin-top:-4px;
+    opacity:0;
+    -webkit-mask-image:url("star.svg");
+    -webkit-mask-size:contain;
+    -webkit-mask-repeat:no-repeat;
+    -webkit-mask-position:center;
+    mask-image:url("star.svg");
+    mask-size:contain;
+    mask-repeat:no-repeat;
+    mask-position:center;
+    transform-origin:right center;
+    transform:translateY(-50%) scale(.7);
+    transition:opacity .28s ease, transform .28s ease;
+    pointer-events:none;
+  }
+.tpage .lane-q .q-star-in{
+    position:absolute;inset:0;
+    opacity:0;
+  }
+.tpage .lane-q .q-star-in[data-starin="0"]{
+    opacity:var(--tone-0);
+    background:linear-gradient(180deg, #FFE9A3 0%, #FF8A3D 46%, #FF2E5A 100%);
+  }
+.tpage .lane-q .q-star-in[data-starin="1"]{
+    opacity:var(--tone-1);
+    background:linear-gradient(180deg, #D6FFA8 0%, #3ED4B4 46%, #1E9A88 100%);
+  }
+.tpage .lane-q .q-star-in[data-starin="2"]{
+    opacity:var(--tone-2);
+    background:linear-gradient(180deg, #FFC4F0 0%, #B878FF 46%, #7850FF 100%);
+  }
+.tpage .lane-q .qcard-q.is-on .q-star{opacity:.88;transform:translateY(-50%) scale(.7)}
+.tpage .lane-q .qbeam{
+    position:absolute;left:50%;bottom:6px;z-index:4;
+    width:min(200px,52%);height:2px;
+    transform:translateX(-50%);
+    pointer-events:none;
+    opacity:.78;
+  }
+.tpage .lane-q .qbeam-in{
+    position:absolute;inset:0;
+    opacity:0;
+  }
+.tpage .lane-q .qbeam-in[data-beamin="0"]{
+    opacity:var(--tone-0);
+    background:linear-gradient(90deg, rgba(255,228,150,0) 0%, rgba(255,182,119,.48) 38%, rgba(255,110,70,.62) 50%, rgba(255,50,95,.16) 68%, rgba(255,50,95,0) 100%);
+  }
+.tpage .lane-q .qbeam-in[data-beamin="1"]{
+    opacity:var(--tone-1);
+    background:linear-gradient(90deg, rgba(210,255,170,0) 0%, rgba(140,255,190,.44) 38%, rgba(50,210,180,.6) 50%, rgba(40,170,150,.16) 68%, rgba(40,170,150,0) 100%);
+  }
+.tpage .lane-q .qbeam-in[data-beamin="2"]{
+    opacity:var(--tone-2);
+    background:linear-gradient(90deg, rgba(255,190,230,0) 0%, rgba(200,160,255,.45) 38%, rgba(160,110,255,.6) 50%, rgba(120,80,255,.16) 68%, rgba(120,80,255,0) 100%);
+  }
+.tpage .lane-q .qbeam-in::after{
+    content:"";position:absolute;left:12%;right:12%;bottom:-3px;height:8px;
+    background:inherit;filter:blur(6px);opacity:.42;
+  }
 .tpage-about{
   margin-top:8px;font-size:14px;line-height:1.55;font-weight:500;
   color:rgba(255,255,255,.78);

@@ -468,8 +468,23 @@
     return [];
   }
 
+  // the questions a title is asked in the reel feed, so the detail page asks the
+  // same ones. ReelQuestions covers the international titles, FlemishTitles the
+  // six Flemish reels; a title in neither falls back to its own chips.
+  function reelChips(item) {
+    const title = item.title || "";
+    const shared = global.ReelQuestions && global.ReelQuestions[title];
+    if (shared && shared.length) return shared;
+    const fl = global.FlemishTitles;
+    if (fl && Array.isArray(fl.feed)) {
+      const hit = fl.feed.find(x => x.title === title);
+      if (hit && hit.qs && hit.qs.length) return hit.qs;
+    }
+    return null;
+  }
+
   function chipsOf(item) {
-    const raw = (item.qs || item.chips || []).filter(c => c && c.q);
+    const raw = (item.qs || reelChips(item) || item.chips || []).filter(c => c && c.q);
     if (raw.length) return raw;
     const title = item.title || "this";
     const provider = item.provider || "the app";
@@ -556,6 +571,106 @@
 
     function inPlan(p) { return plan.has(p) || FREE_APPS.includes(p); }
 
+    const meshTone = m => (m === "m1" ? 1 : m === "m2" ? 2 : 0);
+
+    // same rail the reel feed and the lanes use: one question centred, the
+    // neighbours faded, drag or swipe to move between them
+    function bindRail(host) {
+      host.querySelectorAll("[data-lane-q]").forEach(wrap => {
+        const track = wrap.querySelector("[data-qtrack]");
+        const qBtns = [...(track ? track.querySelectorAll(".qcard-q") : [])];
+        if (!track || !qBtns.length) return;
+        wrap._qOn = 0;
+        const padKey = () => `${track.clientWidth}:${qBtns.map(b => b.offsetWidth).join(",")}`;
+        const centerQ = (i, smooth) => {
+          const btn = qBtns[i], w = track.clientWidth;
+          if (!btn || !w) return;
+          track.scrollTo({left: Math.max(0, btn.offsetLeft - (w - btn.offsetWidth) / 2), behavior: smooth ? "smooth" : "auto"});
+        };
+        const padTrack = () => {
+          const w = track.clientWidth;
+          if (!w || !qBtns[0]) return;
+          const key = padKey();
+          if (wrap._qPadKey === key) return;
+          const first = !wrap._qPadKey;
+          track.style.paddingLeft = `${Math.max(12, (w - qBtns[0].offsetWidth) / 2)}px`;
+          track.style.paddingRight = `${Math.max(12, (w - qBtns[qBtns.length - 1].offsetWidth) / 2)}px`;
+          wrap._qPadKey = key;
+          if (first) centerQ(wrap._qOn, false);
+        };
+        const sync = () => {
+          padTrack();
+          const mid = track.scrollLeft + track.clientWidth / 2;
+          const centers = qBtns.map(b => b.offsetLeft + b.offsetWidth / 2);
+          let p = 0;
+          if (centers.length > 1) {
+            p = centers.length - 1;
+            for (let i = 0; i < centers.length - 1; i++) {
+              if (mid <= centers[i + 1]) {
+                const span = centers[i + 1] - centers[i] || 1;
+                p = i + Math.max(0, Math.min(1, (mid - centers[i]) / span));
+                break;
+              }
+            }
+          }
+          qBtns.forEach((btn, n) => {
+            const dist = Math.abs(p - n);
+            btn.style.opacity = reduceMotion ? (dist < 0.45 ? 1 : .42) : Math.max(.38, 1 - dist * .68);
+            btn.classList.toggle("is-on", dist < 0.45);
+          });
+          const tones = [0, 0, 0];
+          qBtns.forEach((btn, n) => { tones[meshTone(btn.dataset.mesh)] += Math.max(0, 1 - Math.abs(p - n)); });
+          wrap.style.setProperty("--tone-0", String(Math.min(1, tones[0])));
+          wrap.style.setProperty("--tone-1", String(Math.min(1, tones[1])));
+          wrap.style.setProperty("--tone-2", String(Math.min(1, tones[2])));
+          const on = qBtns.find(b => b.classList.contains("is-on")) || qBtns[Math.round(p)];
+          if (on && on.dataset.mesh) wrap.dataset.mesh = on.dataset.mesh;
+        };
+        track.addEventListener("scroll", sync, {passive: true});
+        // the first pass runs on a frame and again on a timer, so a view that is
+        // not compositing yet still ends up centred rather than stuck at the left
+        requestAnimationFrame(sync);
+        setTimeout(sync, 60);
+        let drag = null;
+        track.addEventListener("pointerdown", e => { drag = {x: e.clientX, sl: track.scrollLeft, id: e.pointerId, moved: false}; });
+        track.addEventListener("pointermove", e => {
+          if (!drag || e.pointerId !== drag.id) return;
+          const dx = e.clientX - drag.x;
+          if (!drag.moved && Math.abs(dx) < 8) return;
+          if (!drag.moved) {
+            drag.moved = true;
+            track.style.scrollSnapType = "none";
+            try { track.setPointerCapture(e.pointerId); } catch (_) {}
+          }
+          track.scrollLeft = drag.sl - dx;
+        });
+        const endDrag = e => {
+          if (!drag || e.pointerId !== drag.id) return;
+          const moved = drag.moved;
+          drag = null;
+          track.style.scrollSnapType = "";
+          if (!moved) return;
+          track._swiped = true;
+          const mid = track.scrollLeft + track.clientWidth / 2;
+          let best = 0, bestD = Infinity;
+          qBtns.forEach((btn, i) => {
+            const d = Math.abs(btn.offsetLeft + btn.offsetWidth / 2 - mid);
+            if (d < bestD) { bestD = d; best = i; }
+          });
+          wrap._qOn = best;
+          centerQ(best, !reduceMotion);
+        };
+        track.addEventListener("pointerup", endDrag);
+        track.addEventListener("pointercancel", endDrag);
+        // a swipe must not also fire the question it happened to end on
+        track.addEventListener("click", e => {
+          if (!track._swiped) return;
+          e.preventDefault(); e.stopPropagation();
+          track._swiped = false;
+        }, true);
+      });
+    }
+
     function render() {
       const item = current;
       if (!item) return;
@@ -591,8 +706,17 @@
           </div>
           ${owned ? "" : `<p class="tpage-note">Watch still sends you to ${esc(item.provider)}. It isn’t in your subscriptions yet.</p>`}
           <div class="tpage-mod">Ask about this</div>
-          <div class="tpage-chips">
-            ${chips.map(c => `<button class="tpage-chip" type="button" data-tpage-ask="${esc(c.id)}">${star}${esc(c.q)}</button>`).join("")}
+          <div class="lane-q" data-lane-q data-mesh="m0">
+            <div class="qcard">
+              <div class="qcard-track" data-qtrack>
+                ${chips.map((c, i) => `<button class="qcard-q${i === 0 ? " is-on" : ""}" type="button" data-tpage-ask="${esc(c.id)}" data-mesh="m${i % 3}" data-q="${esc(c.q)}"><span class="q-copy">${esc(c.q)}</span></button>`).join("")}
+              </div>
+            </div>
+            <div class="qbeam">
+              <span class="qbeam-in" data-beamin="0"></span>
+              <span class="qbeam-in" data-beamin="1"></span>
+              <span class="qbeam-in" data-beamin="2"></span>
+            </div>
           </div>
           <div class="tpage-mod">About</div>
           <p class="tpage-about">${esc(item.about)}</p>
@@ -600,6 +724,7 @@
           <div class="tpage-mod">Extras & behind the scenes</div>
           <div class="tpage-lane">${clips}</div>
         </div>`;
+      bindRail(scroll);
     }
 
     function open(raw, startId) {
