@@ -1938,7 +1938,7 @@ function trophySvg(){
 
 // one poster card, used by every lane and grid on these pages
 function artCard(o){
-  return `<button class="sr-d-card${o.win ? " is-win" : ""}" type="button"${o.open ? ` data-open-title="${esc(o.open)}"` : ""}>
+  return `<button class="sr-d-card${o.win ? " is-win" : ""}" type="button" data-open-title="${esc(o.opens || o.open || o.name)}"${o.open ? ` data-open="${esc(o.open)}"` : ""}>
     <span class="sr-d-art">
       <img src="${o.src}" alt="" loading="lazy">
       ${o.win ? `<span class="sr-badge">${trophySvg()}<b>WINNER</b></span>` : ""}
@@ -1963,6 +1963,9 @@ function awardsHtml(list){
       src: oscarArt(e.film),
       name: e.who || e.film,
       sub: e.who ? e.film : "",
+      // Directing and the acting categories head the card with the person --
+      // the film is still what the poster shows and what should open
+      opens: e.film,
       win: !!e.win
     })).join("")
   ))).join("");
@@ -2000,7 +2003,7 @@ function openGenre(name){
   const reels  = (page.reels || []).map(id => {
     const t = titles[id] || {};
     const r = REELS.find(x => x.id === id);
-    return artCard({src:t.poster || "", name:(r && r.desc) || t.title || id});
+    return artCard({src:t.poster || "", name:(r && r.desc) || t.title || id, open:id, opens:t.title || id});
   }).join("");
 
   let body = "";
@@ -2215,10 +2218,24 @@ const titlePage = GummyTitle.create({
   plan: PLAN,
   reduceMotion
 });
+// warm a title the moment a finger goes down on its poster, so the fetch is
+// already in flight while the page animates in
+phone.addEventListener("pointerdown", e => {
+  const el = e.target.closest("[data-open-title], .lane-card");
+  if (!el || !titlePage.prefetch) return;
+  const name = el.dataset.title || el.dataset.openTitle || "";
+  const id = el.dataset.open;
+  if (id && titles[id]) return;            // the prototype already has it
+  if (name) titlePage.prefetch(name, null);
+}, true);
+
 function openTitleFrom(el){
   const id = el.dataset.open;
-  const item = (id && titles[id]) || Object.values(titles).find(t => t.title === el.dataset.title);
-  if (item) titlePage.open({ id: id || item.id, ...item });
+  const name = el.dataset.title || el.dataset.openTitle || "";
+  const item = (id && titles[id]) || Object.values(titles).find(t => t.title === name);
+  if (item) { titlePage.open({ id: id || item.id, ...item }); return; }
+  // not in the catalogue: open on the name and let the title page fetch the rest
+  if (name) titlePage.open({ title: name });
 }
 function goPrototype(id, href){
   if (window.parent && window.parent !== window) {
@@ -2556,6 +2573,8 @@ phone.addEventListener("click", e => {
     ask(pill.dataset.ask);
     return;
   }
+  const dcard = e.target.closest("[data-open-title]");
+  if (dcard) { openTitleFrom(dcard); return; }
   const poster = e.target.closest(".lane-card");
   if (poster) { openTitleFrom(poster); return; }
 });
