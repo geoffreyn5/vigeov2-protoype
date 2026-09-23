@@ -484,6 +484,9 @@
   }
 
   function chipsOf(item) {
+    // generated questions, once they arrive, outrank the reel bank -- they were
+    // written for this title rather than picked from it
+    if (item._gen && item.chips && item.chips.length) return item.chips;
     const raw = (item.qs || reelChips(item) || item.chips || []).filter(c => c && c.q);
     if (raw.length) return raw;
     const title = item.title || "this";
@@ -544,7 +547,9 @@
     root.setAttribute("role", "dialog");
     root.setAttribute("aria-modal", "true");
     root.setAttribute("aria-label", "Title details");
-    root.innerHTML = `<div class="tpage-scroll" data-tpage-scroll></div><div data-tpage-sheet></div>`;
+    root.innerHTML = `<button class="tpage-close" type="button" data-tpage-close aria-label="Close">` +
+      `<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>` +
+      `<div class="tpage-scroll" data-tpage-scroll></div><div data-tpage-sheet></div>`;
     phone.appendChild(root);
     const scroll = root.querySelector("[data-tpage-scroll]");
     const sheetHost = root.querySelector("[data-tpage-sheet]");
@@ -671,41 +676,107 @@
       });
     }
 
+    const closeSvg = '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+    const playSvg = '<svg viewBox="0 0 24 24"><path d="M8 5l12 7-12 7z"/></svg>';
+
+    // the wash under the hero is pulled out of the art itself, so every title
+    // gets its own colour instead of one house tint
+    function toneFrom(url, onTone) {
+      if (!url) return;
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = () => {
+        try {
+          const c = document.createElement("canvas");
+          c.width = 24; c.height = 24;
+          const x = c.getContext("2d", { willReadFrequently: true });
+          x.drawImage(img, 0, 0, 24, 24);
+          const d = x.getImageData(0, 0, 24, 24).data;
+          let r = 0, g = 0, b = 0, n = 0;
+          for (let i = 0; i < d.length; i += 4) {
+            const lum = (d[i] + d[i + 1] + d[i + 2]) / 3;
+            if (lum < 18 || lum > 238) continue;   // skip letterbox and blown highlights
+            r += d[i]; g += d[i + 1]; b += d[i + 2]; n++;
+          }
+          if (!n) return;
+          r = Math.round(r / n); g = Math.round(g / n); b = Math.round(b / n);
+          // darken toward the black the page ends on, so the fade has somewhere to go
+          const mix = (v) => Math.round(v * 0.42);
+          onTone(`rgba(${r},${g},${b},.55)`, `rgb(${mix(r)},${mix(g)},${mix(b)})`);
+        } catch (_) {}
+      };
+      img.src = url;
+    }
+
+    function personCard(p) {
+      const initials = String(p.name || "").split(/\s+/).map(w => w[0]).slice(0, 2).join("");
+      return `<div class="tpage-person">
+        <span class="face">${p.photo ? `<img src="${esc(p.photo)}" alt="" loading="lazy">` : `<i>${esc(initials)}</i>`}</span>
+        <b>${esc(p.name)}</b><span>${esc(p.role || "")}</span>
+      </div>`;
+    }
+    function trailerCard(t) {
+      return `<button class="tpage-trailer" type="button" data-tpage-trailer="${esc(t.url || "")}">
+        <span class="shot">${t.thumb ? `<img src="${esc(t.thumb)}" alt="" loading="lazy">` : ""}<span class="play">${playSvg}</span></span>
+        <b>${esc(t.name || "Trailer")}</b><span>${esc(t.kind || "")}</span>
+      </button>`;
+    }
+    function railOf(cls, html) {
+      return `<div class="tpage-rail">${html}</div>`;
+    }
+    function skeletonRail(kind) {
+      const one = kind === "face" ? '<span class="tpage-sk face"></span>' : '<span class="tpage-sk shot"></span>';
+      return `<div class="tpage-rail">${one.repeat(kind === "face" ? 5 : 3)}</div>`;
+    }
+
+    function metaLine(item, extra) {
+      const bits = [];
+      if (item.kind) bits.push(item.kind);
+      else if (extra && extra.kind) bits.push(extra.kind);
+      if (item.length) bits.push(item.length);
+      else if (extra && extra.runtime) { bits.push(extra.runtime); if (extra.epLen) bits.push(extra.epLen); }
+      if (item.provider) bits.push(item.provider);
+      return bits.filter(Boolean).join(" · ");
+    }
+
     function render() {
       const item = current;
       if (!item) return;
       const on = listed(item.id);
       const owned = inPlan(item.provider);
-      const seasons = item.seasons || [];
       const chips = bankOf(item);
-      const hero = item.hero || item.poster;
-      const watchLbl = `Watch on ${item.provider}`;
-      const clips = [18, 42, 68].map((pos, i) =>
-        `<div class="tpage-clip"><div class="art" style="background-image:url('${esc(hero)}');background-position:${pos}% center"></div><div class="who">${i === 0 ? "Trailer beat" : i === 1 ? "Behind the scenes" : "Clip"}</div></div>`
-      ).join("");
+      const ex = item._extra || null;
+      const loading = item._loading;
+      // The rail is the page's first answer, so the lanes hold their skeletons
+      // until the questions have settled -- TMDB is back in a few hundred ms
+      // and would otherwise fill the page under a rail that is still generic.
+      const lanes = item._qdone;
+      const hero = (ex && ex.backdrop) || item.hero || item.poster;
+      const poster = item.poster || (ex && ex.poster) || hero;
+
       scroll.innerHTML = `
-        <button class="tpage-back" type="button" data-tpage-close aria-label="Back">
-          <svg viewBox="0 0 24 24"><path d="M14.5 6l-6 6 6 6"/></svg>
-        </button>
-        <div class="tpage-hero" style="background-image:url('${esc(hero)}')">
-          <div class="tpage-title">
-            <h1>${esc(item.title)}</h1>
-            <p class="sub">${esc([item.kind, item.length, item.provider].filter(Boolean).join(" · "))}</p>
+        <div class="tpage-hero" style="background-image:url('${esc(hero)}')" data-tpage-hero>
+          <div class="tpage-poster" data-tilt>
+            <img src="${esc(poster)}" alt="${esc(item.title)}">
+            <span class="sheen"></span>
           </div>
+          <h1 class="tpage-h1">${esc(item.title)}</h1>
+          <p class="tpage-meta">${esc(metaLine(item, ex))}</p>
         </div>
         <div class="tpage-body">
           <div class="tpage-cta">
-            <button class="tpage-watch${owned ? "" : " is-out"}" type="button" data-tpage-watch>
-              ${item.logo ? `<img src="${encodeURI(item.logo)}" alt="">` : ""}
-              <span>${esc(watchLbl)}</span>
+            <button class="tpage-btn watch" type="button" data-tpage-watch>
+              ${item.logo ? `<img src="${encodeURI(item.logo)}" alt="">` : ""}Watch
             </button>
-            <button class="tpage-list${on ? " is-on" : ""}" type="button" data-tpage-list>
-              ${on ? checkSvg : plusSvg}
-              ${on ? "On your Watch list" : "Watch list"}
+            <button class="tpage-btn list${on ? " is-on" : ""}" type="button" data-tpage-list>
+              ${on ? checkSvg : plusSvg}${on ? "On your list" : "Watchlist"}
             </button>
           </div>
-          ${owned ? "" : `<p class="tpage-note">Watch still sends you to ${esc(item.provider)}. It isn’t in your subscriptions yet.</p>`}
-          <div class="tpage-mod">Ask about this</div>
+
+          ${loading && !item.about
+            ? `<div style="margin-top:20px"><span class="tpage-sk line w90"></span><span class="tpage-sk line w90"></span><span class="tpage-sk line w50"></span></div>`
+            : `<p class="tpage-about">${esc(item.about)}</p>`}
+
           <div class="lane-q" data-lane-q data-mesh="m0">
             <div class="qcard">
               <div class="qcard-track" data-qtrack>
@@ -718,13 +789,233 @@
               <span class="qbeam-in" data-beamin="2"></span>
             </div>
           </div>
-          <div class="tpage-mod">About</div>
-          <p class="tpage-about">${esc(item.about)}</p>
-          ${seasons.length ? `<div class="tpage-mod">${/film/i.test(item.kind) ? "Format" : "Seasons"}</div><div class="tpage-seasons">${seasons.map((s, i) => `<span class="${i === 0 ? "on" : ""}">${esc(s)}</span>`).join("")}</div>` : ""}
-          <div class="tpage-mod">Extras & behind the scenes</div>
-          <div class="tpage-lane">${clips}</div>
+
+          ${(lanes && ex && ex.trailers && ex.trailers.length) || loading ? `<div class="tpage-mod">Trailers</div>
+            ${lanes && ex && ex.trailers && ex.trailers.length ? railOf("t", ex.trailers.map(trailerCard).join("")) : skeletonRail("shot")}` : ""}
+
+          ${(lanes && ex && ex.cast && ex.cast.length) || loading ? `<div class="tpage-mod">Cast</div>
+            ${lanes && ex && ex.cast && ex.cast.length ? railOf("p", ex.cast.map(personCard).join("")) : skeletonRail("face")}` : ""}
+
+          ${(lanes && ex && ex.crew && ex.crew.length) || loading ? `<div class="tpage-mod">Crew</div>
+            ${lanes && ex && ex.crew && ex.crew.length ? railOf("p", ex.crew.map(personCard).join("")) : skeletonRail("face")}` : ""}
         </div>`;
+
       bindRail(scroll);
+      bindTilt();
+      const heroEl = scroll.querySelector("[data-tpage-hero]");
+      if (heroEl) toneFrom(hero, (tone, solid) => {
+        heroEl.style.setProperty("--tone", tone);
+        heroEl.style.setProperty("--tone-solid", solid);
+      });
+    }
+
+    // the poster answers the phone the way the My Stuff hero does
+    let tiltBound = false;
+    function bindTilt() {
+      if (reduceMotion || tiltBound) return;
+      const cardNow = () => scroll.querySelector("[data-tilt]");
+      if (!cardNow()) return;
+      const MAX = 14;
+      const clamp = (v, m) => Math.max(-m, Math.min(m, v));
+      let tX = 0, tY = 0, cX = 0, cY = 0, raf = 0, idle = 0;
+      const frame = () => {
+        const card = cardNow();
+        if (!card) { raf = 0; return; }
+        cX += (tX - cX) * 0.12; cY += (tY - cY) * 0.12;
+        card.style.setProperty("--rx", cX.toFixed(2) + "deg");
+        card.style.setProperty("--ry", cY.toFixed(2) + "deg");
+        card.style.setProperty("--sheen-a", (110 + cY * 2).toFixed(1) + "deg");
+        if (Math.abs(tX - cX) < 0.02 && Math.abs(tY - cY) < 0.02) {
+          if (++idle > 30) { raf = 0; return; }
+        } else idle = 0;
+        raf = requestAnimationFrame(frame);
+      };
+      const kick = () => { idle = 0; if (!raf) raf = requestAnimationFrame(frame); };
+      const onOrient = e => {
+        if (e.beta == null && e.gamma == null) return;
+        tX = clamp(((e.beta || 0) - 45) * 0.35, MAX);
+        tY = clamp((e.gamma || 0) * 0.45, MAX);
+        kick();
+      };
+      const onPointer = e => {
+        const card = cardNow();
+        if (!card) return;
+        const r = card.getBoundingClientRect();
+        tY = clamp(((e.clientX - (r.left + r.width / 2)) / r.width) * MAX * 2, MAX);
+        tX = clamp((((r.top + r.height / 2) - e.clientY) / r.height) * MAX * 2, MAX);
+        kick();
+      };
+      tiltBound = true;
+      const DOE = window.DeviceOrientationEvent;
+      const listen = () => window.addEventListener("deviceorientation", onOrient, true);
+      if (DOE && typeof DOE.requestPermission === "function") {
+        const askOnce = () => {
+          DOE.requestPermission().then(st => { if (st === "granted") listen(); }).catch(() => {});
+          document.removeEventListener("touchend", askOnce);
+          document.removeEventListener("click", askOnce);
+        };
+        document.addEventListener("touchend", askOnce, { once: true });
+        document.addEventListener("click", askOnce, { once: true });
+      } else if (DOE) listen();
+      root.addEventListener("pointermove", onPointer);
+    }
+
+    // facts, art and copy for whatever was opened. Anything the prototype
+    // already holds wins; the rest is filled in and the skeletons resolve.
+    //
+    // The endpoint sends art and meta as soon as TMDB answers and the written
+    // copy when it is ready, so the page fills in two steps instead of waiting
+    // on the slower of the two. Reopening a title in the same session is served
+    // from memory.
+    // Completed loads, and loads still in flight. A prefetch and an open share
+    // the same request: whichever asks first starts it, the other awaits it.
+    // These must stay separate -- an in-flight marker parked in the finished
+    // cache reads as "loaded, nothing to show".
+    const seen = new Map();
+    const pending = new Map();
+    let fetchSeq = 0;
+
+    function bodyFor(item) {
+      return {
+        title: item.title,
+        year: item.year || null,
+        kind: /film/i.test(item.kind || "") ? "film"
+          : /series|season|ep/i.test(`${item.kind || ""} ${item.length || ""}`) ? "series"
+          : null,
+      };
+    }
+    function applyFacts(item, d) {
+      item._extra = Object.assign({}, item._extra, d);
+      if (!item.poster && d.poster) item.poster = d.poster;
+    }
+    // Generated questions replace the rail for every title, hardcoded ones
+    // included -- the ask was for questions that are about THIS title. The
+    // scripted trio stays on screen until these land, so the rail is never
+    // empty. Answers are not shipped with them: a tap goes to /api/ask, which
+    // is what every other question in the app does anyway. The fallback text
+    // only shows if that call fails.
+    function applyQuestions(item, d) {
+      item._qdone = true;
+      const qs = (d.questions || []).filter(q => typeof q === "string" && q.trim());
+      if (!qs.length) return true;
+      item.chips = qs.map((q, i) => ({
+        id: `gen${i}`,
+        q: q.trim(),
+        a: item.about || item.syn || "",
+        follow: [],
+      }));
+      item._gen = true;
+      if (convo) { convo.setBank(bankOf(item)); convo.setStarters(() => bankOf(item)); }
+      return true;
+    }
+    function applyAbout(item, d) {
+      if (!d.about) return false;
+      // the prototype's own blurb wins; the generated one fills a stub
+      if (item.about && item.about.length >= 40 && !/^\S+ \u00B7/.test(item.about)) return false;
+      item.about = d.about;
+      return true;
+    }
+
+    // one request, read as it arrives; onPhase fires per event for the caller
+    // that is actually looking at the page
+    function startLoad(key, body) {
+      const live = pending.get(key);
+      if (live) return live;
+      const rec = { store: { questions: null, facts: null, about: null }, listeners: new Set(), promise: null };
+      rec.promise = (async () => {
+        const store = rec.store;
+        try {
+          const res = await fetch("/api/title", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          });
+          if (!res.ok || !res.body) return store;
+          const reader = res.body.getReader();
+          const dec = new TextDecoder();
+          let buf = "";
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            buf += dec.decode(value, { stream: true });
+            let cut;
+            while ((cut = buf.indexOf("\n\n")) !== -1) {
+              const frame = buf.slice(0, cut);
+              buf = buf.slice(cut + 2);
+              let event = "message", data = "";
+              frame.split("\n").forEach(l => {
+                if (l.startsWith("event: ")) event = l.slice(7).trim();
+                else if (l.startsWith("data: ")) data += l.slice(6);
+              });
+              if (!data) continue;
+              let d;
+              try { d = JSON.parse(data); } catch (_) { continue; }
+              if (event === "facts") store.facts = d;
+              else if (event === "questions") store.questions = d;
+              else if (event === "about") store.about = d;
+              else continue;
+              rec.listeners.forEach(fn => { try { fn(event, d); } catch (_) {} });
+            }
+          }
+        } catch (_) { /* the page keeps whatever it already knew */ }
+        if (store.facts || store.questions || store.about) seen.set(key, store);
+        pending.delete(key);
+        return store;
+      })();
+      pending.set(key, rec);
+      return rec;
+    }
+
+    async function hydrate(item) {
+      const key = `${item.title}|${item.year || ""}`;
+      const seq = ++fetchSeq;
+      const mine = () => seq === fetchSeq && current === item;
+
+      const done = seen.get(key);
+      if (done) {
+        if (done.questions) applyQuestions(item, done.questions);
+        if (done.facts) applyFacts(item, done.facts);
+        if (done.about) applyAbout(item, done.about);
+        item._qdone = true;
+        item._loading = false;
+        render();
+        return;
+      }
+
+      item._loading = true;
+      const rec = startLoad(key, bodyFor(item));
+      // whatever a prefetch already collected applies right now; the rest
+      // arrives through the listener
+      if (rec.store.questions) applyQuestions(item, rec.store.questions);
+      if (rec.store.facts) applyFacts(item, rec.store.facts);
+      if (rec.store.about) applyAbout(item, rec.store.about);
+      if (rec.store.questions || rec.store.facts || rec.store.about) render();
+      const onPhase = (event, d) => {
+        if (!mine()) return;
+        const changed = event === "facts" ? applyFacts(item, d) !== false
+          : event === "questions" ? applyQuestions(item, d)
+          : event === "about" ? applyAbout(item, d) : false;
+        if (changed) render();
+      };
+      rec.listeners.add(onPhase);
+      const store = await rec.promise;
+      rec.listeners.delete(onPhase);
+      if (mine()) {
+        if (store.questions) applyQuestions(item, store.questions);
+        if (store.facts) applyFacts(item, store.facts);
+        if (store.about) applyAbout(item, store.about);
+        item._qdone = true;          // nothing came; stop holding the lanes back
+        item._loading = false;
+        render();
+      }
+    }
+
+    // a press on a poster is a good bet it is about to be opened
+    function prefetch(title, year) {
+      if (!title) return;
+      const key = `${title}|${year || ""}`;
+      if (seen.has(key) || pending.has(key)) return;
+      startLoad(key, { title, year: year || null, kind: null });
     }
 
     function open(raw, startId) {
@@ -735,7 +1026,10 @@
         convo.setBank(bankOf(item));
         convo.setStarters(() => bankOf(item));
       }
+      item._loading = true;
+      item._qdone = false;
       render();
+      hydrate(item);
       root.classList.add("is-on");
       phone.classList.add("is-title");
       scroll.scrollTop = 0;
@@ -777,7 +1071,7 @@
       }
     });
 
-    return { open, close, isOpen: () => root.classList.contains("is-on"), enrich, listed };
+    return { open, close, isOpen: () => root.classList.contains("is-on"), enrich, listed, prefetch };
   }
 
   global.GummyTitle = { create, enrich, catalog, listed, toggleList, lookup };
