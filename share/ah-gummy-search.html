@@ -275,6 +275,16 @@
   .lobby,.convo,.pack-feed{
     flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;overscroll-behavior-y:contain;
   }
+  /* the lobby carries its own top inset so the page scrolls up under the phone's
+     edge, the way My Stuff does, instead of being clipped by the scene's padding
+     and leaving a hard dark strip for the title to slide behind. Ask and Pack keep
+     the padded scene -- their headers are pinned, not scrolled. */
+  .scene:not(.is-ask):not(.is-pack){padding-top:0}
+  /* the same top inset My Stuff uses, so the page titles land on one line and
+     do not jump as you move between tabs */
+  .scene:not(.is-ask):not(.is-pack) .lobby{padding-top:86px}
+  html.is-app .scene:not(.is-ask):not(.is-pack) .lobby{padding-top:calc(32px + var(--status-h))}
+  html.is-app.is-mock-status .scene:not(.is-ask):not(.is-pack) .lobby{padding-top:86px}
   .lobby::-webkit-scrollbar,.convo::-webkit-scrollbar,.pack-feed::-webkit-scrollbar{display:none}
   .scene.is-ask .lobby,.scene.is-pack .lobby{display:none}
   .scene.is-pack .convo,.scene.is-pack .askdock{display:none}
@@ -699,7 +709,7 @@
   /* ================= renewed search lobby ================= */
   .lobby{position:relative}
   /* warm wash behind the top of the page, as in the design */
-  .sr-glow{position:absolute;left:0;right:0;top:calc((var(--scene-top, 54px) + 26px) * -1);height:520px;z-index:0;pointer-events:none;overflow:hidden}
+  .sr-glow{position:absolute;left:0;right:0;top:-26px;height:520px;z-index:0;pointer-events:none;overflow:hidden}
   /* the dark scrim is for the ask view; in the lobby it cuts the gradient off.
      .topfade is a sibling of .scene, so match on the phone via :has() */
   #phone:has(.scene:not(.is-ask):not(.is-pack)) .topfade{display:none}
@@ -709,7 +719,7 @@
   .sr-glow span:nth-child(3){width:347px;height:347px;left:-186px;top:-115px;background:rgba(255,228,150,.12)}
   .lobby > *:not(.sr-glow){position:relative;z-index:1}
 
-  .sr-head{display:flex;align-items:center;gap:12px;padding:8px 16px 0}
+  .sr-head{display:flex;align-items:center;gap:12px;padding:4px 16px 0}
   .sr-head h2{flex:1;font-size:28px;font-weight:800;letter-spacing:-.035em;color:#fff}
   .sr-history{
     flex:0 0 auto;width:24px;height:24px;padding:0;background:none;border:0;cursor:pointer;
@@ -830,9 +840,13 @@
     transition:transform .38s var(--ease-jelly, cubic-bezier(.22,.82,.28,1)), opacity .28s ease;
   }
   .sr-detail.is-on{transform:none;opacity:1;pointer-events:auto}
+  /* the scene no longer pads the top, so the detail page carries its own inset --
+     the same one the lobby uses, which also lands its title on the shared line */
   .sr-detail-head{
-    display:flex;align-items:center;gap:10px;padding:56px 16px 12px;flex:0 0 auto;
+    display:flex;align-items:center;gap:10px;padding:86px 16px 12px;flex:0 0 auto;
   }
+  html.is-app .sr-detail-head{padding-top:calc(32px + var(--status-h))}
+  html.is-app.is-mock-status .sr-detail-head{padding-top:86px}
   .sr-back{
     width:34px;height:34px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;
     background:rgba(255,255,255,.08);border:0;cursor:pointer;color:#fff;
