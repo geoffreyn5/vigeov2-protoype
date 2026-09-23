@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><style data-alfora-gate>html.alfora-gate-pending body{visibility:hidden!important}</style><script data-alfora-gate src="/gate.js"></script>
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>AH · Gummy · Ask conversation · candy smear · 28 Aug 2026</title>
@@ -1492,7 +1492,6 @@
         <button class="navitem on" type="button" data-nav="home" aria-label="Home"><i class="nav-ico" aria-hidden="true"></i><span>Home</span></button>
         <button class="navitem" type="button" data-nav="stuff" aria-label="My Stuff"><i class="nav-ico" aria-hidden="true"></i><span>My Stuff</span></button>
         <button class="navitem" type="button" data-nav="search" aria-label="Search"><i class="nav-ico" aria-hidden="true"></i><span>Search</span></button>
-        <button class="navitem" type="button" data-nav="shop" aria-label="Shop"><i class="nav-ico" aria-hidden="true"></i><span>Shop</span></button>
       </div>
       <div class="scrim" id="scrim"></div>
       <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Ask about this title">
@@ -3003,7 +3002,6 @@ document.querySelector(".tabbar")?.addEventListener("click", e => {
   }
   if (nav === "stuff" || nav === "my stuff") goPrototype("gummy-my-stuff", "ah-gummy-my-stuff.html?from=carousel");
   else if (nav === "search") goPrototype("gummy-search", "ah-gummy-search.html");
-  else if (nav === "shop") goPrototype("gummy-shop", "ah-gummy-shop.html");
 });
 (function tickClock(){
   const t = new Date().toLocaleTimeString([], {hour:"numeric", minute:"2-digit"});
