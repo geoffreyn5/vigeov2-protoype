@@ -43,6 +43,8 @@
     const inp = () => sheet.querySelector(".ask-freeq");
     const helloEl = () => sheet.querySelector("[data-csheet-hello]");
 
+    const turns = [];          // recent {q, a} pairs, sent as conversation history
+
     function find(id) {
       return flatten(bank).find(x => x.id === id) || bank.find(x => x.id === id);
     }
@@ -147,10 +149,13 @@
 
     // an answer that names titles gets their posters under it, so the reply
     // reads visually before you have finished reading it
-    function addLane(afterEl, item, text) {
-      if (typeof opts.posters !== "function" || !afterEl) return;
-      let shots = [];
-      try { shots = opts.posters(item, text) || []; } catch (_) { shots = []; }
+    function addLane(afterEl, item, text, given) {
+      if (!afterEl) return;
+      let shots = Array.isArray(given) ? given.filter(x => x && x.poster) : null;
+      if (!shots) {
+        if (typeof opts.posters !== "function") return;
+        try { shots = opts.posters(item, text) || []; } catch (_) { shots = []; }
+      }
       if (!shots.length) return;
       const lane = document.createElement("div");
       lane.className = "ask-lane";
@@ -166,6 +171,19 @@
       sheet.classList.toggle("is-talking", !!on);
     }
 
+    // what the model is told about where the question was asked: the title in
+    // view, plus a few scripted answers from the same bank as a tone reference
+    function liveContext(item) {
+      const ex = flatten(bank)
+        .filter(x => x && x.q && textOf(x))
+        .slice(0, 4)
+        .map(x => ({ q: x.q, a: textOf(x) }));
+      return {
+        title: (item && item.titles && item.titles[0]) || null,
+        examples: ex
+      };
+    }
+
     function run(item, spoken) {
       if (!item) return;
       last = item;
@@ -176,13 +194,49 @@
       const an = seed(q);
       const row = startersEl();
       row?.classList.add("hid");
-      const answerText = textOf(item);
-      streamText(answerText, an, () => {
-        addLane(an, item, answerText);
+      const scripted = textOf(item);
+
+      const finish = (text) => {
+        addLane(an, item, text);
         row?.classList.remove("hid");
         renderStarters(item.id);
+        turns.push({ q, a: text });
+        if (turns.length > 6) turns.shift();
         an.parentElement && (an.parentElement.scrollTop = an.parentElement.scrollHeight);
-      });
+      };
+      const fallback = () => streamText(scripted, an, () => finish(scripted));
+
+      const live = global.AlforaLLM;
+      if (!live || !live.enabled()) { fallback(); return; }
+
+      // hold the cursor while the model thinks, then type its text as it lands
+      clearInterval(streamT);
+      an.textContent = "";
+      const cur = document.createElement("span");
+      cur.className = "cursor";
+      cur.textContent = "\u258D";
+      an.appendChild(cur);
+
+      live.ask(q, {
+        context: liveContext(item),
+        history: turns.slice(),
+        onDelta: (soFar) => {
+          an.textContent = soFar;
+          an.appendChild(cur);
+          an.parentElement && (an.parentElement.scrollTop = an.parentElement.scrollHeight);
+        }
+      }).then(out => {
+        if (!out || !out.text) { fallback(); return; }
+        clearInterval(streamT);
+        streamText(out.text, an, () => {
+          addLane(an, item, out.text, out.results && out.results.length ? out.results : null);
+          row?.classList.remove("hid");
+          renderStarters(item.id);
+          turns.push({ q, a: out.text });
+          if (turns.length > 6) turns.shift();
+          an.parentElement && (an.parentElement.scrollTop = an.parentElement.scrollHeight);
+        });
+      }).catch(fallback);
     }
 
     function matchText(raw) {
@@ -195,10 +249,13 @@
         let n = 0;
         q.split(/\s+/).forEach(w => { if (w.length > 2 && hay.includes(w)) n += 1; });
         if (last && (item.parent === last.id || item.id === last.id)) n += 2;
+        // an answer already given is almost never the right reply to a new
+        // question -- repeating it verbatim reads as the app being broken
+        if (history.includes(item.id)) n -= 3;
         if (last && /she|her|him|he|that one|the second|this one/.test(q) && (item.who || item.parent)) n += 2;
         return { item, n };
       }).sort((a, b) => b.n - a.n);
-      if (scored[0] && scored[0].n >= 2) return scored[0].item;
+      if (scored[0] && scored[0].n >= 2 && !history.includes(scored[0].item.id)) return scored[0].item;
       if (last && /she|her/.test(q) && last.who) {
         const more = all.find(x => x.who === last.who && x.id !== last.id);
         if (more) return more;

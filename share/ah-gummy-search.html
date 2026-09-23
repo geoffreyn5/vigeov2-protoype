@@ -402,6 +402,38 @@
     padding:0 20px 18px;gap:8px;
   }
 
+  /* follow-ups reuse the My Stuff chip: pill shape, quiet fill, one candy
+     hairline -- the same component, not a second interpretation of it */
+  .hints.follow .mood,
+  .hints.follow .mood.mint,
+  .hints.follow .mood.violet,
+  .hints.follow .mood.gold,
+  .hints.follow .mood.blue,
+  .hints.follow .mood.rose{
+    padding:9px 14px;border-radius:999px;
+    font-size:12.5px;font-weight:600;line-height:normal;color:rgba(255,255,255,.94);
+    background:
+      radial-gradient(120% 130% at 12% 10%, rgba(255,236,140,.12) 0%, transparent 46%),
+      rgba(255,255,255,.06);
+    border:0;box-shadow:none;
+    transition:transform .2s var(--ease-jelly), background .2s ease;
+  }
+  .hints.follow .mood::before,
+  .hints.follow .mood.mint::before,
+  .hints.follow .mood.violet::before,
+  .hints.follow .mood.gold::before,
+  .hints.follow .mood.blue::before,
+  .hints.follow .mood.rose::before{
+    content:"";position:absolute;inset:0;left:0;right:0;bottom:0;height:auto;
+    pointer-events:none;border-radius:inherit;
+    padding:1px;opacity:.42;background:var(--line-candy);
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;
+    mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite:exclude;
+  }
+  .hints.follow .mood:active{transform:scale(.96)}
+
   .collect{padding:22px 0 12px}
   .collect h3{
     padding:0 24px 11px;max-width:280px;
@@ -1063,7 +1095,8 @@
   </div>
 </div>
 
-<script src="ah-gummy-convo.js?v=sep2a"></script>
+<script src="ah-gummy-llm.js?v=sep23a"></script>
+<script src="ah-gummy-convo.js?v=sep23a"></script>
 <script src="ah-flemish-titles.js?v=sep1e"></script>
 <script src="ah-reel-questions.js?v=sep23a"></script>
 <script src="ah-gummy-title.js?v=sep23a"></script>
@@ -1716,6 +1749,28 @@ function svc(item){
   const out = !inPlan(item.provider);
   return `<span class="svc" title="${out ? "Not in your subscriptions" : `Watch on ${item.provider}`}"><img src="${encodeURI(item.logo)}" alt="${esc(item.provider)}">${out ? lockMark : ""}</span>`;
 }
+// cards for titles the model named: art comes back resolved from TMDB, and a
+// title already in the catalogue keeps its own card so it stays tappable
+function resultCard(r){
+  const known = Object.keys(titles).find(k => titles[k].title.toLowerCase() === String(r.title).toLowerCase());
+  if (known) return card(known);
+  return `<button class="lane-card" type="button" data-title="${esc(r.title)}">
+    <div class="gposter"><img src="${esc(r.poster)}" alt="${esc(r.title)}" loading="lazy"></div>
+    <div class="title">${esc(r.title)}</div>
+  </button>`;
+}
+function resultLane(turn, results){
+  if (!results || !results.length) return;
+  const head = document.createElement("div");
+  head.className = "sec-head";
+  head.innerHTML = `<h2>What I found</h2><small>for what you asked</small>`;
+  const row = document.createElement("div");
+  row.className = "lane";
+  row.innerHTML = results.map(resultCard).join("");
+  turn.appendChild(head);
+  turn.appendChild(row);
+}
+
 function card(id){
   const t = titles[id];
   if (!t) return "";
@@ -2237,6 +2292,11 @@ function findAsk(id){
   }
   return null;
 }
+// follow-ups the model wrote for this exact answer, in the same chip as the
+// scripted ones so nothing looks bolted on
+function liveHintRow(qs){
+  return (qs || []).map(q => `<button class="mood" type="button" data-ask-text="${esc(q)}">${esc(q)}</button>`).join("");
+}
 function hintRow(ids, except){
   const tones = ["", "gold", "violet", "mint", "blue", "rose"];
   return ids.filter(id => id !== except && findAsk(id)).map((id, i) => moodChip(id, tones[i % tones.length])).join("");
@@ -2319,7 +2379,9 @@ function ask(id, spoken){
   const item = findAsk(id);
   if (!item) return;
   const q = spoken || item.q;
-  if (currentAsk === id && scene.classList.contains("is-ask")) return;
+  // re-tapping the chip that is already open does nothing, but a typed question
+  // is always a new question even when it matches the ask already on screen
+  if (!spoken && currentAsk === id && scene.classList.contains("is-ask")) return;
   const entering = !scene.classList.contains("is-ask");
   currentAsk = id;
   scene.classList.add("is-ask");
@@ -2340,7 +2402,7 @@ function ask(id, spoken){
   turn.appendChild(ans);
   thread.appendChild(turn);
   scrollConvo();
-  streamText(item.a, ans, () => {
+  const afterAnswer = () => {
     lanesFor(item).forEach(lane => {
       const head = document.createElement("div");
       head.className = "sec-head";
@@ -2354,7 +2416,52 @@ function ask(id, spoken){
     renderMore(id);
     askMore.classList.remove("hid");
     scrollConvo();
-  });
+  };
+
+  // live answer where one is available, the written answer otherwise -- Search
+  // keeps its own thread, so it needs the same treatment the shared sheet got
+  const live = window.AlforaLLM;
+  const fallback = () => streamText(item.a, ans, afterAnswer);
+  if (!live || !live.enabled()) { fallback(); return; }
+  clearInterval(streamT);
+  ans.textContent = "";
+  const cur = document.createElement("span");
+  cur.className = "cursor";
+  cur.textContent = "\u258D";
+  ans.appendChild(cur);
+  live.ask(q, {
+    context: {screen: "Search", examples: askExamples()},
+    history: askTurns.slice(),
+    onDelta: (soFar) => { ans.textContent = soFar; ans.appendChild(cur); scrollConvo(); }
+  }).then(out => {
+    if (!out || !out.text) { fallback(); return; }
+    askTurns.push({q, a: out.text});
+    if (askTurns.length > 6) askTurns.shift();
+    streamText(out.text, ans, () => {
+      if (out.results && out.results.length) resultLane(turn, out.results);
+      else lanesFor(item).forEach(lane => {
+        const head = document.createElement("div");
+        head.className = "sec-head";
+        head.innerHTML = `<h2>${esc(lane.title)}</h2><small>${esc(lane.sub || "")}</small>`;
+        const row = document.createElement("div");
+        row.className = "lane";
+        row.innerHTML = lane.ids.map(card).join("");
+        turn.appendChild(head);
+        turn.appendChild(row);
+      });
+      if (out.follow && out.follow.length) morePills.innerHTML = liveHintRow(out.follow);
+      else renderMore(id);
+      askMore.classList.remove("hid");
+      scrollConvo();
+    });
+  }).catch(fallback);
+}
+
+// a few written answers as a tone reference for the model
+const askTurns = [];
+function askExamples(){
+  return Object.values(asks).filter(a => a && a.q && a.a).slice(0, 4)
+    .map(a => ({q: a.q, a: a.a}));
 }
 function closeAsk(){
   clearInterval(streamT);
@@ -2434,6 +2541,13 @@ phone.addEventListener("click", e => {
   const packBtn = e.target.closest("[data-pack]");
   if (packBtn){
     openPack(packBtn.dataset.pack);
+    return;
+  }
+  const typed = e.target.closest("[data-ask-text]");
+  if (typed){
+    const t = typed.getAttribute("data-ask-text");
+    typed.blur();
+    ask(matchAsk(t), t);
     return;
   }
   const pill = e.target.closest("[data-ask]");

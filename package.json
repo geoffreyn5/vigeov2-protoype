@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@clerk/backend": "^2.4.1",
-    "jose": "^6.0.11"
+    "jose": "^6.0.11",
+    "openai": "^7.23.0"
   }
 }
