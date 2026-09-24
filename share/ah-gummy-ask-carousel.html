@@ -983,24 +983,31 @@
 <script src="ah-gummy-convo.js?v=sep24a"></script>
 <script src="ah-flemish-titles.js?v=sep1e"></script>
 <script src="ah-reel-questions.js?v=sep23a"></script>
+<script src="ah-intl-titles.js?v=sep24a"></script>
+<script src="ah-flemish-reels.js?v=sep24a"></script>
 <script src="ah-gummy-title.js?v=sep23a"></script>
 <script>
 const POSTER = p => `https://image.tmdb.org/t/p/w500${p}`;
 const TMDB = p => `https://media.themoviedb.org/t/p/w780${p}`;
 const YT = id => `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
-const trailerSrc = id => `trailers/${id}.mp4`;
+// a clip id may carry its own extension; the newer international clips are webm
+const trailerSrc = id => `trailers/${id}` + (/\.[a-z0-9]+$/i.test(id) ? "" : ".mp4");
+const trailerType = id => (/\.webm$/i.test(id) ? "video/webm" : "video/mp4");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const ASK_DELAY = 2500;
 
-function weave(a, b){
-  const out = [];
-  const n = Math.max(a.length, b.length);
-  for (let i = 0; i < n; i++) {
-    if (a[i]) out.push(a[i]);
-    if (b[i]) out.push(b[i]);
+// The reel is dealt fresh on every visit, so two people opening Home do not see
+// the same running order and a demo never falls into the same rhythm twice.
+// Fisher-Yates over the whole pool -- Flemish and international together.
+function shuffled(list){
+  const out = list.slice();
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const t = out[i]; out[i] = out[j]; out[j] = t;
   }
   return out;
 }
+
 const flemishClips = (globalThis.FlemishTitles && FlemishTitles.feed) || [];
 const feedInternational = [
   {
@@ -1236,8 +1243,18 @@ const telenetAd = {
       ]}
   ]
 };
+// what the viewer actually pays for, plus the free Belgian apps. The card used
+// to claim "In your <service>" for everything, which read as a lie next to a
+// chat answer saying HBO Max is not in the plan.
+const PLAN = new Set(["Netflix", "Disney+", "VRT MAX", "VTM GO", "Play"]);
+const inPlan = p => PLAN.has(p);
+
 const AD_SLOT = 3;
-const feed = weave(flemishClips, [...feedInternational, ...moreInternational]);
+// the 20 client-supplied international titles, each with its own 30s clip
+const intlClips = (globalThis.IntlTitles && IntlTitles.feed) || [];
+const vlClips = (globalThis.FlemishReels && FlemishReels.feed) || [];
+const feed = shuffled([...flemishClips, ...feedInternational, ...moreInternational, ...intlClips, ...vlClips]);
+// placed after the shuffle, so the sponsored slide is always the 4th card
 feed.splice(Math.min(AD_SLOT, feed.length), 0, telenetAd);
 const lane = laneInternational;
 
@@ -1328,15 +1345,18 @@ function slideHTML(item, i){
           </div>
         </div>
         <div class="facts">
-          <svg viewBox="0 0 24 24"><path d="M5 12.5 10 17.5 19 7"/></svg>
-          In your ${esc(item.provider)}<span>·</span>${esc(item.kind)} · ${esc(item.length)}
+          ${inPlan(item.provider)
+            ? `<svg viewBox="0 0 24 24"><path d="M5 12.5 10 17.5 19 7"/></svg>
+          In your ${esc(item.provider)}`
+            : `<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          On ${esc(item.provider)}`}<span>·</span>${esc(item.kind)} · ${esc(item.length)}
         </div>
         `}
       </div>
       <div class="cta-rail">
         ${item.ad ? "" : `
         <div class="watch-rail">
-          <span class="badge">✓</span>
+          ${inPlan(item.provider) ? `<span class="badge">✓</span>` : ""}
           <button class="btn-watch" type="button" data-watch aria-label="Watch on ${esc(item.provider)}"><img src="${encodeURI(item.logo)}" alt=""></button>
           <span class="lbl">Watch</span>
         </div>
@@ -1499,7 +1519,7 @@ function ensureVideo(slide, item){
   wrap.innerHTML = `
     <div class="video-poster" style="background-image:url('${item.backdrop}')"></div>
     <video muted loop playsinline preload="auto" disablepictureinpicture>
-      <source src="${trailerSrc(item.youtube)}" type="video/mp4">
+      <source src="${trailerSrc(item.youtube)}" type="${trailerType(item.youtube)}">
     </video>
     <div class="video-edgefade"></div>`;
   video = wrap.querySelector("video");
@@ -1510,6 +1530,31 @@ function ensureVideo(slide, item){
   video.disableRemotePlayback = true;
   video.addEventListener("loadeddata", () => wrap.classList.add("is-ready"));
   return video;
+}
+
+// Mounted videos used to live forever: scroll the feed and you accumulated one
+// <video preload="auto"> per slide, each holding a buffer and a connection.
+// Past roughly a dozen the browser stops starting new media loads, so every
+// slide from there on sat on its poster with loadeddata never firing. Anything
+// outside the window around the current slide is torn back down to its poster
+// and rebuilt by ensureVideo when it comes near again.
+const KEEP_MOUNTED = 3;
+function releaseVideo(slide, item){
+  const wrap = slide.querySelector("[data-video]");
+  if (!wrap || !wrap.dataset.loaded) return;
+  const video = wrap.querySelector("video");
+  if (video) {
+    try { video.pause(); } catch (_) {}
+    video.removeAttribute("src");
+    video.querySelectorAll("source").forEach(n => n.remove());
+    try { video.load(); } catch (_) {}   // drops the buffer and the connection
+  }
+  delete wrap.dataset.loaded;
+  wrap.classList.remove("is-ready", "is-playing");
+  const art = (item && item.backdrop) || "";
+  wrap.innerHTML = `
+    <div class="video-poster" style="background-image:url('${art}')"></div>
+    <div class="video-edgefade"></div>`;
 }
 
 function runClip(slide, item, audible){
@@ -1953,6 +1998,7 @@ function activate(i){
     } else {
       hardMute(wrap.querySelector("video"));
       resetSlide(slide);
+      if (dist > KEEP_MOUNTED) releaseVideo(slide, item);
     }
   });
 }

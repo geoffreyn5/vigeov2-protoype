@@ -456,6 +456,13 @@
     if (byId) return byId;
     const byTitle = catalog[slug(item.title)];
     if (byTitle) return byTitle;
+    // the international reel titles carry their own facts and reviewed
+    // questions, so the page uses those rather than fetching them
+    for (const mod of [global.IntlTitles, global.FlemishReels]) {
+      if (!mod || !item.title) continue;
+      const hit = Object.values(mod.catalog).find(t => t.title === item.title);
+      if (hit) return mod.reelItem(hit);
+    }
     return null;
   }
 
@@ -475,6 +482,10 @@
     const title = item.title || "";
     const shared = global.ReelQuestions && global.ReelQuestions[title];
     if (shared && shared.length) return shared;
+    const intl = global.IntlTitles && global.IntlTitles.questions[title];
+    if (intl && intl.length) return intl;
+    const vl = global.FlemishReels && global.FlemishReels.questions[title];
+    if (vl && vl.length) return vl;
     const fl = global.FlemishTitles;
     if (fl && Array.isArray(fl.feed)) {
       const hit = fl.feed.find(x => x.title === title);

@@ -150,7 +150,7 @@
       id: "axel", title: "Axel Terug Naar Amerika", syn: "Travel doc, one region per episode",
       kind: "Series", length: "S2 · ~65m",
       provider: "Play", logo: "play-logo.png",
-      poster: "posters/axel-amerika.jpg", still: "stills/axel-card.jpg",
+      poster: "posters/vl/axel.webp", still: "stills/axel-card.jpg",
       seasons: ["S1", "S2"],
       about: "Axel Daeseleire back in a louder America. Season two opens in Trumpland — border rage, Palm Springs Trumpettes, a Trumborrito — then Sedona for aliens and the QAnon shaman. Tuesday, Play.",
       chips: axelChips
@@ -171,7 +171,7 @@
     item(catalog.familie, "familie-1"),
     item(catalog.zegeuh, "zeg-eens-euh-1"),
     item(catalog.jade, "jade-belgen"),
-    item(catalog.axel, "axel-amerika"),
+    item(catalog.axel, "vl-axel.webm"),
     item(catalog.agnew, "alex-agnew")
   ];
 
@@ -179,7 +179,7 @@
     item(catalog.tafel, "tafel-gert-1"),
     item(catalog.familie, "familie-1"),
     item(catalog.zegeuh, "zeg-eens-euh-1"),
-    item(catalog.axel, "axel-amerika"),
+    item(catalog.axel, "vl-axel.webm"),
     item(catalog.jade, "jade-belgen"),
     item(catalog.agnew, "alex-agnew")
   ];
