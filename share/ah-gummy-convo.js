@@ -232,14 +232,17 @@
       }).then(out => {
         if (!out || !out.text) { fallback(); return; }
         clearInterval(streamT);
-        streamText(out.text, an, () => {
+        const land = () => {
           addLane(an, item, out.text, out.results && out.results.length ? out.results : null);
           row?.classList.remove("hid");
           renderStarters(item.id);
           turns.push({ q, a: out.text });
           if (turns.length > 6) turns.shift();
           an.parentElement && (an.parentElement.scrollTop = an.parentElement.scrollHeight);
-        });
+        };
+        // it typed itself as it arrived; retyping it would double the wait
+        if (out.streamed) { cur.remove(); an.textContent = out.text; land(); return; }
+        streamText(out.text, an, land);
       }).catch(fallback);
     }
 

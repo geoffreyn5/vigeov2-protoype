@@ -1095,8 +1095,8 @@
   </div>
 </div>
 
-<script src="ah-gummy-llm.js?v=sep23a"></script>
-<script src="ah-gummy-convo.js?v=sep23a"></script>
+<script src="ah-gummy-llm.js?v=sep24a"></script>
+<script src="ah-gummy-convo.js?v=sep24a"></script>
 <script src="ah-flemish-titles.js?v=sep1e"></script>
 <script src="ah-reel-questions.js?v=sep23a"></script>
 <script src="ah-gummy-title.js?v=sep23a"></script>
@@ -2454,7 +2454,7 @@ function ask(id, spoken){
     if (!out || !out.text) { fallback(); return; }
     askTurns.push({q, a: out.text});
     if (askTurns.length > 6) askTurns.shift();
-    streamText(out.text, ans, () => {
+    const land = () => {
       if (out.results && out.results.length) resultLane(turn, out.results);
       else lanesFor(item).forEach(lane => {
         const head = document.createElement("div");
@@ -2470,7 +2470,11 @@ function ask(id, spoken){
       else renderMore(id);
       askMore.classList.remove("hid");
       scrollConvo();
-    });
+    };
+    // the answer typed itself as it streamed in; typing it again would double
+    // the wait the user actually feels
+    if (out.streamed) { cur.remove(); ans.textContent = out.text; land(); return; }
+    streamText(out.text, ans, land);
   }).catch(fallback);
 }
 

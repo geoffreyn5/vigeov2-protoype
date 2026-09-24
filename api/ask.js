@@ -77,6 +77,30 @@ async function withPosters(titles) {
   return out.filter(x => x.poster);          // no art, no card
 }
 
+// Reads the "answer" string out of a JSON object that is still being written.
+// Stops at the first unescaped quote, so a half-written escape is never shown.
+function partialAnswer(buf) {
+  const at = buf.indexOf('"answer"');
+  if (at === -1) return "";
+  const open = buf.indexOf('"', buf.indexOf(":", at) + 1);
+  if (open === -1) return "";
+  let out = "";
+  for (let i = open + 1; i < buf.length; i++) {
+    const c = buf[i];
+    if (c === "\\") {
+      const n = buf[i + 1];
+      if (n === undefined) break;             // escape not finished yet
+      out += n === "n" ? "\n" : n === "t" ? "\t" : n === "u" ? "" : n;
+      if (n === "u") { if (i + 5 >= buf.length) break; out += String.fromCharCode(parseInt(buf.slice(i + 2, i + 6), 16)); i += 4; }
+      i++;
+      continue;
+    }
+    if (c === '"') break;                     // the string is closed
+    out += c;
+  }
+  return out;
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.status(405).json({ ok: false, error: "method" });
@@ -118,25 +142,49 @@ export default async function handler(req, res) {
     res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
   };
 
+  // The answer streams. It used to be one call and one frame at the end, which
+  // meant six or seven seconds of cursor before a word appeared -- and the
+  // model is the whole of that wait, not the poster lookups, which cost about
+  // 150ms. "answer" is the first key in the reply, so its text arrives while
+  // the titles and follow-ups are still being written.
+  let raw = "";
   try {
-    const completion = await client.chat.completions.create({
+    const stream = await client.chat.completions.create({
       model: MODEL,
       messages,
       response_format: { type: "json_object" },
+      // the answer is short and the shape is fixed; there is little here to
+      // deliberate over, and the saved reasoning tokens come straight off the wait
+      reasoning_effort: "low",
       // this model family wants max_completion_tokens, and the budget has to
       // cover any reasoning tokens as well as the visible answer
       max_completion_tokens: 2000,
+      stream: true,
     });
 
-    const raw = completion.choices?.[0]?.message?.content || "";
+    let sentLen = 0;
+    for await (const chunk of stream) {
+      const piece = chunk.choices?.[0]?.delta?.content;
+      if (!piece) continue;
+      raw += piece;
+      const soFar = partialAnswer(raw);
+      if (soFar.length > sentLen) {
+        send("delta", { text: soFar.slice(sentLen) });
+        sentLen = soFar.length;
+      }
+    }
+
     let parsed = null;
     try { parsed = JSON.parse(raw); } catch (_) {}
-    const text = (parsed && typeof parsed.answer === "string" ? parsed.answer : raw).trim();
+    // a truncated reply still has a readable answer in it, and it is already on
+    // screen -- sending the raw JSON instead would replace it with braces
+    const text = (parsed && typeof parsed.answer === "string" ? parsed.answer
+      : partialAnswer(raw) || raw).trim();
     const results = await withPosters(parsed && Array.isArray(parsed.titles) ? parsed.titles : []);
     const follow = parsed && Array.isArray(parsed.follow)
       ? parsed.follow.filter(x => typeof x === "string" && x.trim()).slice(0, 3).map(x => x.trim())
       : [];
-    send("done", { text, results, follow, model: MODEL });
+    send("done", { text, results, follow, streamed: sentLen > 0, model: MODEL });
   } catch (err) {
     const status = err && typeof err.status === "number" ? err.status : 0;
     send("error", { error: "api", status, message: err && err.message ? err.message : "failed" });
