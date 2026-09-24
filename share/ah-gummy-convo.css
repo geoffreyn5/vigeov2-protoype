@@ -177,12 +177,13 @@ html.is-app.is-bare .csheet-panel,
 
 /* posters under an answer, so a reply reads visually straight away */
 .ask-lane{
-  display:flex;gap:8px;margin:12px 0 2px;padding-bottom:2px;
+  display:flex;align-items:flex-start;gap:8px;margin:12px 0 2px;padding-bottom:2px;
   overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
 }
 .ask-lane::-webkit-scrollbar{display:none}
 .ask-shot{
-  flex:0 0 76px;padding:0;border:0;background:none;text-align:left;cursor:pointer;
+  flex:0 0 76px;display:flex;flex-direction:column;align-items:stretch;
+  padding:0;border:0;background:none;text-align:left;cursor:pointer;
   transition:transform .2s cubic-bezier(.22,.82,.28,1);
 }
 .ask-shot:active{transform:scale(.96)}

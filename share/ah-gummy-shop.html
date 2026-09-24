@@ -49,7 +49,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="ah-gummy-convo.css?v=sep2a">
+<link rel="stylesheet" href="ah-gummy-convo.css?v=sep23b">
 <link rel="stylesheet" href="ah-gummy-title.css?v=sep23a">
 <style>
   :root{
@@ -1237,6 +1237,8 @@ const HBO_TEN = [
 ];
 const askPosters = SERVICES.reduce((all, s) => all.concat(s.titles || []), []).concat(HBO_TEN);
 const convo = GummyConvo.create({
+  // a poster under an answer is a poster: it opens the title page
+  onOpenTitle(item){ if (item && item.title) titlePage.open(item); },
   posters: GummyConvo.posterScanner(askPosters),
   phone: phoneEl,
   sheet,

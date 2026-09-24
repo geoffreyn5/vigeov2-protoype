@@ -98,7 +98,11 @@ export default async function handler(req, res) {
 
   // Three jobs at once. Questions are the smallest ask and the one the page
   // wants first, so it is not held behind the lookup or the blurb.
-  const qP = writeQuestions(title, year, kind, null);
+  // a page that already has its reviewed questions says so, and the call is
+  // skipped: nothing to pay for, and the lanes have nothing to wait on
+  const qP = body.questions === false
+    ? Promise.resolve(null)
+    : writeQuestions(title, year, kind, null);
   const fP = tmdbLookup({ title, year, kind });
   let sent = 0;
   const emit = (event, data) => { if (data) { send(event, data); sent++; } };

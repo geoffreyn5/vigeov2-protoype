@@ -504,6 +504,12 @@
     const cat = lookup(item) || {};
     const merged = { ...cat, ...item };
     merged.id = merged.id || cat.id || slug(merged.title);
+    // reviewed questions -- the title's own, the reel bank, or the catalogue's
+    // -- stand. Only a title that would otherwise get the generic three asks
+    // the model for its own.
+    merged._scripted = Boolean(
+      (merged.qs && merged.qs.length) || reelChips(merged) || (cat.chips && cat.chips.length)
+    );
     merged.chips = chipsOf(merged);
     merged.about = item.about || item.detail || cat.about || `${merged.syn || merged.title} · ${merged.kind || ""} · ${merged.length || ""} on ${merged.provider || ""}.`.replace(/\s+/g, " ").trim();
     merged.seasons = seasonsOf(merged);
@@ -570,6 +576,12 @@
             : "Ask about this title.";
         },
         starters: () => bankOf(current || {}),
+        // a poster named in an answer swaps this page over to that title
+        onOpenTitle(item) {
+          if (!item || !item.title) return;
+          convo.close();
+          open(item);
+        },
         reduceMotion
       });
     }
@@ -879,6 +891,7 @@
       return {
         title: item.title,
         year: item.year || null,
+        questions: !item._scripted,      // don't pay for what the page already has
         kind: /film/i.test(item.kind || "") ? "film"
           : /series|season|ep/i.test(`${item.kind || ""} ${item.length || ""}`) ? "series"
           : null,
@@ -896,6 +909,7 @@
     // only shows if that call fails.
     function applyQuestions(item, d) {
       item._qdone = true;
+      if (item._scripted) return false;
       const qs = (d.questions || []).filter(q => typeof q === "string" && q.trim());
       if (!qs.length) return true;
       item.chips = qs.map((q, i) => ({
@@ -1027,7 +1041,8 @@
         convo.setStarters(() => bankOf(item));
       }
       item._loading = true;
-      item._qdone = false;
+      // a scripted rail is already the final rail, so the lanes need not wait
+      item._qdone = Boolean(item._scripted);
       render();
       hydrate(item);
       root.classList.add("is-on");
