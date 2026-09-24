@@ -51,6 +51,7 @@
       let out = "";
       let results = null;
       let follow = null;
+      let streamed = false;
       let failed = false;
 
       while (true) {
@@ -71,6 +72,7 @@
           let parsed;
           try { parsed = JSON.parse(data); } catch (_) { continue; }
           if (event === "delta" && parsed.text) {
+            streamed = true;
             out += parsed.text;
             if (o.onDelta) o.onDelta(out);
           } else if (event === "done") {
@@ -84,7 +86,9 @@
       }
       if (failed && !out) return null;
       if (!out.trim()) return null;
-      return { text: out.trim(), results: results || [], follow: follow || [] };
+      // streamed means the caller has already typed this text on screen, and
+      // must not type it a second time
+      return { text: out.trim(), results: results || [], follow: follow || [], streamed };
     } catch (_) {
       return null;                     // abort, offline, parse -- all fall back
     } finally {
