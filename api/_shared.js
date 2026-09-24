@@ -44,20 +44,28 @@ export const PROFILE = `The viewer's plan, as the app shows it:
 - Free, no subscription needed: VRT MAX, VTM GO, Play.
 - Not subscribed: HBO Max (Basic with Ads, EUR 6,99), Apple TV (EUR 9,99),
   Streamz (Basic EUR 9,99, Premium EUR 14,99, Premium+ EUR 22,99),
-  Play Sports (EUR 19,99), VTM GO+ (EUR 4,95).
+  Play Sports (EUR 19,99), VTM GO+ (EUR 4,95), Prime Video (EUR 5,99).
 - Part-watched: The Last of Us at 67%, De Tafel van Gert at 74%, Undercover is
   mid season three. Dune: Part Two is saved and barely started.
 
 Where the titles in the app play:
-- Netflix: Undercover, Wednesday, Ferry, Squid Game
-- Disney+: The Bear, Abbott Elementary
-- HBO Max: Dune: Part Two, The Last of Us, Barbie, Oppenheimer, The Penguin
-- Apple TV: Gladiator II, Severance
-- Streamz: Zillion
-- VRT MAX (free): Thuis, 1985, Chantal
-- VTM GO (free): De Verraders, Glad IJs, Assisen, Familie
+- Netflix: Undercover, Wednesday, Ferry, Squid Game, Superman, Best of the Best,
+  The Whisper Man, Monster: The Lizzie Borden Story, Not a Stranger,
+  The Gentlemen, Resident Evil
+- Disney+: The Bear, Abbott Elementary, The Mandalorian and Grogu,
+  The Devil Wears Prada 2, Spider-Man: Brand New Day, The Odyssey
+- HBO Max: Dune: Part Two, The Last of Us, Barbie, Oppenheimer, The Penguin,
+  Lanterns, Supergirl
+- Apple TV: Gladiator II, Severance, Ted Lasso, Slow Horses, Mayday
+- Prime Video: Reacher, Neagley, You+Me - Against the World
+- Streamz: Zillion, Minimum Security, De Twaalf
+- VRT MAX (free): Thuis, 1985, Chantal, Is ’t Gelukt?, Make Up Date,
+  Cel Vermiste Personen
+- VTM GO (free): De Verraders, Glad IJs, Assisen, Familie, Blind Getrouwd,
+  Belgium's Got Talent, Kotmadam Sergeant
 - Play (free): De Tafel van Gert, Jade en de Belgen, Zeg Eens Euh, Jan de Lichte,
-  De Slag om de Schelde`;
+  De Slag om de Schelde, Nonkels, Bockie Gaat Naar School,
+  Axel Terug Naar Amerika`;
 
 const TMDB = "https://api.themoviedb.org/3";
 const IMG = (path, size) => (path ? `https://image.tmdb.org/t/p/${size}${path}` : null);

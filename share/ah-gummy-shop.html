@@ -961,6 +961,8 @@
 <script src="ah-gummy-convo.js?v=sep24a"></script>
 <script src="ah-flemish-titles.js?v=sep1a"></script>
 <script src="ah-reel-questions.js?v=sep23a"></script>
+<script src="ah-intl-titles.js?v=sep24a"></script>
+<script src="ah-flemish-reels.js?v=sep24a"></script>
 <script src="ah-gummy-title.js?v=sep23a"></script>
 <script>
 const POSTER = p => `https://image.tmdb.org/t/p/w500${p}`;
@@ -1011,6 +1013,14 @@ const SERVICES = [
       {id:"zill", title:"Zillion", poster:POSTER("/ns7LIqVWrPbO2FYPQ0ec6mfziSc.jpg")}
     ],
     still:POSTER("/ns7LIqVWrPbO2FYPQ0ec6mfziSc.jpg")},
+  {id:"prime", name:"Prime Video", short:"Prime Video", price:5.99, logo:"prime-video-logo.svg", on:false,
+    like:"Reacher", blurb:"Reacher and the Neagley spin-off. Cheapest of the lot, and the one your action nights keep pointing at.",
+    reason:"Reacher is the one you keep scrolling past",
+    titles:[
+      {title:"Reacher", poster:"posters/intl/reacher.jpg"},
+      {title:"Neagley", poster:"posters/intl/neagley.jpg"}
+    ],
+    still:"posters/intl/reacher.jpg"},
   {id:"playsports", name:"Play Sports", short:"Play Sports", price:19.99, logo:"play sports logo.png", on:false,
     like:"F1 Sprint · Belgium", blurb:"This weekend’s sprint. A sports add-on, not a night in.",
     reason:"F1 Sprint is this weekend",

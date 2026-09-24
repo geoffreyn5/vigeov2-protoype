@@ -1508,11 +1508,15 @@
 <script src="ah-gummy-convo.js?v=sep24a"></script>
 <script src="ah-flemish-titles.js?v=sep1a"></script>
 <script src="ah-reel-questions.js?v=sep23a"></script>
+<script src="ah-intl-titles.js?v=sep24a"></script>
+<script src="ah-flemish-reels.js?v=sep24a"></script>
 <script src="ah-gummy-title.js?v=sep23a"></script>
 <script>
 const TMDB = p => `https://media.themoviedb.org/t/p/w780${p}`;
 const YT = id => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
-const trailerSrc = id => `trailers/${id}.mp4`;
+// a clip id may carry its own extension; the newer international clips are webm
+const trailerSrc = id => `trailers/${id}` + (/\.[a-z0-9]+$/i.test(id) ? "" : ".mp4");
+const trailerType = id => (/\.webm$/i.test(id) ? "video/webm" : "video/mp4");
 const star = '<img class="star" src="star.svg" alt="" aria-hidden="true">';
 
 const feed = [
@@ -2039,7 +2043,7 @@ function createReel(feedRoot, items, hooks){
       <video muted loop playsinline preload="auto" disablepictureinpicture
         controlslist="nodownload nofullscreen noremoteplayback"
         title="${esc(item.title)} trailer">
-        <source src="${trailerSrc(item.youtube)}" type="video/mp4">
+        <source src="${trailerSrc(item.youtube)}" type="${trailerType(item.youtube)}">
       </video>
       <div class="video-edgefade" aria-hidden="true"></div>`;
     video = wrap.querySelector("video");
