@@ -159,7 +159,11 @@
       if (!shots.length) return;
       const lane = document.createElement("div");
       lane.className = "ask-lane";
-      lane.innerHTML = shots.slice(0, 12).map(sh => `<button class="ask-shot" type="button" data-open-title="${esc(sh.title)}"${sh.id ? ` data-title-id="${esc(sh.id)}"` : ""}>
+      // the button carries an index rather than the data: a model-supplied shot
+      // has a year and a kind the title page needs, and those do not survive a
+      // round trip through attributes
+      lane.__shots = shots.slice(0, 12);
+      lane.innerHTML = lane.__shots.map((sh, i) => `<button class="ask-shot" type="button" data-shot="${i}" data-open-title="${esc(sh.title)}"${sh.id ? ` data-title-id="${esc(sh.id)}"` : ""}>
           <img src="${sh.poster}" alt="" loading="lazy">
           <span>${esc(sh.title)}</span>
         </button>`).join("");
@@ -357,6 +361,14 @@
       if (e.target.closest("[data-ask-mic]")) { toggleVoice(); return; }
       const chip = e.target.closest("[data-ask-q]");
       if (chip) { ask(chip.dataset.askQ); return; }
+      // a poster under an answer opens its title, the same as a poster anywhere
+      // else in the app
+      const shot = e.target.closest(".ask-shot");
+      if (shot && typeof opts.onOpenTitle === "function") {
+        const lane = shot.closest(".ask-lane");
+        const held = lane && lane.__shots ? lane.__shots[Number(shot.dataset.shot)] : null;
+        opts.onOpenTitle(held || { title: shot.getAttribute("data-open-title") });
+      }
     });
 
     const handle = sheet.querySelector(".csheet-handle");
