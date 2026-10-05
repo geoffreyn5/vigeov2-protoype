@@ -193,7 +193,11 @@
     container-type:size;
     container-name:phone;
   }
+  /* A feed swap replaces a playing video with a different title's still frame
+     and snaps the scroll to 0, all in one frame. The swap happens behind this
+     fade instead, so none of those states are seen in transit. */
   .feed{
+    transition:opacity .22s cubic-bezier(.22,.82,.28,1);
     position:absolute;inset:0;z-index:1;
     display:flex;flex-direction:column;
     overflow-y:auto;overflow-x:hidden;
@@ -203,6 +207,7 @@
     -webkit-overflow-scrolling:touch;
   }
   .feed::-webkit-scrollbar{display:none}
+  .feed.is-swapping{opacity:0;pointer-events:none;transition-duration:.16s}
   .slide{
     position:relative;flex:0 0 100%;height:100%;
     scroll-snap-align:start;scroll-snap-stop:always;
@@ -342,8 +347,11 @@
       radial-gradient(70% 80% at 88% 42%, rgba(255,200,110,.7) 0%, transparent 58%),
       radial-gradient(90% 100% at 92% 48%, rgba(255,70,100,.4) 0%, transparent 64%),
       linear-gradient(270deg, rgba(255,120,70,.34) 0%, transparent 78%);
-    filter:blur(22px);
+    /* a static blur under the 20px ceiling: only opacity breathes, so the
+       Gaussian pass runs once instead of on every frame of an endless loop */
+    filter:blur(18px) saturate(1.12);
     opacity:.95;
+    will-change:opacity;
     animation:rankGlowPulse 3.2s ease-in-out infinite;
   }
   .rank-n{
@@ -362,8 +370,8 @@
   }
   .rank-glow.is-ten .rank-n{font-size:20.4cqw;letter-spacing:-.06em}
   @keyframes rankGlowPulse{
-    0%,100%{opacity:.78;filter:blur(22px) saturate(1)}
-    50%{opacity:1;filter:blur(18px) saturate(1.25)}
+    0%,100%{opacity:.78}
+    50%{opacity:1}
   }
 
   .tabbar{
@@ -2076,18 +2084,31 @@ if (isPageLive()) {
 
 // Swapping the feed for a filtered one: tear the old clips down first so the
 // window of mounted videos starts clean, then rebuild from the top.
+let swapT = null;
 function renderFeed(list){
-  stopAll();
-  if (convo.isOpen()) convo.close();
-  convoSlide = null;
-  feedEl.querySelectorAll(".slide").forEach((slide, i) => releaseVideo(slide, items[i]));
-  items = list;
-  feedEl.innerHTML = items.map(slideHTML).join("");
-  bindSlides();
-  mountEagerVideos();
-  feedEl.scrollTop = 0;
-  current = 0;
-  if (isPageLive()) { activate(0); primeAround(0); } else stopAll();
+  const swap = () => {
+    swapT = null;
+    stopAll();
+    if (convo.isOpen()) convo.close();
+    convoSlide = null;
+    feedEl.querySelectorAll(".slide").forEach((slide, i) => releaseVideo(slide, items[i]));
+    items = list;
+    feedEl.innerHTML = items.map(slideHTML).join("");
+    bindSlides();
+    mountEagerVideos();
+    feedEl.scrollTop = 0;
+    current = 0;
+    if (isPageLive()) { activate(0); primeAround(0); } else stopAll();
+  };
+  // out quickly, in a little slower: the exit is the user's action, the entrance
+  // is the system answering. A second tap mid-swap replaces the pending one.
+  clearTimeout(swapT);
+  if (reduceMotion) { feedEl.classList.remove("is-swapping"); swap(); return; }
+  feedEl.classList.add("is-swapping");
+  swapT = setTimeout(() => {
+    swap();
+    requestAnimationFrame(() => feedEl.classList.remove("is-swapping"));
+  }, 170);
 }
 
 document.querySelector(".tabbar")?.addEventListener("click", e => {
