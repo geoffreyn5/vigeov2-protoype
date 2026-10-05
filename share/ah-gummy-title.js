@@ -1101,18 +1101,19 @@
       };
       flight = { el: fly, done };
 
-      fly.getBoundingClientRect();          // flush, so the start values are committed
-      requestAnimationFrame(() => {
-        fly.style.transformOrigin = "top left";
-        fly.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
-        fly.classList.add("is-landing");
-      });
+      // Two style states separated by a forced reflow, rather than a rAF: a
+      // backgrounded or occluded tab never runs rAF, and the clone would hang at
+      // its start position until the fallback timer swept it up.
+      fly.style.transformOrigin = "top left";
+      fly.style.transform = "translate(0px, 0px) scale(1, 1)";
+      fly.getBoundingClientRect();          // commits the start value
+      fly.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
       // transform and opacity finish together, so listen for the transform one
       // specifically rather than whichever fires first
       fly.addEventListener("transitionend", e => {
         if (e.propertyName === "transform") done();
       });
-      timer = setTimeout(done, 900);
+      timer = setTimeout(done, 420);
     }
 
     function open(raw, startId, srcEl) {
