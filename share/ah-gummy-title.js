@@ -704,6 +704,12 @@
 
     // the wash under the hero is pulled out of the art itself, so every title
     // gets its own colour instead of one house tint
+    // image.tmdb.org sends no CORS header, so a canvas drawn from it is tainted
+    // and getImageData throws -- which is why this used to produce nothing at all
+    // for anything from TMDB. Remote art goes through our own origin instead.
+    const sameOrigin = u =>
+      /^https?:\/\/image\.tmdb\.org\//.test(u) ? `/api/img?u=${encodeURIComponent(u)}` : u;
+
     function toneFrom(url, onTone) {
       if (!url) return;
       const img = new Image();
@@ -728,7 +734,7 @@
           onTone(`rgba(${r},${g},${b},.55)`, `rgb(${mix(r)},${mix(g)},${mix(b)})`);
         } catch (_) {}
       };
-      img.src = url;
+      img.src = sameOrigin(url);
     }
 
     function personCard(p) {
@@ -774,11 +780,15 @@
       // until the questions have settled -- TMDB is back in a few hundred ms
       // and would otherwise fill the page under a rail that is still generic.
       const lanes = item._qdone;
-      const hero = (ex && ex.backdrop) || item.hero || item.poster;
+      // Only a real backdrop goes behind the hero. The poster used to stand in
+      // until TMDB answered, which meant the entire background swapped mid-read.
+      // Until then the gradient carries it -- and it is tinted from the poster,
+      // so the colour is already right when the art arrives.
+      const hero = (ex && ex.backdrop) || item.backdrop || item.still || "";
       const poster = item.poster || (ex && ex.poster) || hero;
 
       scroll.innerHTML = `
-        <div class="tpage-hero" style="background-image:url('${esc(hero)}')" data-tpage-hero>
+        <div class="tpage-hero" data-tpage-hero>
           <div class="tpage-poster" data-tilt>
             <img src="${esc(poster)}" alt="${esc(item.title)}">
             <span class="sheen"></span>
@@ -826,10 +836,25 @@
       bindRail(scroll);
       bindTilt();
       const heroEl = scroll.querySelector("[data-tpage-hero]");
-      if (heroEl) toneFrom(hero, (tone, solid) => {
-        heroEl.style.setProperty("--tone", tone);
-        heroEl.style.setProperty("--tone-solid", solid);
-      });
+      if (heroEl) {
+        // tint from the poster, which is on screen first, so the gradient is the
+        // title's own colour rather than a generic wash
+        toneFrom(item.poster || hero, (tone, solid) => {
+          heroEl.style.setProperty("--tone", tone);
+          heroEl.style.setProperty("--tone-solid", solid);
+        });
+        if (hero) {
+          // decode first, then fade in: setting background-image directly makes
+          // the hero pop in a frame late, which reads as a flicker
+          const pre = new Image();
+          pre.onload = () => {
+            if (!heroEl.isConnected) return;
+            heroEl.style.backgroundImage = `url('${hero}')`;
+            heroEl.classList.add("has-art");
+          };
+          pre.src = hero;
+        }
+      }
     }
 
     // the poster answers the phone the way the My Stuff hero does
@@ -1050,11 +1075,13 @@
     function flyFrom(srcEl, posterUrl) {
       if (!srcEl || reduceMotion) return;
       if (flight) flight.done();            // a second open mid-flight cancels the first
-      const from = srcEl.getBoundingClientRect();
-      if (!from.width || !from.height) return;
       // prefer the artwork already on screen: a title opened from a collection has
       // no resolved poster until TMDB answers, but the card is showing one
       const srcImg = srcEl.matches("img") ? srcEl : srcEl.querySelector("img");
+      // measure the art, not the card. A card's box includes its title, so
+      // measuring it started the clone at the wrong ratio and squashed it in.
+      const from = (srcImg || srcEl).getBoundingClientRect();
+      if (!from.width || !from.height) return;
       const art = (srcImg && srcImg.currentSrc) || (srcImg && srcImg.src) || posterUrl;
       if (!art) return;
       const target = root.querySelector(".tpage-poster");

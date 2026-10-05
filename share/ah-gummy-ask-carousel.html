@@ -1360,11 +1360,7 @@ function slideHTML(item, i){
           </div>
         </div>
         <div class="facts">
-          ${inPlan(item.provider)
-            ? `<svg viewBox="0 0 24 24"><path d="M5 12.5 10 17.5 19 7"/></svg>
-          In your ${esc(item.provider)}`
-            : `<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-          On ${esc(item.provider)}`}<span>·</span>${esc(item.kind)} · ${esc(item.length)}
+          ${esc(item.kind)} · ${esc(item.length)}
         </div>
         `}
       </div>

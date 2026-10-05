@@ -682,12 +682,12 @@
   }
   .j-rail::-webkit-scrollbar{display:none}
   .j-poster{
-    flex:0 0 84px;width:84px;text-align:left;color:#fff;
+    flex:0 0 162px;width:162px;text-align:left;color:#fff;
     animation:cardIn .48s var(--ease-jelly) both;
   }
   .j-poster:active{transform:scale(.97)}
   .j-poster .art{
-    position:relative;aspect-ratio:2/3;width:84px;border-radius:12px;
+    position:relative;aspect-ratio:2/3;width:162px;border-radius:14px;
     box-shadow:0 6px 14px rgba(0,0,0,.32);
   }
   .j-poster .art::after{display:none}
@@ -700,15 +700,27 @@
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   }
   .j-empty{
-    display:block;width:84px;text-align:left;color:#fff;
+    display:block;width:162px;text-align:left;color:#fff;
     animation:cardIn .48s var(--ease-jelly) both;
   }
   .j-empty:active{transform:scale(.97)}
   .j-empty .art{
-    position:relative;aspect-ratio:2/3;width:84px;border-radius:12px;
+    position:relative;aspect-ratio:2/3;width:162px;border-radius:14px;
     box-shadow:0 6px 14px rgba(0,0,0,.32);opacity:.72;
   }
   .j-empty .art::after{display:none}
+  /* a day with nothing scheduled. Same footprint as a poster so the spine and
+     the row rhythm do not break where the week is quiet. */
+  .j-none{
+    flex:0 0 162px;width:162px;aspect-ratio:2/3;
+    display:flex;align-items:center;justify-content:center;
+    padding:0 18px;border-radius:14px;
+    border:1px dashed rgba(255,255,255,.16);
+    background:rgba(255,255,255,.02);
+    font-size:13px;font-weight:500;line-height:1.35;text-align:center;
+    color:rgba(255,255,255,.42);
+    animation:cardIn .48s var(--ease-jelly) both;
+  }
   .j-empty .mark{
     position:absolute;left:6px;top:6px;z-index:3;
     width:18px;height:18px;border-radius:6px;
@@ -1218,6 +1230,15 @@ function renderTimeline(){
   `;
 }
 
+// One row per day. Items carry their own date, so a day is filled from that
+// rather than from the bucket it shares with its neighbour -- and a day with
+// nothing says so instead of disappearing into the day beside it.
+function jDay(list, date, delay){
+  const mine = (list || []).filter(x => x.date === date);
+  if (mine.length) return jRail(mine, delay);
+  return `<div class="j-none">Nothing new today</div>`;
+}
+
 function renderJourney(){
   const today = byBucket("today");
   const tom = byBucket("tomorrow");
@@ -1240,14 +1261,8 @@ function renderJourney(){
         jRail(week, 4)
       )}
       ${jRow(jCal({top:"FRI", num:"28", label:"Friday 28 August"}), friday)}
-      ${jRow(
-        jCalPair(
-          {top:"SAT", num:"29", label:"Saturday 29 August"},
-          {top:"SUN", num:"30", label:"Sunday 30 August"},
-          "This weekend, 29–30 August"
-        ),
-        jRail(end, 6)
-      )}
+      ${jRow(jCal({top:"SAT", num:"29", label:"Saturday 29 August"}), jDay(end, "Sat 29", 6))}
+      ${jRow(jCal({top:"SUN", num:"30", label:"Sunday 30 August"}), jDay(end, "Sun 30", 8))}
       ${jRow(jCal({top:"SEP", num:"1–2", label:"Next week, 1–2 September", range:true}), jRail(next, 10))}
       ${jRow(jCal({top:"OCT", label:"Later, October", month:true}), jRail(later, 12))}
     </div>
