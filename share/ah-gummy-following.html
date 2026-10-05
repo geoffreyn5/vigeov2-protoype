@@ -330,7 +330,7 @@
     backdrop-filter:blur(18px) saturate(1.55);
     -webkit-backdrop-filter:blur(18px) saturate(1.55);
     transform-origin:center;
-    transition:transform .42s var(--ease-jelly), box-shadow .42s ease;
+    transition:transform .16s cubic-bezier(.22,.82,.28,1), box-shadow .42s ease;
   }
   .pill::before{
     content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;z-index:0;
@@ -341,7 +341,7 @@
   .pill.c2{background:var(--mesh-c2)}
   .pill.c3{background:var(--mesh-c3)}
   .pill.c4{background:var(--mesh-c4)}
-  .pill:active{transform:scale(.96)}
+  .pill:active{transform:scale(.97)}
   .pill .star{width:9px;height:10px;opacity:.95}
 
   .svc{
@@ -382,10 +382,10 @@
   .tcard, .jcard, .jhero{
     position:relative;text-align:left;color:#fff;
     transform-origin:center;
-    transition:transform .28s var(--ease-jelly);
+    transition:transform .16s cubic-bezier(.22,.82,.28,1);
     animation:cardIn .56s var(--ease-jelly) both;
   }
-  .tcard:active, .jcard:active, .jhero:active{transform:scale(.98)}
+  .tcard:active, .jcard:active, .jhero:active{transform:scale(.97)}
   .art{
     position:relative;overflow:hidden;background:#16161a;
     box-shadow:0 10px 24px rgba(0,0,0,.35);
@@ -466,9 +466,9 @@
     width:100%;padding:12px 13px;border-radius:16px;
     background:var(--mesh-ask);
     animation:cardIn .56s var(--ease-jelly) both;
-    transition:transform .28s var(--ease-jelly);
+    transition:transform .16s cubic-bezier(.22,.82,.28,1);
   }
-  .ai-card:active{transform:scale(.985)}
+  .ai-card:active{transform:scale(.97)}
   .ai-card::before{
     content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
     background:var(--mesh-hi);
@@ -534,7 +534,7 @@
     backdrop-filter:blur(18px) saturate(1.55);
     -webkit-backdrop-filter:blur(18px) saturate(1.55);
     transform-origin:center;
-    transition:transform .42s var(--ease-jelly), box-shadow .42s ease, filter .3s ease;
+    transition:transform .16s cubic-bezier(.22,.82,.28,1), box-shadow .42s ease, filter .3s ease;
   }
   .mood::before{
     content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;z-index:0;
@@ -556,7 +556,7 @@
     content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
     background:var(--mesh-ember-ask);opacity:.85;
   }
-  .mood:active{transform:scale(.96)}
+  .mood:active{transform:scale(.97)}
   .mood.on:active{transform:scale(1.01)}
   .mood .tick{
     width:0;opacity:0;overflow:hidden;
@@ -722,9 +722,9 @@
     margin:2px 16px 14px;padding:14px 14px 13px;border-radius:18px;
     background:var(--mesh-ask);
     animation:cardIn .56s var(--ease-jelly) both;
-    transition:transform .28s var(--ease-jelly);
+    transition:transform .16s cubic-bezier(.22,.82,.28,1);
   }
-  .plan-week:active{transform:scale(.985)}
+  .plan-week:active{transform:scale(.97)}
   .plan-week::before{
     content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
     background:var(--mesh-hi);
