@@ -1140,7 +1140,7 @@
       fly.addEventListener("transitionend", e => {
         if (e.propertyName === "transform") done();
       });
-      timer = setTimeout(done, 420);
+      timer = setTimeout(done, 600);
     }
 
     function open(raw, startId, srcEl) {
