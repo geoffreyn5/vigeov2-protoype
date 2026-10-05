@@ -1253,9 +1253,15 @@ const AD_SLOT = 3;
 // the 20 client-supplied international titles, each with its own 30s clip
 const intlClips = (globalThis.IntlTitles && IntlTitles.feed) || [];
 const vlClips = (globalThis.FlemishReels && FlemishReels.feed) || [];
-const feed = shuffled([...flemishClips, ...feedInternational, ...moreInternational, ...intlClips, ...vlClips]);
-// placed after the shuffle, so the sponsored slide is always the 4th card
-feed.splice(Math.min(AD_SLOT, feed.length), 0, telenetAd);
+const POOL = shuffled([...flemishClips, ...feedInternational, ...moreInternational, ...intlClips, ...vlClips]);
+// the sponsored slide is spliced in after the fact, so it stays the 4th card in
+// every tab rather than being shuffled or filtered away
+const withAd = list => {
+  const out = list.slice();
+  out.splice(Math.min(AD_SLOT, out.length), 0, telenetAd);
+  return out;
+};
+const feed = withAd(POOL);
 const lane = laneInternational;
 
 const params = new URLSearchParams(location.search);
@@ -1282,7 +1288,7 @@ function itemsForPack(id){
   return pack.titles.map(t => catalog.find(i => i.title === t)).filter(Boolean);
 }
 const isPack = !!packId && !!PACKS[packId];
-const items = isTop10 ? lane : isPack ? itemsForPack(packId) : feed;
+let items = isTop10 ? lane : isPack ? itemsForPack(packId) : feed;
 document.documentElement.classList.toggle("is-bare", isBare);
 document.getElementById("phone")?.classList.toggle("is-top10", isTop10);
 document.getElementById("phone")?.classList.toggle("is-pack", isPack);
@@ -2034,38 +2040,58 @@ feedEl.addEventListener("scrollend", () => {
   primeAround(current);
 });
 
-feedEl.querySelectorAll(".slide").forEach(slide => {
-  const item = items[Number(slide.dataset.i)];
-  io.observe(slide);
-  bindQcard(slide);
-  slide.querySelector("[data-ask]")?.addEventListener("click", e => {
-    e.stopPropagation();
-    disarm(slide);
-    openConvo(slide, item);
-  });
-  slide.querySelectorAll("[data-q]").forEach(btn => {
-    btn.addEventListener("click", e => {
+function bindSlides(){
+  feedEl.querySelectorAll(".slide").forEach(slide => {
+    const item = items[Number(slide.dataset.i)];
+    io.observe(slide);
+    bindQcard(slide);
+    slide.querySelector("[data-ask]")?.addEventListener("click", e => {
       e.stopPropagation();
       disarm(slide);
-      openConvo(slide, item, Number(btn.dataset.q));
+      openConvo(slide, item);
+    });
+    slide.querySelectorAll("[data-q]").forEach(btn => {
+      btn.addEventListener("click", e => {
+        e.stopPropagation();
+        disarm(slide);
+        openConvo(slide, item, Number(btn.dataset.q));
+      });
     });
   });
-});
+}
+bindSlides();
 // Videos mount lazily -- everything past this window waits for the observer.
 // The sponsored slide sits at AD_SLOT, so the window has to reach it: as the
 // first slide outside it, its clip only began fetching once you scrolled it
 // into view, and regularly lost that race against the scroll.
 const EAGER_SLIDES = Math.max(3, (typeof AD_SLOT === "number" ? AD_SLOT : 2) + 1);
-(function mountEagerVideos(){
+function mountEagerVideos(){
   const slides = feedEl.querySelectorAll(".slide");
   for (let i = 0; i < Math.min(EAGER_SLIDES, items.length); i++) {
     if (slides[i] && items[i]) ensureVideo(slides[i], items[i]);
   }
-})();
+}
+mountEagerVideos();
 if (isPageLive()) {
   activate(0);
   primeAround(0);
 } else stopAll();
+
+// Swapping the feed for a filtered one: tear the old clips down first so the
+// window of mounted videos starts clean, then rebuild from the top.
+function renderFeed(list){
+  stopAll();
+  if (convo.isOpen()) convo.close();
+  convoSlide = null;
+  feedEl.querySelectorAll(".slide").forEach((slide, i) => releaseVideo(slide, items[i]));
+  items = list;
+  feedEl.innerHTML = items.map(slideHTML).join("");
+  bindSlides();
+  mountEagerVideos();
+  feedEl.scrollTop = 0;
+  current = 0;
+  if (isPageLive()) { activate(0); primeAround(0); } else stopAll();
+}
 
 document.querySelector(".tabbar")?.addEventListener("click", e => {
   const btn = e.target.closest(".navitem");
@@ -2092,10 +2118,54 @@ document.querySelector("[data-back-top10]")?.addEventListener("click", e => {
   leaveTop10();
 });
 
+// What each tab actually shows. The filters run over POOL -- the feed without
+// the sponsored slide -- and withAd puts that back at position four.
+//
+// "Flemish" is a title the app ships as Flemish, or anything on one of the three
+// Belgian free-to-air services. Those three are also the only real "channels"
+// here, which is what Live dedupes on.
+const BE_CHANNELS = ["VRT MAX", "VTM GO", "Play"];
+const FLEMISH = new Set([
+  ...((globalThis.FlemishTitles && FlemishTitles.feed) || []).map(x => x.title),
+  ...((globalThis.FlemishReels && FlemishReels.feed) || []).map(x => x.title)
+]);
+const isFlemish = it => FLEMISH.has(it.title) || BE_CHANNELS.includes(it.provider);
+const isFilm = it => /film/i.test(it.kind || "");
+
+// one per channel, in the order the shuffle already dealt them
+function liveSet(pool){
+  const taken = new Set();
+  return pool.filter(it => {
+    if (!isFlemish(it) || !BE_CHANNELS.includes(it.provider)) return false;
+    if (taken.has(it.provider)) return false;
+    taken.add(it.provider);
+    return true;
+  });
+}
+
+const TABS = {
+  "for you": pool => pool,
+  "in plan": pool => pool.filter(it => inPlan(it.provider)),
+  "live":    liveSet,
+  "films":   pool => pool.filter(isFilm),
+  "series":  pool => pool.filter(it => it.kind && !isFilm(it))
+};
+const SOON = ["sport", "kids"];
+
 document.querySelectorAll(".tab-labels .t").forEach(tab => {
   tab.addEventListener("click", () => {
+    const name = tab.textContent.trim().toLowerCase();
+    // these two have nothing behind them yet, so the feed and the active tab stay put
+    if (SOON.includes(name)) { toast(`${tab.textContent.trim()} · coming soon`); return; }
+    const pick = TABS[name];
+    if (!pick) { toast(tab.textContent); return; }
+    // The pool is dealt again before the filter runs, not after. Shuffling the
+    // result would still hand Live the same three titles every time, because it
+    // keeps the first of each channel -- this way the representative changes too.
+    const list = withAd(pick(shuffled(POOL)));
+    if (!list.length) { toast(`Nothing in ${tab.textContent.trim()} yet`); return; }
     document.querySelectorAll(".tab-labels .t").forEach(t => t.classList.toggle("on", t === tab));
-    toast(tab.textContent);
+    renderFeed(list);
   });
 });
 document.querySelector(".filter")?.addEventListener("click", () => toast("Refine · coming soon"));

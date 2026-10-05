@@ -751,13 +751,8 @@
   .sr-glow span:nth-child(3){width:347px;height:347px;left:-186px;top:-115px;background:rgba(255,228,150,.12)}
   .lobby > *:not(.sr-glow){position:relative;z-index:1}
 
-  .sr-head{display:flex;align-items:center;gap:12px;padding:4px 16px 0}
-  .sr-head h2{flex:1;font-size:28px;font-weight:800;letter-spacing:-.035em;color:#fff}
-  .sr-history{
-    flex:0 0 auto;width:24px;height:24px;padding:0;background:none;border:0;cursor:pointer;
-    color:rgba(255,255,255,.9);
-  }
-  .sr-history svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .sr-head{padding:4px 16px 0}
+  .sr-head h2{font-size:28px;font-weight:800;letter-spacing:-.035em;color:#fff}
 
   /* the search bar carries the Ask gradient in its border and its glow */
   .sr-searchbar{
@@ -2147,9 +2142,6 @@ scene.innerHTML = `
     <div class="sr-glow" aria-hidden="true"><span></span><span></span><span></span></div>
     <div class="sr-head">
       <h2>Search</h2>
-      <button class="sr-history" type="button" data-open-history aria-label="Previous searches">
-        <svg viewBox="0 0 24 24"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.2 4.6v4.2h4.2"/><path d="M12 7.6V12l3 1.8"/></svg>
-      </button>
     </div>
     <div class="sr-searchbar" data-open-ask-field>
       <span class="sr-placeholder">Search for genre, actor, mood, title, …</span>
@@ -2541,7 +2533,6 @@ phone.addEventListener("click", e => {
   if (gen) { openGenre(gen.getAttribute("data-open-genre")); return; }
   const reel = e.target.closest("[data-open-reel]");
   if (reel) { goPrototype("gummy-ask-carousel", "ah-gummy-ask-carousel.html"); return; }
-  if (e.target.closest("[data-open-history]")) { openCollection("leaving"); return; }
   if (e.target.closest("[data-open-ask-field]")) { openComposer(); return; }
 
   if (e.target.closest("[data-pack-back]")) { closePack(); return; }
