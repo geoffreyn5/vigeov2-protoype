@@ -2171,6 +2171,20 @@ document.querySelectorAll(".tab-labels .t").forEach(tab => {
     renderFeed(list);
   });
 });
+// Opening on one particular reel -- tapped over in Search. That title leads and
+// the rest of the pool is dealt behind it, so the feed is never the same twice
+// and you still land on the thing you asked for.
+function openReel(id){
+  if (!id) return false;
+  const lead = POOL.find(x => x.id === id);
+  if (!lead) return false;
+  renderFeed(withAd([lead, ...shuffled(POOL.filter(x => x !== lead))]));
+  document.querySelectorAll(".tab-labels .t").forEach((t, i) => t.classList.toggle("on", i === 0));
+  return true;
+}
+const wantedReel = params.get("reel");
+if (wantedReel) openReel(wantedReel);
+
 // the filter icon opens "Your algorithm" rather than apologising
 const algo = window.GummyAlgo ? GummyAlgo.create({
   phone: document.getElementById("phone"),
@@ -2208,6 +2222,10 @@ window.addEventListener("message", e => {
   if (d.type === "app-resume") {
     pageLive = true;
     activate(current);
+  }
+  if (d.type === "app-reel" && d.reel) {
+    pageLive = true;
+    openReel(d.reel);
   }
 });
 document.addEventListener("visibilitychange", () => {
