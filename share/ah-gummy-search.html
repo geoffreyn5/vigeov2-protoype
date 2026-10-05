@@ -432,7 +432,7 @@
     mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     mask-composite:exclude;
   }
-  .hints.follow .mood:active{transform:scale(.96)}
+  .hints.follow .mood:active{transform:scale(.97)}
 
   .collect{padding:22px 0 12px}
   .collect h3{
@@ -789,9 +789,9 @@
     position:relative;flex:0 0 167px;width:167px;height:254px;
     border-radius:14px;overflow:hidden;padding:0;border:0;cursor:pointer;
     background:#15151a;scroll-snap-align:start;text-align:left;
-    transition:transform .22s var(--ease-jelly, cubic-bezier(.22,.82,.28,1));
+    transition:transform .16s cubic-bezier(.22,.82,.28,1);
   }
-  .sr-reel:active{transform:scale(.98)}
+  .sr-reel:active{transform:scale(.97)}
   .sr-reel > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
   /* the clip sits on top of its poster and only fades in once it is actually
      running, so a card that never gets to play still shows art, not a black box */
@@ -829,9 +829,9 @@
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
     padding:9px;border-radius:14px;text-align:center;
     background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);
-    transition:transform .22s var(--ease-jelly, cubic-bezier(.22,.82,.28,1));
+    transition:transform .16s cubic-bezier(.22,.82,.28,1);
   }
-  .sr-coll:active{transform:scale(.98)}
+  .sr-coll:active{transform:scale(.97)}
   .sr-coll-art{position:relative;display:block;width:74px;height:56px;flex:0 0 auto}
   .sr-coll-art img{
     position:absolute;top:0;width:38px;height:56px;border-radius:5px;object-fit:cover;
@@ -855,8 +855,9 @@
     flex:0 0 auto;height:31px;padding:0 12px;border-radius:999px;cursor:pointer;
     font-size:12.5px;font-weight:600;color:rgba(255,255,255,.92);
     background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);
+    transition:transform .16s cubic-bezier(.22,.82,.28,1);
   }
-  .sr-genre:active{transform:scale(.96)}
+  .sr-genre:active{transform:scale(.97)}
 
 
   /* ---------- detail pages (collections + genres) ---------- */
@@ -908,7 +909,7 @@
     /* buttons centre their content: without this a one-line caption leaves slack
        above the poster and the lane no longer starts on a common line */
     display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;
-    transition:transform .2s var(--ease-jelly, cubic-bezier(.22,.82,.28,1));
+    transition:transform .16s cubic-bezier(.22,.82,.28,1);
   }
   .sr-d-grid .sr-d-card{flex:none;width:auto}
   .sr-d-card:active{transform:scale(.97)}
@@ -996,7 +997,7 @@
       radial-gradient(125% 115% at 12% 6%, rgba(var(--hue),.17) 0%, transparent 54%),
       radial-gradient(90% 90% at 100% 100%, rgba(var(--hue),.1) 0%, transparent 60%),
       linear-gradient(180deg, rgba(20,15,22,.82) 0%, rgba(11,9,14,.94) 100%);
-    transition:transform .22s var(--ease-jelly, cubic-bezier(.22,.82,.28,1));
+    transition:transform .16s cubic-bezier(.22,.82,.28,1);
   }
   .qcell::after{
     content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
@@ -1005,7 +1006,7 @@
     -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);mask-composite:exclude;
   }
-  .qcell:active{transform:scale(.978)}
+  .qcell:active{transform:scale(.97)}
   .qcell .qi{display:block;width:21px;height:21px}
   .qcell .qi svg{
     width:100%;height:100%;display:block;
@@ -1035,9 +1036,9 @@
     background:rgba(255,255,255,.05);
     border:1px solid rgba(255,255,255,.08);
     display:flex;flex-direction:column;gap:10px;
-    transition:transform .22s var(--ease-jelly, cubic-bezier(.22,.82,.28,1)), background .22s ease;
+    transition:transform .16s cubic-bezier(.22,.82,.28,1), background .22s ease;
   }
-  .prev-card:active{transform:scale(.982)}
+  .prev-card:active{transform:scale(.97)}
   .prev-term{
     font-size:13px;font-weight:650;letter-spacing:-.02em;line-height:1.25;color:#fff;
   }
@@ -2227,9 +2228,9 @@ function openTitleFrom(el){
   const id = el.dataset.open;
   const name = el.dataset.title || el.dataset.openTitle || "";
   const item = (id && titles[id]) || Object.values(titles).find(t => t.title === name);
-  if (item) { titlePage.open({ id: id || item.id, ...item }); return; }
+  if (item) { titlePage.open({ id: id || item.id, ...item }, undefined, el); return; }
   // not in the catalogue: open on the name and let the title page fetch the rest
-  if (name) titlePage.open({ title: name });
+  if (name) titlePage.open({ title: name }, undefined, el);
 }
 function goPrototype(id, href, reel){
   if (window.parent && window.parent !== window) {

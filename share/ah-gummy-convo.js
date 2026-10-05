@@ -379,24 +379,37 @@
       handle.addEventListener("pointerdown", e => {
         const p = panel();
         if (!p) return;
-        drag = { y: e.clientY, id: e.pointerId };
+        drag = { y: e.clientY, id: e.pointerId, t: e.timeStamp };
         sheet.classList.add("is-drag");
         try { handle.setPointerCapture(e.pointerId); } catch (_) {}
       });
       handle.addEventListener("pointermove", e => {
         if (!drag || e.pointerId !== drag.id) return;
-        const dy = Math.max(0, e.clientY - drag.y);
+        const raw = e.clientY - drag.y;
+        // rising friction above the top edge rather than a dead stop: the panel
+        // keeps following the finger, just less and less
+        const dy = raw >= 0 ? raw : -Math.pow(-raw, 0.7) * 0.5;
+        drag.lastY = e.clientY;
+        drag.lastT = e.timeStamp;
         const p = panel();
-        if (p) p.style.transform = `translateY(${dy}px)`;
+        if (p) p.style.transform = `translateY(${dy.toFixed(1)}px)`;
       });
       const end = e => {
         if (!drag || e.pointerId !== drag.id) return;
-        const dy = Math.max(0, e.clientY - drag.y);
+        const raw = e.clientY - drag.y;
+        // velocity over the last moments of the gesture, not its whole length: a
+        // slow drag that ends in a flick is still a flick
+        const refY = drag.lastY ?? drag.y;
+        const refT = drag.lastT ?? drag.t;
+        const v = (e.clientY - refY) / Math.max(1, e.timeStamp - refT) || (raw / Math.max(1, e.timeStamp - drag.t));
         drag = null;
         sheet.classList.remove("is-drag");
         const p = panel();
         if (p) p.style.transform = "";
-        if (dy > 88 || dy < 8) close();
+        // released above the start: the rubber-band springs back, never dismisses
+        if (raw < -8) return;
+        if (raw < 8) { close(); return; }           // a tap on the handle
+        if (v > 0.11 || raw > 88) close();          // flicked away, or dragged far
       };
       handle.addEventListener("pointerup", end);
       handle.addEventListener("pointercancel", end);

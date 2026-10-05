@@ -1043,7 +1043,79 @@
       startLoad(key, { title, year: year || null, kind: null });
     }
 
-    function open(raw, startId) {
+    // Flies a copy of the tapped poster to the hero, so the overlay explains
+    // where it came from. Purely additive: no source element, no art, or reduced
+    // motion and the page just does its normal slide.
+    let flight = null;
+    function flyFrom(srcEl, posterUrl) {
+      if (!srcEl || reduceMotion) return;
+      if (flight) flight.done();            // a second open mid-flight cancels the first
+      const from = srcEl.getBoundingClientRect();
+      if (!from.width || !from.height) return;
+      // prefer the artwork already on screen: a title opened from a collection has
+      // no resolved poster until TMDB answers, but the card is showing one
+      const srcImg = srcEl.matches("img") ? srcEl : srcEl.querySelector("img");
+      const art = (srcImg && srcImg.currentSrc) || (srcImg && srcImg.src) || posterUrl;
+      if (!art) return;
+      const target = root.querySelector(".tpage-poster");
+      if (!target) return;
+
+      // The page has just been given .is-on, so its slide-up is mid-flight and a
+      // rect would read the off-screen start position. offsetLeft/Top walk the
+      // layout instead, which is where the poster will actually be -- and unlike
+      // a rect they ignore the tilt rotation on .tpage-poster.
+      let ox = 0, oy = 0;
+      for (let n = target; n && n !== phone; n = n.offsetParent) {
+        ox += n.offsetLeft - (n.offsetParent ? n.offsetParent.scrollLeft : 0);
+        oy += n.offsetTop - (n.offsetParent ? n.offsetParent.scrollTop : 0);
+      }
+      const tw = target.offsetWidth, th = target.offsetHeight;
+      if (!tw || !th) return;
+      const host = phone.getBoundingClientRect();
+
+      const fly = document.createElement("div");
+      fly.className = "tpage-fly";
+      fly.style.left = `${from.left - host.left}px`;
+      fly.style.top = `${from.top - host.top}px`;
+      fly.style.width = `${from.width}px`;
+      fly.style.height = `${from.height}px`;
+      fly.innerHTML = `<img src="${esc(art)}" alt="">`;
+      root.appendChild(fly);                // inside .tpage, so closing takes it along
+      root.classList.add("is-flying");
+
+      // translate and scale rather than animating left/top/width/height, so the
+      // whole flight stays on the compositor
+      const dx = ox - (from.left - host.left);
+      const dy = oy - (from.top - host.top);
+      const sx = tw / from.width;
+      const sy = th / from.height;
+
+      let settled = false, timer = 0;
+      const done = () => {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timer);
+        fly.remove();
+        root.classList.remove("is-flying");
+        if (flight && flight.el === fly) flight = null;
+      };
+      flight = { el: fly, done };
+
+      fly.getBoundingClientRect();          // flush, so the start values are committed
+      requestAnimationFrame(() => {
+        fly.style.transformOrigin = "top left";
+        fly.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
+        fly.classList.add("is-landing");
+      });
+      // transform and opacity finish together, so listen for the transform one
+      // specifically rather than whichever fires first
+      fly.addEventListener("transitionend", e => {
+        if (e.propertyName === "transform") done();
+      });
+      timer = setTimeout(done, 900);
+    }
+
+    function open(raw, startId, srcEl) {
       const item = enrich(raw);
       if (!item || !item.title) return;
       current = item;
@@ -1059,11 +1131,13 @@
       root.classList.add("is-on");
       phone.classList.add("is-title");
       scroll.scrollTop = 0;
+      flyFrom(srcEl, item.poster);
       if (typeof opts.onOpen === "function") opts.onOpen(item);
       if (startId && convo) convo.open(startId);
     }
 
     function close() {
+      if (flight) flight.done();
       if (!root.classList.contains("is-on")) return;
       if (convo && convo.isOpen()) convo.close();
       root.classList.remove("is-on");
