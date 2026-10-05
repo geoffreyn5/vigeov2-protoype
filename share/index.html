@@ -267,7 +267,14 @@ window.addEventListener("message", e => {
   if (!d || typeof d !== "object") return;
   if (d.type !== "app-go" && d.type !== "playground-go") return;
   if (!d.href && !d.id) return;
-  show(screenFor(d));
+  const to = screenFor(d);
+  show(to);
+  // the frames stay loaded, so a reel has to be handed over rather than
+  // travelling in the URL
+  if (d.reel) {
+    const frame = document.querySelector(`iframe[data-app="${to}"]`);
+    frame?.contentWindow?.postMessage({ type: "app-reel", reel: d.reel }, "*");
+  }
 });
 if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
   navigator.serviceWorker.register("./sw.js");

@@ -2231,10 +2231,10 @@ function openTitleFrom(el){
   // not in the catalogue: open on the name and let the title page fetch the rest
   if (name) titlePage.open({ title: name });
 }
-function goPrototype(id, href){
+function goPrototype(id, href, reel){
   if (window.parent && window.parent !== window) {
     const type = document.documentElement.classList.contains("is-app") ? "app-go" : "playground-go";
-    window.parent.postMessage({type, id, href}, "*");
+    window.parent.postMessage({type, id, href, reel: reel || null}, "*");
     return;
   }
   const url = new URL(href, location.href);
@@ -2532,7 +2532,12 @@ phone.addEventListener("click", e => {
   const gen = e.target.closest("[data-open-genre]");
   if (gen) { openGenre(gen.getAttribute("data-open-genre")); return; }
   const reel = e.target.closest("[data-open-reel]");
-  if (reel) { goPrototype("gummy-ask-carousel", "ah-gummy-ask-carousel.html"); return; }
+  if (reel) {
+    // the tapped reel opens first; the feed deals the rest behind it
+    const id = reel.getAttribute("data-open-reel");
+    goPrototype("gummy-ask-carousel", `ah-gummy-ask-carousel.html?reel=${encodeURIComponent(id)}`, id);
+    return;
+  }
   if (e.target.closest("[data-open-ask-field]")) { openComposer(); return; }
 
   if (e.target.closest("[data-pack-back]")) { closePack(); return; }
