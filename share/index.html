@@ -55,19 +55,7 @@
   }
   button,a{font:inherit;color:inherit}
   .page{max-width:720px;width:100%}
-  .intro{min-height:188px}
-  .brand{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
-  h1{font-size:clamp(26px,3.2vw,34px);font-weight:700;letter-spacing:-.03em;margin-top:8px}
-  .lead{font-size:14.5px;line-height:1.55;color:var(--mut);margin-top:10px;max-width:520px}
-  .brief{
-    margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;
-    background:rgba(255,255,255,.03);font-size:13px;line-height:1.5;color:var(--mut);
-  }
-  .brief strong{color:#fff}
-  .note{margin-top:12px;font-size:12px;color:var(--mut)}
-  .note a{color:#d7dde8;font-weight:650;text-decoration:none;border-bottom:1px solid rgba(215,221,232,.35)}
-
-  .stage{display:flex;justify-content:center;margin-top:26px}
+  .stage{display:flex;justify-content:center}
   html.is-embed, html.is-embed body{
     height:100%;min-height:100%;overflow:hidden;
   }
@@ -79,18 +67,6 @@
     width:auto;max-width:none;height:100%;
     display:flex;align-items:center;justify-content:center;
   }
-  html.is-embed .intro,
-  html.is-embed .brand,
-  html.is-embed h1,
-  html.is-embed .lead,
-  html.is-embed .brief,
-  html.is-embed .note,
-  html.is-app .intro,
-  html.is-app .brand,
-  html.is-app h1,
-  html.is-app .lead,
-  html.is-app .brief,
-  html.is-app .note{display:none}
   html.is-embed .stage{margin:0}
   html.is-embed .phone{
     width:min(393px, calc(100vw - 32px), calc((100dvh - 32px) * 393 / 852));
@@ -189,17 +165,6 @@
 </head>
 <body>
 <div class="page">
-  <div class="intro">
-    <div class="brand">AH · Gummy · Latest</div>
-    <h1>Latest · 28 Aug 2026</h1>
-    <p class="lead">
-      One phone. Home, My Stuff, Following and Search stay in this prototype — tap through the app without leaving this screen.
-    </p>
-    <div class="brief">
-      <strong>Latest · 28 Aug 2026.</strong> Ask is a conversation in context: a real question, a relevant answer, then follow-ups that stay with the title. Posters open a title page — Watch and Watch list stay the main actions; questions sit on the page.
-    </div>
-    <p class="note">On a phone, open this page in Safari or Chrome, then Add to Home Screen. The saved app opens full screen. </p>
-  </div>
   <div class="stage">
     <div class="phone" id="phone">
       <iframe data-app="home" class="is-on" title="Home" src="ah-gummy-ask-carousel.html?app=1&v=sep1j" allow="autoplay; encrypted-media"></iframe>
