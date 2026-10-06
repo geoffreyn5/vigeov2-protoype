@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "Alfora",
-  "short_name": "Alfora",
-  "description": "Alfora prototype",
+  "name": "Vigeo Young",
+  "short_name": "Vigeo Young",
+  "description": "Vigeo Young prototype",
   "start_url": "./?app=1",
   "scope": "./",
   "display": "standalone",
