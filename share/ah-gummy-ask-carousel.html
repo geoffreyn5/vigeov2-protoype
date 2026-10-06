@@ -1523,15 +1523,43 @@ function kickCurrentSound(){
 // refuse to autoplay outright -- Low Power Mode does exactly that -- and when
 // the refusal came, nothing ever asked again. Any gesture now re-asks, silently;
 // only a tap on the clip asks for sound.
+// iOS grants autoplay per ELEMENT, not per page, and Low Power Mode withdraws
+// it from all of them. An element that has been played once inside a real
+// gesture stays allowed afterwards, so every touch blesses whatever is mounted
+// and not yet blessed -- including the slides you are about to reach.
+//
+// Without this the kick only ever reached the slide being LEFT: a swipe starts
+// on the current slide, and by the time the scroll settles on the next one the
+// gesture is over and its play() is refused. That is why it sat on its poster
+// until it was tapped directly.
+const blessed = new WeakSet();
 const kickPlayback = () => {
   if (!isPageLive()) return;
-  const slide = feedEl.querySelectorAll(".slide")[current];
-  const v = slide && slide.querySelector("video");
-  if (!v || !v.paused) return;
-  v.muted = !soundOn;
-  v.play().catch(() => { v.muted = true; v.play().catch(() => {}); });
+  const slides = feedEl.querySelectorAll(".slide");
+  const cur = slides[current] && slides[current].querySelector("video");
+  slides.forEach(slide => {
+    const v = slide.querySelector("video");
+    if (!v || blessed.has(v)) return;
+    blessed.add(v);
+    if (v === cur) return;                 // handled below, and it should run
+    const at = v.currentTime;
+    v.muted = true;
+    const p = v.play();
+    if (p && p.then) p.then(() => {
+      // played only to earn the permission; park it back where it was
+      try { v.pause(); v.currentTime = at; } catch (_) {}
+    }).catch(() => {});
+  });
+  if (cur && cur.paused) {
+    cur.muted = !soundOn;
+    cur.play().catch(() => { cur.muted = true; cur.play().catch(() => {}); });
+  }
 };
-["pointerdown", "touchstart", "keydown"].forEach(ev =>
+// touchmove as well as touchstart: a slide mounted part-way through a swipe is
+// still inside the gesture while the finger is down, so it can be blessed then
+// rather than waiting for the next swipe. The WeakSet makes the repeat calls
+// almost free.
+["pointerdown", "touchstart", "touchmove", "keydown"].forEach(ev =>
   document.addEventListener(ev, kickPlayback, { passive: true, capture: true }));
 
 document.addEventListener("pointerdown", e => {
