@@ -1035,7 +1035,7 @@ const feedInternational = [
     provider: "Netflix",
     logo: "Netflix logo.webp",
     youtube: "rFo6M8KeghE",
-    start: 2,
+    start: 0,
     backdrop: YT("rFo6M8KeghE"),
     poster: POSTER("/9PFonBhy4cQy7Jz20NpMygczOkv.jpg"),
     qs: ReelQuestions["Wednesday"]
@@ -1048,7 +1048,7 @@ const feedInternational = [
     provider: "HBO Max",
     logo: "hbo-max-new-logo.jpg",
     youtube: "U2Qp5pL3ovA",
-    start: 8,
+    start: 0,
     backdrop: TMDB("/eZ239CUp1d6OryZEBPnO2n87gMG.jpg"),
     poster: POSTER("/y4ml848KTz0zccQxfWlE8CMMC13.jpg"),
     qs: ReelQuestions["Dune: Part Two"],
@@ -1062,7 +1062,7 @@ const feedInternational = [
     provider: "Netflix",
     logo: "Netflix logo.webp",
     youtube: "Vt4qQiM2Ahk",
-    start: 3,
+    start: 0,
     backdrop: YT("Vt4qQiM2Ahk"),
     poster: POSTER("/ziOJNiNUbomrs81behksd0z9Qoz.jpg"),
     qs: ReelQuestions["Undercover"]
@@ -1078,7 +1078,7 @@ const laneInternational = [
     provider: "HBO Max",
     logo: "hbo-max-new-logo.jpg",
     youtube: "uYPbbksJxIg",
-    start: 10,
+    start: 0,
     backdrop: YT("uYPbbksJxIg"),
     poster: POSTER("/jtTHxuJhuZpFAnCI4vGjg1LGmpY.jpg"),
     qs: ReelQuestions["Oppenheimer"]
@@ -1091,7 +1091,7 @@ const laneInternational = [
     provider: "HBO Max",
     logo: "hbo-max-new-logo.jpg",
     youtube: "U2Qp5pL3ovA",
-    start: 8,
+    start: 0,
     backdrop: TMDB("/eZ239CUp1d6OryZEBPnO2n87gMG.jpg"),
     poster: POSTER("/y4ml848KTz0zccQxfWlE8CMMC13.jpg"),
     qs: [
@@ -1126,7 +1126,7 @@ const laneInternational = [
     provider: "Apple TV",
     logo: "apple tv logo.jpg",
     youtube: "YPCqTI0PVV0",
-    start: 6,
+    start: 0,
     backdrop: YT("YPCqTI0PVV0"),
     poster: POSTER("/tlwzOOCxcxtE7bXGvs3QlpmM5C0.jpg"),
     qs: ReelQuestions["Wicked"]
@@ -1139,7 +1139,7 @@ const laneInternational = [
     provider: "Apple TV",
     logo: "apple tv logo.jpg",
     youtube: "73_1biulkYk",
-    start: 10,
+    start: 0,
     backdrop: YT("73_1biulkYk"),
     poster: POSTER("/vPVrGK4yFdV0PojNa0bi8haqvLW.jpg"),
     qs: ReelQuestions["Deadpool & Wolverine"]
@@ -1152,7 +1152,7 @@ const laneInternational = [
     provider: "HBO Max",
     logo: "hbo-max-new-logo.jpg",
     youtube: "pBk4NYhWNMM",
-    start: 7,
+    start: 0,
     backdrop: YT("pBk4NYhWNMM"),
     poster: POSTER("/tnS9DqsJvFjmg4FK4R2LghvOhs5.jpg"),
     qs: ReelQuestions["Barbie"]
@@ -1165,7 +1165,7 @@ const laneInternational = [
     provider: "Apple TV",
     logo: "apple tv logo.jpg",
     youtube: "LEjhY15eCx0",
-    start: 4,
+    start: 0,
     backdrop: YT("LEjhY15eCx0"),
     poster: POSTER("/wqApdCnUTQeKqEScnfGC8hUquIO.jpg"),
     qs: ReelQuestions["Inside Out 2"]
@@ -1178,7 +1178,7 @@ const laneInternational = [
     provider: "Streamz",
     logo: "streamz-logo.jpg",
     youtube: "LT6ASOBIdjQ",
-    start: 6,
+    start: 0,
     backdrop: TMDB("/embS4GPK7c8pjbuY2O2irV5rYch.jpg"),
     poster: POSTER("/ns7LIqVWrPbO2FYPQ0ec6mfziSc.jpg"),
     qs: ReelQuestions["Zillion"]
@@ -1191,7 +1191,7 @@ const laneInternational = [
     provider: "Apple TV",
     logo: "apple tv logo.jpg",
     youtube: "4rgYUipGJNo",
-    start: 10,
+    start: 0,
     backdrop: YT("4rgYUipGJNo"),
     poster: POSTER("/gUPnmDkNRSLFynbpNw9VJrYBEgT.jpg"),
     qs: ReelQuestions["Gladiator II"]
@@ -1204,7 +1204,7 @@ const laneInternational = [
     provider: "Apple TV",
     logo: "apple tv logo.jpg",
     youtube: "MDnVk5jIJr0",
-    start: 5,
+    start: 0,
     backdrop: YT("MDnVk5jIJr0"),
     poster: POSTER("/aNxqwNbtZ0COrxqTjfwlQTgeJB4.jpg"),
     qs: ReelQuestions["Challengers"]
@@ -1217,7 +1217,7 @@ const laneInternational = [
     provider: "Netflix",
     logo: "Netflix logo.webp",
     youtube: "MG6U7gduIwA",
-    start: 6,
+    start: 0,
     backdrop: YT("MG6U7gduIwA"),
     poster: POSTER("/w6n1pu9thpCVHILejsuhKf3tNCV.jpg"),
     qs: ReelQuestions["Ferry"]
@@ -1339,7 +1339,7 @@ function slideHTML(item, i){
   const qs = item.qs.map((chip, qi) => `<button class="qcard-q${qi === 0 ? " is-on" : ""}" type="button" data-q="${qi}">${esc(chip.q)}</button>`).join("");
   return `<article class="slide${item.ad ? " is-ad" : ""}" data-i="${i}" data-start="${Number.isFinite(item.start) ? item.start : 0}">
     <div class="videowrap" data-video>
-      <div class="video-poster" style="background-image:url('${item.backdrop}')"></div>
+      <div class="video-poster" style="background-image:url('${item.backdrop || item.poster || ""}')"></div>
       <div class="video-edgefade"></div>
     </div>
     ${patchHTML(item)}
@@ -1551,7 +1551,7 @@ function ensureVideo(slide, item){
   wrap.dataset.loaded = item.youtube;
   wrap.classList.remove("is-playing", "is-ready");
   wrap.innerHTML = `
-    <div class="video-poster" style="background-image:url('${item.backdrop}')"></div>
+    <div class="video-poster" style="background-image:url('${item.backdrop || item.poster || ""}')"></div>
     <video muted loop playsinline preload="auto" disablepictureinpicture>
       <source src="${trailerSrc(item.youtube)}" type="${trailerType(item.youtube)}">
     </video>
@@ -1585,7 +1585,7 @@ function releaseVideo(slide, item){
   }
   delete wrap.dataset.loaded;
   wrap.classList.remove("is-ready", "is-playing");
-  const art = (item && item.backdrop) || "";
+  const art = (item && (item.backdrop || item.poster)) || "";
   wrap.innerHTML = `
     <div class="video-poster" style="background-image:url('${art}')"></div>
     <div class="video-edgefade"></div>`;
@@ -1602,9 +1602,7 @@ function prepClip(slide, item){
   const wrap = slide.querySelector("[data-video]");
   const video = ensureVideo(slide, item);
   hardMute(video);
-  parkAtStart(video, item, slide, { pauseFirst: true }).then(() => {
-    if (wrap) wrap.classList.add("is-ready");
-  });
+  parkAtStart(video, item, slide, { pauseFirst: true });
   return video;
 }
 
@@ -1677,7 +1675,6 @@ function primeNeighbor(idx){
     // becomes the slide in view
     video.muted = true;
     video.volume = 0;
-    wrap.classList.add("is-ready");
   });
 }
 
