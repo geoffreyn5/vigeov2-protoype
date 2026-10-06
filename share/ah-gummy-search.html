@@ -495,6 +495,17 @@
   }
   .scene.is-ask .search.askdock{position:relative;top:auto;z-index:24;background:none}
 
+  /* The ask scene is a detail page -- it has its own back button, so the tab
+     bar is noise, and dropping it gives the dock the full height to sit in.
+     --kb is the height the keyboard is covering, published by the shell (and
+     measured here when the page runs on its own). Shrinking the scene by it
+     keeps the input right above the keyboard instead of behind it, and leaves
+     the thread above still scrollable. */
+  .phone:has(.scene.is-ask) .tabbar,
+  .phone:has(.scene.is-ask) .navfrost{display:none}
+  .scene.is-ask{bottom:var(--kb, 0px)}
+  html.is-app .scene.is-ask{bottom:max(var(--kb, 0px), var(--safe-bottom))}
+
   .ask-head{
     display:none;flex-shrink:0;position:relative;z-index:28;
     padding:2px 14px 8px;pointer-events:none;
@@ -535,7 +546,9 @@
   }
   .field input{
     flex:1;min-width:0;width:100%;height:100%;background:none;border:0;outline:none;
-    font-size:14px;font-weight:500;color:#fff;font-family:"Inter",system-ui,sans-serif;
+    /* 16px exactly: iOS zooms the page on focus for anything smaller, and the
+       zoom never comes back out on its own */
+    font-size:16px;font-weight:500;color:#fff;font-family:"Inter",system-ui,sans-serif;
   }
   .field input::placeholder{color:#8c8c94}
   .field.is-rec input{color:transparent;caret-color:transparent}
@@ -2799,6 +2812,27 @@ function syncReels(){
   document.addEventListener("visibilitychange", syncReels);
   window.addEventListener("pagehide", () => { reelsAwake = false; syncReels(); });
   syncReels();
+})();
+
+// How much of the page the on-screen keyboard is covering.
+//
+// The pages run inside the shell's iframe, and on iOS only the top-level
+// visualViewport shrinks for the keyboard -- an iframe's own never does. So the
+// shell measures it and posts it in; the self-measure below is for when this
+// page is opened directly.
+(function keyboardInset(){
+  const root = document.documentElement;
+  const set = px => root.style.setProperty("--kb", `${Math.max(0, Math.round(px))}px`);
+  window.addEventListener("message", e => {
+    const d = e.data;
+    if (d && d.type === "app-kb" && typeof d.kb === "number") set(d.kb);
+  });
+  const vv = window.visualViewport;
+  if (!vv || window.parent !== window) return;
+  const measure = () => set(window.innerHeight - vv.height - vv.offsetTop);
+  vv.addEventListener("resize", measure);
+  vv.addEventListener("scroll", measure);
+  measure();
 })();
 
 document.querySelector(".tabbar")?.addEventListener("click", e => {
