@@ -1513,9 +1513,17 @@ function kickCurrentSound(){
   });
 }
 
-["pointerdown", "touchstart", "keydown", "wheel", "click"].forEach(ev => {
-  document.addEventListener(ev, unlockSound, { passive: true });
-});
+// A browser needs a gesture before it will let audio start, but every gesture
+// used to count -- including the tap that opens a detail page. The sound then
+// arrived on the way back out, unannounced and from something the viewer never
+// asked for. Only a tap on the clip itself is a request for sound; the dock,
+// its buttons and scrolling are not.
+document.addEventListener("pointerdown", e => {
+  const onClip = e.target.closest && e.target.closest("[data-video]");
+  if (!onClip) return;
+  if (e.target.closest("button, a, [role='button']")) return;
+  unlockSound();
+}, { passive: true });
 
 function parkAtStart(video, item, slide, { pauseFirst = false } = {}){
   const start = clipStart(item, slide);
@@ -1583,6 +1591,23 @@ function releaseVideo(slide, item){
     <div class="video-edgefade"></div>`;
 }
 
+// A neighbour is loaded and parked on its first frame, and left there.
+//
+// It used to be played muted so it would be moving the instant you arrived, but
+// that meant arriving to a clip already half over, and on a phone it is three
+// or four videos decoding at once, which is what made the feed lag. is-ready
+// alone reveals the parked frame, so the slide still looks live; only the slide
+// you are actually on runs.
+function prepClip(slide, item){
+  const wrap = slide.querySelector("[data-video]");
+  const video = ensureVideo(slide, item);
+  hardMute(video);
+  parkAtStart(video, item, slide, { pauseFirst: true }).then(() => {
+    if (wrap) wrap.classList.add("is-ready");
+  });
+  return video;
+}
+
 function runClip(slide, item, audible){
   const wrap = slide.querySelector("[data-video]");
   const video = ensureVideo(slide, item);
@@ -1648,9 +1673,11 @@ function primeNeighbor(idx){
   parkAtStart(video, item, slide, { pauseFirst: true }).then(() => {
     if (!isPageLive()) return;
     if (Math.abs(idx - current) !== 1) return;
+    // decoded and sitting on its first frame, ready to start the moment it
+    // becomes the slide in view
     video.muted = true;
     video.volume = 0;
-    video.play().then(() => wrap.classList.add("is-ready", "is-playing")).catch(() => {});
+    wrap.classList.add("is-ready");
   });
 }
 
@@ -2033,7 +2060,7 @@ function activate(i){
       if (isTop10) setRank(i + 1);
       else assemblePatch(slide.querySelector("[data-top10]"));
     } else if (dist === 1) {
-      runClip(slide, item, false);
+      prepClip(slide, item);
       resetSlide(slide);
     } else {
       hardMute(wrap.querySelector("video"));
@@ -2063,7 +2090,6 @@ const io = new IntersectionObserver((entries) => {
   });
 }, { threshold: [0.08, 0.5] });
 feedEl.addEventListener("scroll", () => {
-  unlockSound();
   const i = nearestSlide();
   if (i !== current) activate(i);
   clearTimeout(feedEl._primeT);
