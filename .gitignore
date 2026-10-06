@@ -9,3 +9,10 @@ public/
 .env.local
 .env*.local
 admin/invites.json
+
+# macOS leaves these everywhere, and share/ is what Vercel deploys
+.DS_Store
+
+# intermediate output from scripts/shrink-clips.sh -- the originals stay in
+# share/trailers, and this folder is only ever a staging area to look at
+share/trailers-small/
