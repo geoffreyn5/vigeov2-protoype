@@ -1518,6 +1518,22 @@ function kickCurrentSound(){
 // arrived on the way back out, unannounced and from something the viewer never
 // asked for. Only a tap on the clip itself is a request for sound; the dock,
 // its buttons and scrolling are not.
+// Starting playback and turning the sound on are two different things, and
+// conflating them is why the feed sat still until it was tapped. A phone can
+// refuse to autoplay outright -- Low Power Mode does exactly that -- and when
+// the refusal came, nothing ever asked again. Any gesture now re-asks, silently;
+// only a tap on the clip asks for sound.
+const kickPlayback = () => {
+  if (!isPageLive()) return;
+  const slide = feedEl.querySelectorAll(".slide")[current];
+  const v = slide && slide.querySelector("video");
+  if (!v || !v.paused) return;
+  v.muted = !soundOn;
+  v.play().catch(() => { v.muted = true; v.play().catch(() => {}); });
+};
+["pointerdown", "touchstart", "keydown"].forEach(ev =>
+  document.addEventListener(ev, kickPlayback, { passive: true, capture: true }));
+
 document.addEventListener("pointerdown", e => {
   const onClip = e.target.closest && e.target.closest("[data-video]");
   if (!onClip) return;
@@ -1572,7 +1588,15 @@ function ensureVideo(slide, item){
 // slide from there on sat on its poster with loadeddata never firing. Anything
 // outside the window around the current slide is torn back down to its poster
 // and rebuilt by ensureVideo when it comes near again.
-const KEEP_MOUNTED = 3;
+// How far ahead the clips are loaded and decoded. The point is that the clip
+// you swipe to has already been fetched and parked on its first frame, so it
+// starts the instant it arrives rather than showing a holding image. Four ahead
+// at roughly 3 MB a clip is about 12 MB of runway -- affordable now the clips
+// are a tenth of what they were, and it stays well inside the number of video
+// elements a phone will decode at once.
+const AHEAD = 4;
+const BEHIND = 1;
+const KEEP_MOUNTED = 5;
 function releaseVideo(slide, item){
   const wrap = slide.querySelector("[data-video]");
   if (!wrap || !wrap.dataset.loaded) return;
@@ -1670,7 +1694,8 @@ function primeNeighbor(idx){
   const video = ensureVideo(slide, item);
   parkAtStart(video, item, slide, { pauseFirst: true }).then(() => {
     if (!isPageLive()) return;
-    if (Math.abs(idx - current) !== 1) return;
+    const d = idx - current;
+    if (d > AHEAD || d < -BEHIND) return;
     // decoded and sitting on its first frame, ready to start the moment it
     // becomes the slide in view
     video.muted = true;
@@ -1679,10 +1704,12 @@ function primeNeighbor(idx){
 }
 
 function primeAround(i){
-  primeNeighbor(i - 1);
-  primeNeighbor(i + 1);
+  // the ones the thumb is heading for first, then the one behind
+  for (let n = 1; n <= AHEAD; n++) primeNeighbor(i + n);
+  for (let n = 1; n <= BEHIND; n++) primeNeighbor(i - n);
   feedEl.querySelectorAll(".slide").forEach((slide, idx) => {
-    if (Math.abs(idx - i) <= 1) return;
+    const d = idx - i;
+    if (d <= AHEAD && d >= -BEHIND) return;
     const video = slide.querySelector("video");
     if (!video) return;
     hardMute(video);
@@ -2062,7 +2089,7 @@ function activate(i){
     } else {
       hardMute(wrap.querySelector("video"));
       resetSlide(slide);
-      if (dist > KEEP_MOUNTED) releaseVideo(slide, item);
+      if (idx - i > KEEP_MOUNTED || i - idx > BEHIND + 1) releaseVideo(slide, item);
     }
   });
 }
