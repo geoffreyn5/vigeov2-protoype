@@ -161,9 +161,49 @@
     width:100% !important;
     height:100% !important;
   }
+
+  /* Loading screen.
+     This prototype is run in moderated user tests, so it loads everything up
+     front: a participant should never be the one waiting on a detail page.
+     It holds until every screen reports warm, with a hard cap so a slow
+     network ends the wait rather than the session. */
+  .boot{
+    position:fixed;inset:0;z-index:999;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
+    background:
+      radial-gradient(120% 70% at 8% -10%, rgba(255,90,70,.22) 0%, transparent 42%),
+      radial-gradient(90% 50% at 100% 8%, rgba(180,80,220,.16) 0%, transparent 46%),
+      #000;
+    color:#fff;font-family:"Inter",system-ui,sans-serif;
+    transition:opacity .45s ease, visibility 0s linear .45s;
+  }
+  .boot.is-done{opacity:0;visibility:hidden;pointer-events:none}
+  .boot-mark{
+    font-size:30px;font-weight:800;letter-spacing:-.04em;
+  }
+  .boot-sub{
+    margin-top:8px;font-size:13.5px;font-weight:500;color:rgba(255,255,255,.55);
+  }
+  .boot-track{
+    margin-top:28px;width:min(62vw,220px);height:3px;border-radius:999px;
+    background:rgba(255,255,255,.14);overflow:hidden;
+  }
+  .boot-fill{
+    display:block;height:100%;width:0%;border-radius:inherit;
+    background:linear-gradient(90deg, #ffec8c 0%, #ff5a46 60%, #ff2850 100%);
+    transition:width .3s cubic-bezier(.22,.82,.28,1);
+  }
+  @media (prefers-reduced-motion:reduce){
+    .boot,.boot-fill{transition:none}
+  }
 </style>
 </head>
 <body>
+<div class="boot" id="boot" role="status" aria-live="polite">
+  <div class="boot-mark">Alfora</div>
+  <div class="boot-sub" id="bootSub">Getting everything ready…</div>
+  <div class="boot-track"><i class="boot-fill" id="bootFill"></i></div>
+</div>
 <div class="page">
   <div class="stage">
     <div class="phone" id="phone">
@@ -293,6 +333,67 @@ window.addEventListener("message", e => {
   vv.addEventListener("scroll", push);
   window.addEventListener("orientationchange", () => setTimeout(push, 250));
   push();
+})();
+
+// Holding the loading screen until the screens report themselves warm.
+//
+// Each frame posts {done, total} as it works through its own titles. Totals
+// arrive in batches, so the bar is clamped to never run backwards -- a
+// participant watching it should see one steady fill, not a number arguing
+// with itself.
+(function bootGate(){
+  const el = document.getElementById("boot");
+  const fill = document.getElementById("bootFill");
+  const sub = document.getElementById("bootSub");
+  if (!el) return;
+
+  const frames = new Map();
+  let shown = 0, settled = false;
+  const START = performance.now();
+  const FLOOR = 900;      // never flash past; it reads as a glitch
+  // Generous, because cutting off early is the worse failure: the participant
+  // then meets exactly the cold screens this is here to prevent. It is a
+  // backstop for a broken network, not a schedule.
+  const CAP = 60000;
+
+  const finish = (why) => {
+    if (settled) return;
+    settled = true;
+    fill.style.width = "100%";
+    if (why === "cap") sub.textContent = "Ready";
+    const wait = Math.max(0, FLOOR - (performance.now() - START));
+    setTimeout(() => el.classList.add("is-done"), wait + 220);
+  };
+
+  const paint = () => {
+    let done = 0, total = 0;
+    frames.forEach(v => { done += v.done; total += v.total; });
+    if (!total) return;
+    // the bar only ever moves forward, and stops short of full until the work
+    // actually is
+    const pct = Math.min(97, Math.round((done / total) * 100));
+    if (pct > shown) {
+      shown = pct;
+      fill.style.width = pct + "%";
+      // the count is for whoever is setting the test up, not the participant
+      sub.textContent = `Getting everything ready… ${done} of ${total}`;
+    }
+    const ready = [...frames.values()].every(v => v.total > 0 && v.done >= v.total);
+    if (ready && performance.now() - START > FLOOR) finish("warm");
+  };
+
+  window.addEventListener("message", e => {
+    const d = e.data;
+    if (!d || d.type !== "warm" || typeof d.total !== "number") return;
+    const key = [...document.querySelectorAll("iframe[data-app]")]
+      .find(f => f.contentWindow === e.source)?.dataset.app || "other";
+    frames.set(key, { done: d.done, total: d.total });
+    paint();
+  });
+
+  setTimeout(() => finish("cap"), CAP);
+  // nothing reported at all -- an older build, or every frame blocked
+  setTimeout(() => { if (!frames.size) finish("cap"); }, 6000);
 })();
 
 if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
