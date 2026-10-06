@@ -2217,7 +2217,13 @@ feedEl.addEventListener("click", e => {
   if (e.target.closest("[data-title], [data-poster]")) {
     const slide = e.target.closest(".slide");
     const item = items[Number(slide?.dataset.i)];
-    if (item) titlePage.open(item, undefined, slide?.querySelector("[data-poster] img"));
+    // No flight from a reel. The reel card's poster is far shorter than the
+    // hero's, so the clone scaled by about 1.2 across and 3.4 down, and
+    // animating that over a playing video costs more than the move is worth --
+    // on a phone it drops frames. The detail page just arrives with its poster
+    // already in place. Every other surface still passes its source element and
+    // keeps the flight.
+    if (item) titlePage.open(item);
     return;
   }
   if (e.target.closest("[data-cta]")) { toast("Opening the bundle builder"); return; }

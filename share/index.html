@@ -276,6 +276,25 @@ window.addEventListener("message", e => {
     frame?.contentWindow?.postMessage({ type: "app-reel", reel: d.reel }, "*");
   }
 });
+// The keyboard only shrinks the top-level visual viewport; an iframe's own
+// never reports it on iOS. So measure it here and hand it to the frame on
+// screen, which docks its input above it.
+(function publishKeyboardInset(){
+  const vv = window.visualViewport;
+  if (!vv) return;
+  let last = -1;
+  const push = () => {
+    const kb = Math.max(0, Math.round(window.innerHeight - vv.height - vv.offsetTop));
+    if (kb === last) return;
+    last = kb;
+    document.querySelectorAll("iframe[data-app]").forEach(f => ping(f, "app-kb", { kb }));
+  };
+  vv.addEventListener("resize", push);
+  vv.addEventListener("scroll", push);
+  window.addEventListener("orientationchange", () => setTimeout(push, 250));
+  push();
+})();
+
 if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
   navigator.serviceWorker.register("./sw.js");
 }
