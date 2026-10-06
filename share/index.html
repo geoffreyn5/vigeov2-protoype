@@ -196,6 +196,24 @@
   @media (prefers-reduced-motion:reduce){
     .boot,.boot-fill{transition:none}
   }
+
+  /* The loading screen ends on a tap rather than disappearing on its own.
+     A browser will not let audio start before a gesture, so without one the
+     first reel always plays silent; this is the gesture, taken before the feed
+     is on screen. In a moderated test the facilitator taps it and hands the
+     phone over ready. */
+  .boot-go{
+    margin-top:26px;padding:13px 30px;border:0;border-radius:999px;cursor:pointer;
+    font:inherit;font-size:15px;font-weight:700;letter-spacing:-.01em;color:#141014;
+    background:linear-gradient(180deg,#ffe9a8 0%,#ff9d72 55%,#ff6a52 100%);
+    box-shadow:0 10px 26px rgba(255,90,70,.28);
+    opacity:0;transform:translateY(6px);pointer-events:none;
+    transition:opacity .3s ease, transform .3s cubic-bezier(.22,.82,.28,1);
+  }
+  .boot.is-ready .boot-go{opacity:1;transform:none;pointer-events:auto}
+  .boot.is-ready .boot-track{opacity:.25;transition:opacity .3s ease}
+  .boot-go:active{transform:scale(.97)}
+  @media (prefers-reduced-motion:reduce){ .boot-go{transition:none} }
 </style>
 </head>
 <body>
@@ -203,6 +221,7 @@
   <div class="boot-mark">Vigeo Young</div>
   <div class="boot-sub" id="bootSub">Getting everything ready…</div>
   <div class="boot-track"><i class="boot-fill" id="bootFill"></i></div>
+  <button class="boot-go" id="bootGo" type="button">Start</button>
 </div>
 <div class="page">
   <div class="stage">
@@ -356,14 +375,27 @@ window.addEventListener("message", e => {
   // backstop for a broken network, not a schedule.
   const CAP = 60000;
 
+  // Loading done means the Start button appears, not that the screen leaves.
+  // The tap is the point: it is the gesture the browser needs before audio can
+  // play, taken while the feed is still behind the screen, so the first reel
+  // starts with sound like every other one.
+  const go = document.getElementById("bootGo");
   const finish = (why) => {
     if (settled) return;
     settled = true;
     fill.style.width = "100%";
-    if (why === "cap") sub.textContent = "Ready";
+    sub.textContent = why === "cap" ? "Ready" : "Ready when you are";
     const wait = Math.max(0, FLOOR - (performance.now() - START));
-    setTimeout(() => el.classList.add("is-done"), wait + 220);
+    setTimeout(() => el.classList.add("is-ready"), wait + 180);
   };
+
+  const start = () => {
+    el.classList.add("is-done");
+    // sticky activation covers the same-origin frames, but tell them anyway so
+    // each one unmutes the clip it is showing rather than waiting to be touched
+    document.querySelectorAll("iframe[data-app]").forEach(f => ping(f, "app-start"));
+  };
+  if (go) go.addEventListener("click", start);
 
   const paint = () => {
     let done = 0, total = 0;
@@ -375,8 +407,10 @@ window.addEventListener("message", e => {
     if (pct > shown) {
       shown = pct;
       fill.style.width = pct + "%";
-      // the count is for whoever is setting the test up, not the participant
-      sub.textContent = `Getting everything ready… ${done} of ${total}`;
+      // the count is for whoever is setting the test up, not the participant.
+      // Once it has settled the line belongs to finish(), so a late tick does
+      // not put the counter back over "Ready when you are".
+      if (!settled) sub.textContent = `Getting everything ready… ${done} of ${total}`;
     }
     const ready = [...frames.values()].every(v => v.total > 0 && v.done >= v.total);
     if (ready && performance.now() - START > FLOOR) finish("warm");
