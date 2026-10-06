@@ -32,7 +32,7 @@
 
   const catalog = {
     wed: {
-      id: "wed", title: "Wednesday", syn: "Goth. Murder. Dance.", kind: "Series", length: "8 ep · ~50m",
+      id: "wed", title: "Wednesday", syn: "Wednesday Addams at boarding school", kind: "Series", length: "8 ep · ~50m",
       provider: "Netflix", logo: "Netflix logo.webp",
       poster: "https://image.tmdb.org/t/p/w500/9PFonBhy4cQy7Jz20NpMygczOkv.jpg",
       still: "https://image.tmdb.org/t/p/w780/sNLP0dLZcVBqYa3MchCXJqgDtFb.jpg",
@@ -41,18 +41,18 @@
       chips: [
         F("Actually scary, or just gothic?", "Spooky-fun, not a horror hangover. Jump scares are mild; the vibe is gothic teen drama with claws. You’ll know in the first episode if the dance is the point.", [
           { id: "wed-horror", q: "Would I still be fine if I don’t like horror?", a: "Yes. If jump-scare horror is the no, this isn’t that. If you hate deadpan teen murder altogether, skip." },
-          { id: "wed-sofa", q: "Can I watch this with someone who’s easily spooked?", a: "Mostly. The Nevermore mood is the scare. Sit with them for episode one; if the Thing scene is too much, this isn’t their show." },
-          { id: "wed-jenna", q: "Where do I know her from?", a: "Jenna Ortega — you’ve seen the face. Wednesday is the one that stuck. You don’t need the old Addams films to get why she’s here.", who: "Jenna Ortega" }
+          { id: "wed-sofa", q: "Is it okay for someone who scares easily?", a: "Mostly. The Nevermore mood is the scare. Sit with them for episode one; if the Thing scene is too much, this isn’t their show." },
+          { id: "wed-jenna", q: "Who made it?", a: "Jenna Ortega — you’ve seen the face. Wednesday is the one that stuck. You don’t need the old Addams films to get why she’s here.", who: "Jenna Ortega" }
         ]),
         F("Binge this, or drip it?", "Easy two-episode nights. Season arcs reward a weekend binge if you’re in the mood. Not a homework show — you can leave and come back.", [
           { id: "wed-one", q: "What if I only have one episode tonight?", a: "That’s a good Wednesday. ~50 minutes, Netflix, you’re already mid-season. One tonight, another when the house is quiet." },
-          { id: "wed-s2", q: "Does season two need season one in my head?", a: "You’ll follow it. Season one is the map of Nevermore and the dance. Watch that if the family lore is fuzzy." }
+          { id: "wed-s2", q: "Do I need season 1 for season 2?", a: "You’ll follow it. Season one is the map of Nevermore and the dance. Watch that if the family lore is fuzzy." }
         ]),
         F("Need the Addams movies first?", "Nope. It’s its own universe — knowing the family lore is just bonus smirk material. The show tells you who she is.")
       ]
     },
     dune: {
-      id: "dune", title: "Dune: Part Two", syn: "Sand. Prophecy. War.", kind: "Film", length: "2h 46",
+      id: "dune", title: "Dune: Part Two", syn: "Sci-fi sequel, war over a desert planet", kind: "Film", length: "2h 46",
       provider: "HBO Max", logo: "hbo-max-new-logo.jpg",
       poster: "https://image.tmdb.org/t/p/w500/y4ml848KTz0zccQxfWlE8CMMC13.jpg",
       still: "https://image.tmdb.org/t/p/w780/eZ239CUp1d6OryZEBPnO2n87gMG.jpg",
@@ -60,17 +60,17 @@
       about: "Paul Atreides joins the Fremen and walks the line between prophecy and revenge. The rare sequel that outgrows its first half — worms, war, and one very intense family dinner.",
       chips: [
         F("Do I need Part One first?", "You’ll survive without it, but Part One is the map. Watch that if prophecy talk makes you itch, or if names like Chani still bounce off.", [
-          { id: "dune-names", q: "What if I barely remember the names?", a: "Watch Part One. This film assumes you already took the sand. A recap will get you through a scene; it won’t get you through the politics." },
+          { id: "dune-names", q: "How long is Part One?", a: "Watch Part One. This film assumes you already took the sand. A recap will get you through a scene; it won’t get you through the politics." },
           { id: "dune-ok", q: "I’ll be fine — I just want the war.", a: "Then start here. You’ll miss some quiet setup; you won’t miss the worms." }
         ]),
         F("A weeknight film, or Friday?", "2h 46 is a Friday film. Splitable around the mid-story time jump if you must. Not a Tuesday after work unless that’s the night you wanted.", [
-          { id: "dune-split", q: "Can I split it if 2h 46 is too much?", a: "Yes — around the mid-story time jump. Still a Friday film. Don’t start at 22:30 unless finishing at 1am is the point." }
+          { id: "dune-split", q: "How violent is it?", a: "Yes — around the mid-story time jump. Still a Friday film. Don’t start at 22:30 unless finishing at 1am is the point." }
         ]),
         F("How stressful is this, really?", "Tense in short hits — sandworms, politics, and that dinner. You’ll know after the first big set piece whether this is your night.")
       ]
     },
     under: {
-      id: "under", title: "Undercover", syn: "Camping. XTC. Double lives.", kind: "Series", length: "3 seasons · ~50m",
+      id: "under", title: "Undercover", syn: "Crime series, cops undercover on a campsite", kind: "Series", length: "3 seasons · ~50m",
       provider: "Netflix", logo: "Netflix logo.webp",
       poster: "https://image.tmdb.org/t/p/w500/ziOJNiNUbomrs81behksd0z9Qoz.jpg",
       still: "https://image.tmdb.org/t/p/w780/x2kmiy3RS3hC0SQC0N2sLN3rsdB.jpg",
@@ -78,8 +78,8 @@
       about: "Limburg camping, Dutch-Belgian border slang, and a villain you’ll weirdly root for. Crime-show tense, not torture. The series is the long game; Ferry is the origin glow-up.",
       chips: [
         F("How Flemish is this, honestly?", "Fully — Limburg camping vibes, Dutch-Belgian border slang, and Ferry. Subtitles if you need them; the camping is the point.", [
-          { id: "uc-ferry", q: "Who is Ferry supposed to be?", a: "The man you weirdly root for. Drug boss, camping, the long game. The film Ferry is his origin — watch that after if you want more Bouman.", who: "Ferry" },
-          { id: "uc-lang", q: "Will I miss it if my Dutch isn’t great?", a: "You’ll get the camping and the double lives. The slang is flavour. Subtitles keep the jokes." }
+          { id: "uc-ferry", q: "Who is Ferry?", a: "The man you weirdly root for. Drug boss, camping, the long game. The film Ferry is his origin — watch that after if you want more Bouman.", who: "Ferry" },
+          { id: "uc-lang", q: "Is it in Dutch?", a: "You’ll get the camping and the double lives. The slang is flavour. Subtitles keep the jokes." }
         ]),
         F("Too violent for a weeknight?", "Crime-show tense, not torture porn. Ideal if you like Narcos energy without the homework. Skip if the room wanted pink.", [
           { id: "uc-room", q: "What if someone else is on the sofa?", a: "Fine if they like crooks. Not fine if they wanted Barbie. Episode length is ~50 minutes — one and see." }
@@ -88,7 +88,7 @@
       ]
     },
     ferry: {
-      id: "ferry", title: "Ferry", syn: "Origin. Underworld. Glow-up.", kind: "Film", length: "1h 46",
+      id: "ferry", title: "Ferry", syn: "Undercover prequel, Ferry’s early years", kind: "Film", length: "1h 46",
       provider: "Netflix", logo: "Netflix logo.webp",
       poster: "https://image.tmdb.org/t/p/w500/w6n1pu9thpCVHILejsuhKf3tNCV.jpg",
       still: "https://image.tmdb.org/t/p/w780/fejok33Ijc6SppiEU1cfwA9Mo2.jpg",
@@ -103,128 +103,128 @@
       ]
     },
     bear: {
-      id: "bear", title: "The Bear", syn: "Kitchen. Panic. Family.", kind: "Series", length: "S3 · ~30m",
+      id: "bear", title: "The Bear", syn: "Chef takes over his family’s sandwich shop", kind: "Series", length: "S3 · ~30m",
       provider: "Disney+", logo: "disney-plus-logo.png",
       poster: "https://image.tmdb.org/t/p/w500/6FVNnVk0SZFdzb9dkvOr13XyyM4.jpg",
       still: "https://image.tmdb.org/t/p/w780/aZz0AOpYcDyYwfET9k6j3QQXPuS.jpg",
       seasons: ["S1", "S2", "S3"],
       about: "Carmy comes home to Chicago to run the family sandwich shop. Kitchen pressure, family debt, a crew that doesn’t trust him. Stress in 20–30 minute hits.",
       chips: [
-        F("How stressful is it, really?", "Genuinely stressful, and that’s the point. The first episodes run at full boil, then it softens around episode six. Short doses.", [
-          { id: "bear-know", q: "How fast will I know if it’s for me?", a: "After two episodes. Kitchen chaos in one, family in two. If that doesn’t hook you, it isn’t your show." }
+        F("How stressful is it?", "Very, on purpose. The first episodes are intense, then it calms down around episode six.", [
+          { id: "bear-know", q: "How quickly will I know if it’s for me?", a: "Within two episodes." }
         ]),
-        F("Is season 1 the best one?", "Season 1 is the tightest. Season 2 goes bigger and softer. Starting at the beginning is the right call."),
-        F("Disney+ isn’t in my plan — still worth it?", "Only if the kitchen is the brief. The Bear is locked until you add Disney+. Abbott is the lighter cousin, also locked. Undercover is the in-plan intensity.")
+        F("Where do I start?", "Season 1, episode 1. Each season builds on the one before."),
+        F("Where can I watch it?", "On Disney+.")
       ]
     },
     y1985: {
-      id: "y1985", title: "1985", syn: "Friends. Case. Flanders.", kind: "Series", length: "8 ep · ~50m",
+      id: "y1985", title: "1985", syn: "Drama series on the Bende van Nijvel", kind: "Series", length: "8 ep · ~50m",
       provider: "VRT MAX", logo: "vrt-max-logo.png",
       poster: "https://image.tmdb.org/t/p/w500/ma1FtkhQ1mQRbyYUTWY5ngi4Xne.jpg",
       still: "https://image.tmdb.org/t/p/w500/ma1FtkhQ1mQRbyYUTWY5ngi4Xne.jpg",
       seasons: ["Miniserie"],
       about: "Three young friends from the countryside get pulled into the darkest unsolved case in Belgian history. Tense rather than graphic — dread, not gore.",
       chips: [
-        F("Is it really based on a true story?", "Yes — the Bende van Nijvel case, still unsolved. It stays close to the documented facts and goes quiet where the record does.", [
-          { id: "n1985-hist", q: "Do I need to know the history first?", a: "No. The series explains what you need. Belgians will recognise extra details; it works if you come in cold." }
+        F("Is it based on a true story?", "Yes, the Bende van Nijvel case, which is still unsolved. It stays close to the known facts.", [
+          { id: "n1985-hist", q: "Do I need to know the history first?", a: "No. The series explains what you need. Belgians will recognise extra details." }
         ]),
-        F("Too heavy for tonight?", "Tense rather than graphic. Not the pick if you wanted to switch your brain off. Thuis if you wanted 25 minutes local and easy."),
-        F("Can I start mid-week?", "Episodes are ~50 minutes, VRT MAX, already in your plan. One tonight is a proper sit. Don’t treat it as background.")
+        F("How dark is it?", "Tense rather than graphic."),
+        F("How long is an episode?", "About 50 minutes. It’s on VRT MAX, already in your plan.")
       ]
     },
     thuis: {
-      id: "thuis", title: "Thuis", syn: "Daily. Local. Easy.", kind: "Series", length: "Daily · ~25m",
+      id: "thuis", title: "Thuis", syn: "Daily soap, about 25 minutes", kind: "Series", length: "Daily · ~25m",
       provider: "VRT MAX", logo: "vrt-max-logo.png",
       poster: "https://image.tmdb.org/t/p/w500/5tSBe01mPLii0I1NoCGSFJSO97M.jpg",
       still: "https://image.tmdb.org/t/p/w780/39Se1j3FyhhL8kZKAEno5YIss5X.jpg",
       seasons: ["Daily"],
       about: "The Flemish daily — 25 minutes, already in your plan. Not a case. The thing you chip away when the night is done, or when the room is local and talking.",
       chips: [
-        F("Is this actually leaving?", "Yes. Daily, ~25 minutes, VRT MAX. You’re already in it. Easy to chip away this week without making it the night."),
-        F("Too soapy for tonight?", "It’s a daily. If you wanted a case, that’s Assisen or 1985. If you wanted 25 minutes and home, this is it."),
-        F("Can I watch this with people talking?", "That’s the point. Local, easy, nobody has to sit up.")
+        F("How long is an episode?", "About 25 minutes, every weekday, on VRT MAX."),
+        F("Can I pick it up at any point?", "Yes. It’s a daily soap, and you’re already watching."),
+        F("Can I have it on while people talk?", "Yes. It’s easy to follow.")
       ]
     },
     chantal: {
-      id: "chantal", title: "Chantal", syn: "Crime. Humour. Flanders.", kind: "Series", length: "S2 · ~45m",
+      id: "chantal", title: "Chantal", syn: "Crime comedy with a village cop", kind: "Series", length: "S2 · ~45m",
       provider: "VRT MAX", logo: "vrt-max-logo.png",
       poster: "https://image.tmdb.org/t/p/w500/pmoicISpTRSt4bu03bwEaVazBXS.jpg",
       seasons: ["S1", "S2"],
       about: "Flemish crime with a dry grin. If you liked it for the case, not the jokes, say so — that’s how the next pick stays on the crime side of the sofa.",
       chips: [
-        F("Crime story or the humour?", "Both live here. If you liked it for the case, Nonkels may not be the next step. Assisen and 1985 stay in the crime lane."),
-        F("Do I need season one?", "Season two assumes you know who she is. A recap gets you through a scene; season one is the map if the name still bounces off."),
-        F("In my plan tonight?", "VRT MAX, already in. ~45 minutes. That’s a weeknight you can actually start.")
+        F("Is it more crime or comedy?", "Both. It’s a crime story told with humour."),
+        F("Do I need season one?", "Ideally, yes. Season two assumes you know who she is."),
+        F("Where can I watch it?", "On VRT MAX, already in your plan. Episodes run about 45 minutes.")
       ]
     },
     assisen: {
-      id: "assisen", title: "Assisen", syn: "Court. Twist. Flanders.", kind: "Series", length: "S2 · ~45m",
+      id: "assisen", title: "Assisen", syn: "Flemish courtroom drama", kind: "Series", length: "S2 · ~45m",
       provider: "VTM GO", logo: "vtm-go-logo.png",
       poster: "https://image.tmdb.org/t/p/w500/1VSSxdlbP5Tqow1eZBVIk6Ngy8E.jpg",
       still: "https://image.tmdb.org/t/p/w780/erZh4tQsSDp83Nr4MP2LhvKAmbF.jpg",
       seasons: ["S1", "S2"],
       about: "A Flemish courtroom that turns the room. Twisty rather than violent. Locked on VTM GO — the case you want if the night can take another app.",
       chips: [
-        F("A case I can finish before bed?", "Episodes are ~45 minutes. That’s a case. It’s locked on VTM GO — Undercover is the in-plan case you can start now."),
-        F("Too dark for this room?", "Courtroom-tense, not gore. People talk after. Skip if the sofa wanted Barbie."),
-        F("Worth adding VTM GO for?", "If Assisen and De Verraders keep showing up on your list, yes. One title isn’t a plan. Ten might be.")
+        F("How long is an episode?", "About 45 minutes. It’s on VTM GO, which you don’t have yet."),
+        F("How dark is it?", "Courtroom tension, no gore."),
+        F("Any similar series in my plan?", "1985 on VRT MAX, or Undercover on Netflix.")
       ]
     },
     verraders: {
-      id: "verraders", title: "De Verraders", syn: "Traitors. Sofa. Format.", kind: "Series", length: "S3 · ~50m",
+      id: "verraders", title: "De Verraders", syn: "Game show with secret traitors", kind: "Series", length: "S3 · ~50m",
       provider: "VTM GO", logo: "vtm-go-logo.png",
       poster: "https://image.tmdb.org/t/p/w500/dB0LuvCwbXQTK2h3R8H8e0pVr2z.jpg",
       still: "https://image.tmdb.org/t/p/w780/niS3AVdPp4pQpL46XxqTn4EG7AL.jpg",
       seasons: ["S1", "S2", "S3"],
       about: "The Belgian sofa format — traitors, a round table, talking over it. Not a story-twist; a format-twist. Locked on VTM GO.",
       chips: [
-        F("Can we talk over this?", "That’s the one. Format, not prestige. People stay in the room. Locked unless you add VTM GO."),
-        F("Do I need earlier seasons?", "Each season is a new table. Start here if this is the one in the house."),
-        F("What’s the in-plan sofa version?", "Thuis if local and easy. Squid Game if you wanted talking after and Netflix. This one waits on VTM GO.")
+        F("How does the game work?", "The players work as a team, but a few of them are secret traitors. Every round the group votes out the person they think is a traitor."),
+        F("Do I need to watch earlier seasons?", "No. Each season has new players."),
+        F("Where can I watch it?", "On VTM GO, which you don’t have yet.")
       ]
     },
     squid: {
-      id: "squid", title: "Squid Game", syn: "Game. Debt. Survival.", kind: "Series", length: "S2 · ~55m",
+      id: "squid", title: "Squid Game", syn: "Survival drama built on children’s games", kind: "Series", length: "S2 · ~55m",
       provider: "Netflix", logo: "Netflix logo.webp",
       poster: "https://image.tmdb.org/t/p/w500/1QdXdRYfktUSONkl1oD5gc6Be0s.jpg",
       still: "https://image.tmdb.org/t/p/w780/2meX1nMdScFOoV4370rqHWKmXhY.jpg",
       seasons: ["S1", "S2"],
       about: "The game you already know — debt, survival, and a room that will talk after. You’re mid-season. It’s marked leaving, so this is the one you’ll feel if it goes.",
       chips: [
-        F("Too dark for this room?", "Yes if anyone still wanted to talk lightly. Barbie or Wednesday if you wanted colour. This one pulls people back to the screen."),
-        F("Do I need season one in my head?", "You’ll follow the game. Season one is why they’re here. A recap covers the rules; it won’t cover the faces."),
-        F("Will I lose it if I wait a week?", "It’s marked leaving. You’re 55% in. That’s the one to steal a night for, with Last of Us.")
+        F("How violent is it?", "Very. Players die on screen in every game. Not for kids."),
+        F("Do I need season one?", "It helps. A recap covers the rules, but season one introduces the characters."),
+        F("Is it leaving soon?", "Yes, it’s marked as leaving. You’re 55% in.")
       ]
     },
     tlou: {
-      id: "tlou", title: "The Last of Us", syn: "Fungus. Road. Care.", kind: "Series", length: "S2 · ~55m",
+      id: "tlou", title: "The Last of Us", syn: "Post-apocalypse road series", kind: "Series", length: "S2 · ~55m",
       provider: "HBO Max", logo: "hbo-max-new-logo.jpg",
       poster: "https://image.tmdb.org/t/p/w500/dmo6TYuuJgaYinXBPjrgG9mB5od.jpg",
       still: "https://image.tmdb.org/t/p/w780/uDgy6hyPd82kOHh6I95FLtLnj6p.jpg",
       seasons: ["S1", "S2"],
       about: "Twenty years after the outbreak, what’s left of love and civilisation. You’re deep in — S2 E3, 67%. Care, not just fungus. Not background.",
       chips: [
-        F("Do I need to know the game?", "No. The show tells you who they are. The game is trivia. This is a road and a relationship."),
-        F("Too heavy for a weeknight?", "It lands. Not a Tuesday unless the sofa can sit still. You’re already in — that’s why waiting a week hurts."),
-        F("Is it actually leaving?", "Yes. You’re furthest in of the leaving pile. I’d steal a night for this before Wednesday.")
+        F("Do I need to know the game?", "No. The show tells you who everyone is."),
+        F("How heavy is it?", "Heavy. It’s about loss, with some violent scenes. Not one to half-watch."),
+        F("Is it leaving soon?", "Yes. Of all your leaving titles, it’s the one you’re furthest into.")
       ]
     },
     opp: {
-      id: "opp", title: "Oppenheimer", syn: "Bomb. Guilt. Fallout.", kind: "Film", length: "3h 00",
+      id: "opp", title: "Oppenheimer", syn: "Biopic of the man behind the atomic bomb", kind: "Film", length: "3h 00",
       provider: "HBO Max", logo: "hbo-max-new-logo.jpg",
       poster: "https://image.tmdb.org/t/p/w500/jtTHxuJhuZpFAnCI4vGjg1LGmpY.jpg",
       seasons: ["Film"],
       about: "The man who built the bomb, and what it built in him. The physics is flavour; the film is guilt, power, and the hangover of being right. A weekend sit.",
       chips: [
         F("Three hours too long tonight?", "Three hours. A weekend film. Not a Tuesday after work unless you like finishing at 1am.", [
-          { id: "opp-split", q: "Can I split it?", a: "You can. It will feel like you paused a trial. Better as one sit if the sofa can take it." }
+          { id: "opp-split", q: "How long is it?", a: "You can. It will feel like you paused a trial. Better as one sit if the sofa can take it." }
         ]),
         F("Do I need the science?", "You don’t. The physics is flavour; the film is about guilt."),
         F("Pair this with Barbie?", "Yes — that’s the joke. Barbie first if you want to land soft. Only if the night can hold both.")
       ]
     },
     barb: {
-      id: "barb", title: "Barbie", syn: "Pink. Funny. Gut punch.", kind: "Film", length: "1h 54",
+      id: "barb", title: "Barbie", syn: "Comedy, from Barbie Land to the real world", kind: "Film", length: "1h 54",
       provider: "HBO Max", logo: "hbo-max-new-logo.jpg",
       poster: "https://image.tmdb.org/t/p/w500/tnS9DqsJvFjmg4FK4R2LghvOhs5.jpg",
       seasons: ["Film"],
@@ -238,7 +238,7 @@
       ]
     },
     zill: {
-      id: "zill", title: "Zillion", syn: "Rise. Glow. Crash.", kind: "Film", length: "2h 03",
+      id: "zill", title: "Zillion", syn: "Drama about Antwerp’s nineties mega-club", kind: "Film", length: "2h 03",
       provider: "Streamz", logo: "streamz-logo.jpg",
       poster: "https://image.tmdb.org/t/p/w500/ns7LIqVWrPbO2FYPQ0ec6mfziSc.jpg",
       seasons: ["Film"],
@@ -250,31 +250,31 @@
       ]
     },
     jan: {
-      id: "jan", title: "De Bende van Jan de Lichte", syn: "Highwaymen. Flanders. Myth.", kind: "Series", length: "10 ep · ~50m",
+      id: "jan", title: "De Bende van Jan de Lichte", syn: "Period crime series, 18th-century outlaws", kind: "Series", length: "10 ep · ~50m",
       provider: "Play", logo: "play-logo.png",
       poster: "https://image.tmdb.org/t/p/w500/py2KVZZLIa0YDCZNxhy1zdUhPDX.jpg",
       seasons: ["S1"],
       about: "The local highwaymen — Flanders, myth, crooks you can actually place. Locked on Play. Undercover and Ferry are the in-plan crime if you wanted to stay inside Netflix.",
       chips: [
-        F("Is this the Flemish crooks one?", "Yes. Jan de Lichte and Assisen are the local ones. Ferry is Dutch-Belgian border — same world as Undercover, already in your plan."),
-        F("Can I press play without another app?", "Not this one. Play is locked. Undercover if you want to continue; Ferry if you want a film that’s done."),
-        F("Too historical for tonight?", "Period, but it moves. If you wanted camping-now, that’s Undercover.")
+        F("Is it based on a real story?", "Loosely. Jan de Lichte was a real 18th-century highwayman around Aalst."),
+        F("Where can I watch it?", "On Play. Undercover and Ferry are crime stories already in your plan."),
+        F("Is it very historical?", "It’s set in the 18th century, but it moves fast.")
       ]
     },
     schelde: {
-      id: "schelde", title: "De Slag om de Schelde", syn: "War. Estuary. Home.", kind: "Film", length: "2h 04",
+      id: "schelde", title: "De Slag om de Schelde", syn: "War film, the 1944 Battle of the Scheldt", kind: "Film", length: "2h 04",
       provider: "Play", logo: "play-logo.png",
       poster: "https://image.tmdb.org/t/p/w500/sCEmbkFF2Ijz35QDMFtBBTcY7Qb.jpg",
       seasons: ["Film"],
       about: "The Scheldt, the war, a story that sits closer to home than a desert. Locked on Play. 1985 if you wanted Flanders without adding an app.",
       chips: [
-        F("Too much war for tonight?", "It’s a war film. 2h 04. 1985 if you wanted Flanders tense and already in-plan."),
-        F("In my plan?", "Play, so it carries a lock. Dune if you wanted war and HBO Max."),
-        F("Do I need the history?", "It tells you enough. Belgians will feel the estuary extra.")
+        F("How long is it?", "2h 04."),
+        F("Where can I watch it?", "On Play."),
+        F("Do I need to know the history?", "No. The film explains enough.")
       ]
     },
     glad: {
-      id: "glad", title: "Gladiator II", syn: "Sand. Steel. Empire.", kind: "Film", length: "2h 28",
+      id: "glad", title: "Gladiator II", syn: "Back to the arena, years after Maximus", kind: "Film", length: "2h 28",
       provider: "Apple TV", logo: "apple tv logo.jpg",
       poster: "https://image.tmdb.org/t/p/w500/gUPnmDkNRSLFynbpNw9VJrYBEgT.jpg",
       seasons: ["Film"],
@@ -286,94 +286,94 @@
       ]
     },
     gladijs: {
-      id: "gladijs", title: "Glad IJs", syn: "Ice. Flanders. Tension.", kind: "Series", length: "8 ep · ~50m",
+      id: "gladijs", title: "Glad IJs", syn: "Flemish drama series, eight episodes", kind: "Series", length: "8 ep · ~50m",
       provider: "VTM GO", logo: "vtm-go-logo.png",
       poster: "https://image.tmdb.org/t/p/w500/5QdsbTX15dxlIsTdwD4xQVVH7W6.jpg",
       seasons: ["S1"],
       about: "Flemish tension on thin ice — local, a case, locked on VTM GO. 1985 if you wanted that feeling already in your plan.",
       chips: [
-        F("In my plan?", "VTM GO, so it carries a lock. 1985 and Chantal are VRT MAX."),
-        F("Too soapy, or actually tense?", "Tense. Not De Verraders. A story, not a format."),
-        F("Can I start at episode one?", "Yes. Eight episodes, ~50 minutes. A series, not a dip.")
+        F("Where can I watch it?", "On VTM GO, which you don’t have yet."),
+        F("Is it a soap?", "No. It’s a drama series with one storyline."),
+        F("Do I start at episode one?", "Yes. It’s one story told over eight episodes of about 50 minutes.")
       ]
     },
     penguin: {
-      id: "penguin", title: "The Penguin", syn: "Gotham. Hustle. Colin.", kind: "Series", length: "S1 · ~60m",
+      id: "penguin", title: "The Penguin", syn: "Batman spin-off, Oz’s rise in Gotham", kind: "Series", length: "S1 · ~60m",
       provider: "HBO Max", logo: "hbo-max-new-logo.jpg",
       poster: "https://image.tmdb.org/t/p/w500/vOWcqC4oDQws1doDWLO7d3dh5qc.jpg",
       seasons: ["S1"],
       about: "Gotham without the cape — a hustle, a voice, crime that wants you awake. HBO Max, already in your plan. Late and wired is the brief.",
       chips: [
-        F("Do I need The Batman first?", "Helps for the face. Not required for the hustle. This is Oz’s show."),
-        F("Too much homework for tonight?", "One season. You can start. It’s not a 30-year timeline."),
-        F("In my plan?", "HBO Max, yes. That’s the late crime you can press play on.")
+        F("Do I need The Batman first?", "It helps to know the character, but it’s not needed. This is Oz’s story."),
+        F("How many episodes are there?", "One season of eight episodes."),
+        F("Where can I watch it?", "On HBO Max, in your plan.")
       ]
     },
     chefbbq: {
-      id: "chefbbq", title: "Chef's Table: BBQ", syn: "Fire. Smoke. Plate.", kind: "Series", length: "Vol. 1 · ~45m",
+      id: "chefbbq", title: "Chef's Table: BBQ", syn: "Food doc, one pitmaster per episode", kind: "Series", length: "Vol. 1 · ~45m",
       provider: "Netflix", logo: "Netflix logo.webp",
       poster: "https://image.tmdb.org/t/p/w500/dCOAKGHVKPgpLZNrkiqgcRxkSmZ.jpg",
       seasons: ["Vol. 1"],
       about: "The Chef’s Table formula, pointed at fire and smoke. Pretty, slow, food as scenery. Netflix, already in your plan. An episode you can actually finish.",
       chips: [
-        F("Do I need the other Chef’s Tables?", "No. Fire and smoke is the brief. Each episode is its own plate."),
-        F("Background, or do I have to watch?", "You can look at it. It’s prettier if you sit still."),
-        F("Under 45 minutes?", "That’s the point. A plate, not a Friday film.")
+        F("Do I need the other Chef’s Tables?", "No. Each episode is about one chef."),
+        F("Can I have it on in the background?", "Yes, though it’s made to look at."),
+        F("How long is an episode?", "Under 45 minutes.")
       ]
     },
     abbott: {
-      id: "abbott", title: "Abbott Elementary", syn: "School. Warm. 22 minutes.", kind: "Series", length: "S4 · ~22m",
+      id: "abbott", title: "Abbott Elementary", syn: "Mockumentary sitcom at a public school", kind: "Series", length: "S4 · ~22m",
       provider: "Disney+", logo: "disney-plus-logo.png",
       poster: "https://image.tmdb.org/t/p/w500/nBe1e3JJEZ6veGrVXNF0fRoLu56.jpg",
       seasons: ["S1", "S2", "S3", "S4"],
       about: "A public school on no budget and one relentless teacher. Mockumentary like The Office, but warmer. Locked on Disney+ — 22 minutes if you add the app.",
       chips: [
-        F("Actually funny or just wholesome?", "Both. Easy to start, easier to keep going. The Office energy without the panic.", [
-          { id: "abb-start", q: "Where do I start?", a: "Season 1, episode 1. 22 minutes. You’ll know within two." }
+        F("What kind of comedy is it?", "A mockumentary sitcom in the style of The Office, set in an underfunded public school in Philadelphia.", [
+          { id: "abb-start", q: "Where do I start?", a: "Season 1, episode 1. Episodes are about 22 minutes." }
         ]),
-        F("Good for watching together?", "One of the safest group picks: funny without being edgy, sweet without being dull."),
-        F("In my plan?", "Disney+, so it carries a lock. Thuis is the in-plan 25 minutes. Barbie if you wanted a film that’s already yours.")
+        F("Is it okay to watch with kids?", "Yes. It’s funny without being crude."),
+        F("Where can I watch it?", "On Disney+.")
       ]
     },
     twaalf: {
-      id: "twaalf", title: "De Twaalf", syn: "Jury. Flanders. Heat.", kind: "Series", length: "S1 · ~50m",
+      id: "twaalf", title: "De Twaalf", syn: "Jury drama, twelve people, one case", kind: "Series", length: "S1 · ~50m",
       provider: "Streamz", logo: "streamz-logo.jpg",
       poster: "https://image.tmdb.org/t/p/w500/8BHACZE4aelQ4vnXchd00Yof9jH.jpg",
       seasons: ["S1", "S2"],
       about: "Twelve ordinary people judge an extraordinary case. Flemish intensity — the closest neighbour if The Bear’s kitchen heat is what you wanted, with a courtroom instead of a pass.",
       chips: [
-        F("Something like The Bear?", "Closest on intensity: De Twaalf. Abbott if you wanted the humour without the panic. Locked on Streamz."),
-        F("Do I need to know Belgian law?", "No. Twelve people in a room. The case explains itself."),
-        F("In my plan?", "Streamz, so it carries a lock. 1985 is the in-plan Flemish case.")
+        F("Is it based on a real case?", "No. The case is fictional."),
+        F("Do I need to know Belgian law?", "No. The case explains itself through the twelve jurors."),
+        F("Where can I watch it?", "On Streamz, which you don’t have yet. 1985 is a Flemish case series that’s already in your plan.")
       ]
     },
     sev: {
-      id: "sev", title: "Severance", syn: "Office. Split. Dread.", kind: "Series", length: "S2 · ~50m",
+      id: "sev", title: "Severance", syn: "Thriller, work memories cut from home ones", kind: "Series", length: "S2 · ~50m",
       provider: "Apple TV", logo: "apple tv logo.jpg",
       poster: "https://image.tmdb.org/t/p/w500/pPHpeI2X1qEd1CS1SeyrdhZ4qnT.jpg",
       seasons: ["S1", "S2"],
       about: "Employees split their memory between work and life. Season 2 pays off everything the first season set up. Unsettling rather than scary. Locked on Apple TV.",
       chips: [
-        F("Too weird for casual viewing?", "It asks for your attention, and rewards it quickly — most people are hooked within two episodes. Don’t watch it while scrolling.", [
-          { id: "sev-s1", q: "Do I need to rewatch season 1 first?", a: "A ten-minute recap covers you. Season 2 rewards a good memory, but it doesn’t require one." }
+        F("Can I watch it casually?", "Not really. It needs your attention, and most people are hooked within two episodes.", [
+          { id: "sev-s1", q: "Do I need to rewatch season 1 first?", a: "A recap is enough. Season 2 assumes you remember the main points." }
         ]),
-        F("Is it scary?", "Unsettling rather than scary. No jump scares — slow, existential, closer to an office thriller than to horror."),
-        F("In my plan?", "Apple TV, so it carries a lock. The Penguin is the in-plan late crime if you wanted awake without another app.")
+        F("Is it scary?", "Unsettling rather than scary. No jump scares. It’s closer to an office thriller than to horror."),
+        F("Where can I watch it?", "On Apple TV, which you don’t have yet.")
       ]
     },
     wicked: {
-      id: "wicked", title: "Wicked", syn: "Green. Power. That song.", kind: "Film", length: "2h 40",
+      id: "wicked", title: "Wicked", syn: "Musical, the witches of Oz before Dorothy", kind: "Film", length: "2h 40",
       provider: "Apple TV", logo: "apple tv logo.jpg",
       seasons: ["Film"],
       about: "The first half — it ends on a lift, not a bow. Songs carry the feelings. Locked on Apple TV. Barbie if you wanted colour without the belt.",
       chips: [
         F("Need the musical first?", "Helps for the songs, not required for the plot. If you know Defying Gravity, you’re already in."),
         F("Too much singing for me?", "It’s a musical. Skip if sung-through isn’t your night."),
-        F("This is only part one, right?", "Yes. If you need a bow tonight, wait for both or pick a closed film. Ferry is 1h 46 and ends.")
+        F("Is this only part one?", "Yes. If you need a bow tonight, wait for both or pick a closed film. Ferry is 1h 46 and ends.")
       ]
     },
     deadpool: {
-      id: "deadpool", title: "Deadpool & Wolverine", syn: "Claws. Quips. Chaos.", kind: "Film", length: "2h 08",
+      id: "deadpool", title: "Deadpool & Wolverine", syn: "Crude Marvel team-up comedy", kind: "Film", length: "2h 08",
       provider: "Apple TV", logo: "apple tv logo.jpg",
       seasons: ["Film"],
       about: "R-rated jokes, gore gags, breaking the fourth wall. Not a family film. Locked on Apple TV.",
@@ -384,7 +384,7 @@
       ]
     },
     challengers: {
-      id: "challengers", title: "Challengers", syn: "Tennis. Desire. Zendaya.", kind: "Film", length: "2h 11",
+      id: "challengers", title: "Challengers", syn: "Tennis film about a love triangle", kind: "Film", length: "2h 11",
       provider: "Apple TV", logo: "apple tv logo.jpg",
       seasons: ["Film"],
       about: "Tennis as a three-person argument. Competitive, mean in a different way than Deadpool. Locked on Apple TV.",
@@ -395,7 +395,7 @@
       ]
     },
     insideout: {
-      id: "insideout", title: "Inside Out 2", syn: "Anxiety. Puberty. HQ.", kind: "Film", length: "1h 36",
+      id: "insideout", title: "Inside Out 2", syn: "Riley turns 13, Anxiety moves in", kind: "Film", length: "1h 36",
       provider: "Disney+", logo: "disney-plus-logo.png",
       seasons: ["Film"],
       about: "HQ grows up. Anxiety walks in. Kids can watch; the joke is sharper if you remember being fourteen. Locked on Disney+.",
@@ -406,15 +406,15 @@
       ]
     },
     arcane: {
-      id: "arcane", title: "Arcane", syn: "Sisters. City. Fire.", kind: "Series", length: "S2",
+      id: "arcane", title: "Arcane", syn: "Animated series, two sisters in a split city", kind: "Series", length: "S2",
       provider: "Netflix", logo: "Netflix logo.webp",
       poster: "https://image.tmdb.org/t/p/w500/abf8tHznhSvl9BAElD2cQeRr7do.jpg",
       seasons: ["S1", "S2"],
       about: "Two sisters on opposite sides of a city tearing itself apart. Animated, not childish. Netflix, already in your plan.",
       chips: [
-        F("Do I need to know League of Legends?", "Not at all. It stands on its own — the game is background trivia."),
-        F("Is it for kids?", "No. Heavy themes, real violence. Think sixteen and up."),
-        F("Dubbed or original?", "Original English — that’s the one the animation was made to. Keep your eyes on the screen.")
+        F("Do I need to know League of Legends?", "No. It stands on its own."),
+        F("Is it for kids?", "No. Heavy themes and real violence. Think sixteen and up."),
+        F("Is it in English?", "Yes, the original voices are English. Netflix also has dubs and subtitles.")
       ]
     }
   };

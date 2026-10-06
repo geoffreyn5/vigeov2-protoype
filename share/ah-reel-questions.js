@@ -3,201 +3,201 @@
 (function (global) {
   const REEL_QUESTIONS = {
     "Wednesday": [
-      {q: "How scary does it get?", a: "Spooky rather than scary. Gothic atmosphere, mild jump scares, more teen drama than horror. The first episode tells you everything about the tone.",
+      {q: "How scary is it?", a: "Spooky rather than scary. Gothic atmosphere and a few jump scares, more teen drama than horror.",
         follow: [
-          {id: "wed-horror", q: "I don’t like horror. Is this still okay for me?", a: "Yes. If jump-scare horror is what you avoid, this isn’t that. It’s deadpan comedy with a murder mystery underneath."},
-          {id: "wed-tone", q: "Is this more comedy or more murder?", a: "Both, deliberately: deadpan comedy first, with a real murder case running through it. Expect jokes and bodies in equal measure."}
+          {id: "wed-horror", q: "I don’t like horror. Is it okay for me?", a: "Yes. It’s deadpan comedy with a murder mystery."},
+          {id: "wed-tone", q: "Is it more comedy or more mystery?", a: "Both, in about equal parts."}
         ]},
-      {q: "Give me a recap of season 1", a: "Wednesday is sent to Nevermore, a boarding school for outcasts, and ends up solving a monster mystery nobody wants solved. Helped by Thing, the walking hand. By the end she has saved the school, gone viral for one dance scene, and learned to trust almost no one.",
+      {q: "Give me a recap of season 1", a: "Wednesday is sent to Nevermore, a boarding school for outcasts, and ends up solving a monster mystery with help from Thing, the walking hand. By the end she has saved the school and gone viral for one dance scene.",
         follow: [
-          {id: "wed-s2", q: "Does season two need season one in my head?", a: "You’ll follow season 2 fine, but season 1 sets up Nevermore and the characters. Worth a rewatch if the family lore has gone fuzzy."},
-          {id: "wed-jenna", q: "Where do I know her from?", a: "Jenna Ortega. You’ve likely seen her in other films, but Wednesday is the role that made her a star. No need to know the old Addams Family films first.", who: "Jenna Ortega"}
+          {id: "wed-s2", q: "Do I need season 1 for season 2?", a: "It helps. Season 1 sets up Nevermore and the characters."},
+          {id: "wed-jenna", q: "Who made it?", a: "Tim Burton directed several episodes.", who: "Jenna Ortega"}
         ]},
-      {q: "Is it okay for a 12-year-old?", a: "Yes, twelve is about right. There are murders and a monster, but it’s deadpan rather than gory. Watch the first episode together to be sure it suits them.",
+      {q: "Is it okay for a 12-year-old?", a: "Yes, twelve is about right. There are murders and a monster, but it isn’t gory.",
         follow: [
-          {id: "wed-sofa", q: "Can I watch this with someone who’s easily spooked?", a: "Mostly, yes. The scares are atmosphere more than shocks. Watch episode one with them. If that’s too much, the rest will be too."},
-          {id: "wed-one", q: "Is one episode enough for tonight?", a: "Yes. Episodes run for about 50 minutes, so watching one still feels complete. It is included with Netflix."}
+          {id: "wed-sofa", q: "Is it okay for someone who scares easily?", a: "Mostly. Watch episode one together. If that’s fine, the rest will be too."},
+          {id: "wed-one", q: "How long is an episode?", a: "About 50 minutes, on Netflix."}
         ]},
-      {q: "Are there other Addams Family films or shows?", a: "Yes. The two 90s films are the classics, plus the original 60s series and several animated versions. None are required for this show. It stands on its own.",
+      {q: "Do I need to know the Addams Family?", a: "No. The show stands on its own. The 90s films and the 60s series are there if you’re curious.",
         follow: [
-          {id: "wed-more", q: "What else has she been in that’s this weird?", a: "Wednesday is her defining weird role. Jenna Ortega’s other work leans horror rather than gothic comedy. I can list those too.", who: "Jenna Ortega"}
+          {id: "wed-more", q: "Who plays Wednesday?", a: "Jenna Ortega.", who: "Jenna Ortega"}
         ]}
     ],
     "Dune: Part Two": [
-      {q: "Do I need to see Part One first?", a: "Ideally, yes. Part Two assumes you know the characters and the politics. If you’ve seen it and just need a refresher, ask me for a recap instead.",
+      {q: "Do I need to see Part One first?", a: "Yes, ideally. Part Two assumes you know the characters and the politics. If you’ve seen it before, a recap can be enough.",
         follow: [
-          {id: "dune-names", q: "What if I barely remember the names?", a: "Then watch Part One first. This film assumes you know the houses and the prophecy. A recap covers the events, but not two hours of world-building."},
-          {id: "dune-ok", q: "I’ll be fine. I just want the war.", a: "You can start with Part Two if you mainly want the battles and sandworms. Some of the politics and character relationships will be harder to follow without Part One."}
+          {id: "dune-names", q: "How long is Part One?", a: "About 2h 35. It’s on HBO Max too."},
+          {id: "dune-ok", q: "Can I follow it without Part One?", a: "The battles, yes. The politics and the relationships are harder to follow."}
         ]},
-      {q: "Recap Part One for me", a: "House Atreides is given the desert planet Arrakis, source of the spice everyone fights over. But it’s a trap. The Harkonnens retake it in one night, Duke Leto is killed, and Paul and his mother escape into the desert to join the Fremen. That’s exactly where Part Two picks up.",
+      {q: "Recap Part One for me", a: "House Atreides takes over the desert planet Arrakis, source of the spice everyone fights over. It’s a trap: the Harkonnens retake it in one night, Duke Leto is killed, and Paul and his mother escape into the desert to join the Fremen. Part Two starts there.",
         follow: [
-          {id: "dune-part-short", q: "Is Part One a shorter night than this?", a: "Part One is about 2h 35. Barely shorter. If you need the setup, watch it first and save Part Two for a free evening."},
-          {id: "dune-skip", q: "What if I just wanted spectacle, not prophecy?", a: "You’ll get plenty of worms and war either way. But the prophecy is the plot, so if it starts to itch, Part One is where it’s explained."}
+          {id: "dune-part-short", q: "Who’s who again?", a: "Paul (Timothée Chalamet) is the young duke, Jessica (Rebecca Ferguson) is his mother, and Chani (Zendaya) is a Fremen fighter. The Harkonnens are the enemy."},
+          {id: "dune-skip", q: "What is the spice?", a: "A substance found only on Arrakis. It’s needed for space travel, which is why everyone fights over the planet."}
         ]},
-      {q: "What’s it about, without spoilers?", a: "A young duke who has lost everything joins the desert people who might become his army. And everyone, himself included, wonders whether he’s a liberator or a weapon. Sandworms, politics, and one very tense family dinner.",
+      {q: "What’s it about, without spoilers?", a: "A young duke who has lost everything joins the desert people who may become his army. Everyone, himself included, wonders if he’s a saviour or a weapon.",
         follow: [
-          {id: "dune-split", q: "Can I split it if 2h 46 is too much?", a: "Yes. The mid-film time jump is a natural break point. Two evenings of about 1h 20 instead of one long sit."},
-          {id: "dune-stress-wk", q: "So not a Tuesday after work?", a: "At 2h 46 it’s a tough weeknight film. Split it at the time jump, or keep it for Friday."}
+          {id: "dune-split", q: "How violent is it?", a: "Lots of big battles, but little blood."},
+          {id: "dune-stress-wk", q: "Is there a Part Three?", a: "Yes, a third film is in the works, based on the book Dune Messiah."}
         ]},
-      {q: "Show me more epic sci-fi like this", a: "Part One is the closest match, but it also requires HBO Max. If you want something epic that is already included, Squid Game on Netflix is the best alternative. Gladiator II needs Apple TV.", posterTitles: ["Gladiator II"],
+      {q: "How long is it?", a: "2h 46. You’re already 18% in.", posterTitles: ["Gladiator II"],
         follow: [
-          {id: "dune-tonight", q: "I started it already. Should I just finish?", a: "If you have the evening, yes. You’re only 18% in, so tonight is more a fresh start than a finish."},
-          {id: "dune-wk-room", q: "Is this okay to watch with other people around?", a: "It needs your full attention and runs for 2h 46, so I would save it for another time. A shorter film is a better choice while people are around."}
+          {id: "dune-tonight", q: "Is there a good place to split it?", a: "Yes. The time jump halfway through works as a break."},
+          {id: "dune-wk-room", q: "Where can I watch it?", a: "On HBO Max, which you don’t have yet."}
         ]}
     ],
     "Undercover": [
-      {q: "How violent or dark does it get?", a: "Tense rather than graphic. The dread comes from the double life, not gore. Think Narcos, but on a Limburg campsite.",
+      {q: "How violent does it get?", a: "Tense rather than graphic. The tension comes from the double life, not from gore.",
         follow: [
-          {id: "uc-room", q: "Is this okay to watch with other people around?", a: "It works for a group that likes crime drama, but it is not a light background show. Episodes run for about 50 minutes."},
-          {id: "uc-narcos", q: "So it’s Narcos, but camping?", a: "Pretty much. It has the drugs, undercover work and double lives of Narcos, but the story is Belgian-Dutch and much of it takes place at a campsite."}
+          {id: "uc-room", q: "Can I watch it with others?", a: "Yes, if they like crime drama. Episodes run about 50 minutes."},
+          {id: "uc-narcos", q: "Is it like Narcos?", a: "Similar subject: drugs, undercover work and double lives. But it’s Belgian-Dutch and mostly set on a campsite."}
         ]},
-      {q: "Should I watch Ferry before this?", a: "No. Undercover first, then Ferry. The film is a prequel that works best once you know the character. You’re already in season 3, so keep going and save Ferry for a single evening.", posterTitles: ["Undercover", "Ferry"],
+      {q: "Should I watch Ferry before this?", a: "No. Undercover first, then Ferry. You’re in season 3, so keep going.", posterTitles: ["Undercover", "Ferry"],
         follow: [
-          {id: "uc-order", q: "I’m already in season three. Did I mess up?", a: "Not at all. Ferry works fine after the series. That’s arguably the better order. Keep going."},
-          {id: "uc-s4", q: "Isn’t the new season about to start?", a: "Yes. Season 4 premieres Thursday on Netflix. Finishing season 3 first would be ideal timing."}
+          {id: "uc-order", q: "Can I watch Ferry after the series?", a: "Yes, that order works well."},
+          {id: "uc-s4", q: "When is season 4 out?", a: "Thursday, on Netflix."}
         ]},
-      {q: "Is it based on a true story?", a: "Loosely. The police really did run an undercover operation from a campsite on the Belgian-Dutch border against an XTC lab. The setting and method are real. The characters, including Ferry Bouman, are fiction.",
+      {q: "Is it based on a true story?", a: "Loosely. Police really did run an undercover operation from a campsite on the Belgian-Dutch border against an XTC lab. The characters are fiction.",
         follow: [
-          {id: "uc-ferry", q: "Who is Ferry supposed to be?", a: "Ferry is the drug boss at the centre of Undercover. The film Ferry tells his earlier story if you want to know how he got there.", who: "Ferry"},
-          {id: "uc-lang", q: "Will I miss it if my Dutch isn’t great?", a: "You’ll be fine. Subtitles carry the slang, and the story does the rest."}
+          {id: "uc-ferry", q: "Who is Ferry?", a: "The drug boss at the centre of Undercover, played by Frank Lammers. The film Ferry tells his earlier story.", who: "Ferry"},
+          {id: "uc-lang", q: "Is it in Dutch?", a: "Yes, Flemish and Dutch, with subtitles."}
         ]}
     ],
     "Ferry": [
-      {q: "How violent is it?", a: "Hard crime, but not graphic. Drugs, loyalty and a man building his myth. If you can watch Narcos, you can watch this.",
+      {q: "How violent is it?", a: "Hard crime, but not graphic. Drugs, loyalty, and a man building his name.",
         follow: [
-          {id: "ferry-week", q: "So 1h 46 is actually a weeknight?", a: "Yes. 1h 46 and it ends properly, no cliffhanger. That’s what makes it a weeknight film where Dune isn’t."},
-          {id: "ferry-fl", q: "What’s the more Flemish crime if I wanted that?", a: "Assisen and Jan de Lichte are the more Flemish picks, but both need another app. Undercover and Ferry are the crime pair inside your Netflix plan."}
+          {id: "ferry-week", q: "How long is it?", a: "1h 46, with a proper ending."},
+          {id: "ferry-fl", q: "Any Flemish crime series like it?", a: "Assisen and De Bende van Jan de Lichte, but both need another app. Undercover is already in your plan."}
         ]},
-      {q: "Does the film stand on its own?", a: "Yes. It’s a complete story with its own ending. Knowing Undercover adds a layer, but nothing in the film requires it.",
+      {q: "Do I need to have seen Undercover?", a: "No. The film has its own story and ending. Knowing Undercover adds a layer.",
         follow: [
-          {id: "ferry-who", q: "Where do I know him from?", a: "Ferry Bouman. The drug boss from Undercover you end up rooting for despite yourself. This film shows how he became that man.", who: "Ferry"},
-          {id: "ferry-alone", q: "Will I be lost if I’ve never seen Undercover?", a: "No. The film explains itself completely. It’s an earlier chapter, not a sequel."}
+          {id: "ferry-who", q: "Who is Ferry?", a: "Ferry Bouman, the drug boss from Undercover. The film shows how he became that man.", who: "Ferry"},
+          {id: "ferry-alone", q: "Who plays him?", a: "Frank Lammers, the same actor as in the series."}
         ]},
-      {q: "In what order should I watch Ferry and Undercover?", a: "Undercover first, then Ferry. The film works better once you know where the character ends up. You’re already in season 3, so you’re doing it right: finish the series, then Ferry as a closed single evening.", posterTitles: ["Undercover", "Ferry"],
+      {q: "Should I watch Ferry or Undercover first?", a: "Undercover first. The film works better once you know the character. You’re in season 3, so finish the series, then watch Ferry.", posterTitles: ["Undercover", "Ferry"],
         follow: [
-          {id: "ferry-after", q: "I’m already in Undercover. So this is dessert?", a: "Yes. Ferry follows the same character earlier in his life, runs for 1h 46 and is included with Netflix.", who: "Ferry"},
-          {id: "ferry-series", q: "Isn’t there a Ferry series as well?", a: "Yes. A Ferry series followed the film, also on Netflix. Film first. The series picks up from it."}
+          {id: "ferry-after", q: "Where can I watch it?", a: "On Netflix, included in your plan.", who: "Ferry"},
+          {id: "ferry-series", q: "Is there a Ferry series too?", a: "Yes, also on Netflix. It picks up after the film."}
         ]}
     ],
     "Oppenheimer": [
-      {q: "How close is it to the real history?", a: "Close on the main events. Los Alamos, the Trinity test and the 1954 security hearing are all real, drawn from a biography. The private conversations are Nolan’s interpretation of what nobody recorded.",
+      {q: "How close is it to the real history?", a: "Close on the main events. Los Alamos, the Trinity test and the 1954 security hearing all happened. The private conversations are the film’s interpretation.",
         follow: [
-          {id: "opp-hearing", q: "What was the hearing actually about?", a: "Whether Oppenheimer was a security risk. In 1954 his clearance was stripped in a closed hearing, and the film treats that as the real explosion. It takes up most of the second half."},
-          {id: "opp-feel", q: "Is it going to sit on me after?", a: "It’s a film that stays with you, yes. It’s meant to. Not one to have on in the background."}
+          {id: "opp-hearing", q: "What was the 1954 hearing about?", a: "Whether Oppenheimer was a security risk. His clearance was taken away in a closed hearing, which takes up much of the second half."},
+          {id: "opp-feel", q: "Is it based on a book?", a: "Yes, American Prometheus, the biography by Kai Bird and Martin J. Sherwin."}
         ]},
-      {q: "Do I need to understand the science to follow it?", a: "No. The physics is scenery. The film is about ambition, guilt and politics. Nobody quizzes you on the equations.",
+      {q: "Do I need to understand the science?", a: "No. The film is about ambition, guilt and politics. The physics stays in the background.",
         follow: [
-          {id: "opp-cast", q: "Who am I looking at?", a: "Cillian Murphy carries the film as Oppenheimer. Robert Downey Jr. Gives the performance people talk about after. The film reminds you who everyone else is as you go."},
-          {id: "opp-split", q: "Can I split it?", a: "You can. The natural break is around the two-hour mark. It plays better as one sitting if you have the evening for it."}
+          {id: "opp-cast", q: "Who’s in it?", a: "Cillian Murphy as Oppenheimer, with Robert Downey Jr., Emily Blunt and Matt Damon."},
+          {id: "opp-split", q: "How long is it?", a: "Three hours. Around the two-hour mark is a good place to split it."}
         ]},
-      {q: "Is it suitable for teenagers?", a: "Yes. It’s dialogue and politics rather than violence, though there’s some nudity and a lot of smoking. Younger kids would be lost in the hearing scenes long before anything else.",
+      {q: "Is it okay for teenagers?", a: "For older teens, yes. It’s mostly talk and politics, with some nudity and a sex scene. Younger kids would get lost in the hearing scenes.",
         follow: [
-          {id: "opp-barbie", q: "Should I really pair this with Barbie?", a: "Only if you have about five hours. The two films were released on the same weekend, which made the double bill popular, but they do not need to be watched together."},
-          {id: "opp-just", q: "What if I only want this one?", a: "Then just this one. It doesn’t need a companion film. Three hours is a full evening anyway."}
+          {id: "opp-barbie", q: "Is it linked to Barbie?", a: "Only by release date. They came out the same weekend, so people watched them as a double bill."},
+          {id: "opp-just", q: "Why are some scenes in black and white?", a: "Those scenes show events from Lewis Strauss’s point of view. The colour scenes are Oppenheimer’s."}
         ]}
     ],
     "Barbie": [
-      {q: "What’s it actually about?", a: "Barbie leaves her perfect life in Barbie Land when things start going wrong and travels to the real world to find out why. It begins as a bright comedy and becomes more thoughtful as it goes.",
+      {q: "Is it linked to Oppenheimer?", a: "Only by release date. Both opened on the same weekend in 2023, so people watched them as a double bill. The stories have nothing to do with each other.",
         follow: [
-          {id: "barb-punch", q: "How much of a gut punch are we talking?", a: "There is one emotional scene near the end, but most of the film stays funny and light."},
-          {id: "barb-sofa", q: "Will people on the sofa still have a good time?", a: "Yes. The comedy carries it even for people who came for the pink. The serious turn is brief."}
+          {id: "barb-punch", q: "How long is the double bill?", a: "About five hours: 1h 54 for Barbie and 3h for Oppenheimer."},
+          {id: "barb-sofa", q: "Which one do people watch first?", a: "Usually Oppenheimer, so the evening ends on the lighter film."}
         ]},
-      {q: "Is it okay for a 9-year-old?", a: "Yes. Nothing they shouldn’t see. They’ll enjoy the pink, and the jokes aimed at adults will simply sail past them.",
+      {q: "Is it okay for a 9-year-old?", a: "Yes. There’s nothing unsuitable. Kids enjoy the colour, and the jokes aimed at adults go over their heads.",
         follow: [
-          {id: "barb-kids", q: "Can I still put it on if kids are around?", a: "Yes, comfortably. Kids get the colour, adults get the satire, and nobody needs the volume down."},
-          {id: "barb-length", q: "How long is it?", a: "It runs for 1h 54 and is on HBO Max. HBO Max is not currently subscribed, so you would need to add it first."}
+          {id: "barb-kids", q: "Is there anything scary in it?", a: "No. It’s a bright comedy. There’s one emotional scene near the end, nothing more."},
+          {id: "barb-length", q: "How long is it?", a: "1h 54, on HBO Max. You don’t have HBO Max yet, so you’d need to add it first."}
         ]},
-      {q: "Show me more comedies like this", a: "Nothing you currently have is quite like Barbie. Zeg Eens Euh is good for a light group watch, and Jade en de Belgen is another comedy option on Play. Barbie itself needs HBO Max.", posterTitles: ["Zeg Eens Euh", "Jade en de Belgen"],
+      {q: "What’s it about?", a: "Barbie’s perfect life in Barbie Land starts going wrong, so she travels to the real world to find out why. It starts as a bright comedy and gets more thoughtful.", posterTitles: ["Zeg Eens Euh", "Jade en de Belgen"],
         follow: [
-          {id: "barb-double", q: "Is the Oppenheimer double bill worth it?", a: "It is fun if you genuinely have five hours. Watch Oppenheimer first and Barbie afterwards if you want to end on the lighter film."},
-          {id: "barb-only", q: "What if I just want this one?", a: "It works perfectly well on its own. It runs for 1h 54 on HBO Max, which is not currently subscribed."}
+          {id: "barb-double", q: "Who’s in it?", a: "Margot Robbie as Barbie and Ryan Gosling as Ken. Greta Gerwig directed it."},
+          {id: "barb-only", q: "Does it get serious?", a: "In places. There’s one emotional scene near the end, but most of the film is funny and light."}
         ]}
     ],
     "Zillion": [
-      {q: "Do I need to know the real story first?", a: "No. The film tells you everything: the Antwerp mega-club, the man who built it, the money and the crash. Knowing the real headlines only changes which scenes sting.",
+      {q: "Do I need to know the real story?", a: "No. The film tells it: the Antwerp mega-club, the man who built it, the money and the crash.",
         follow: [
-          {id: "zill-true", q: "So this is based on a real club?", a: "Yes. Zillion was a real Antwerp club, and the crash really happened. The film tightens events for the screen. It’s a drama, not a documentary."},
-          {id: "zill-club", q: "Who is the man it’s built around?", a: "Frank Verstraeten, the owner who built the club and then lost everything. Courts and prison included. The film covers his rise and the morning after."}
+          {id: "zill-true", q: "Was Zillion a real club?", a: "Yes, a real club in Antwerp. The film tightens the events, so it’s a drama, not a documentary."},
+          {id: "zill-club", q: "Who is the film about?", a: "Frank Verstraeten, the owner who built the club and lost everything, including time in court and prison."}
         ]},
-      {q: "How explicit is it?", a: "Very. Drugs, sex and 90s excess shown straight, without a wink. Wait until the kids are in bed.",
+      {q: "How explicit is it?", a: "Very. Drugs, sex and 90s excess. Wait until the kids are in bed.",
         follow: [
-          {id: "zill-room", q: "Fine with people in the room?", a: "It depends on who is watching. Zillion is explicit and runs for two hours. Pick something lighter if children or easily uncomfortable viewers are around."},
-          {id: "zill-lock", q: "I don’t have Streamz. Is it worth adding for this?", a: "Only if Belgian 90s nightlife is exactly what you’re after. It’s the one big reason to add Streamz. Ferry scratches a similar itch on Netflix, no extra app needed."}
+          {id: "zill-room", q: "How long is it?", a: "About two hours."},
+          {id: "zill-lock", q: "Where can I watch it?", a: "On Streamz, which you don’t have yet. It’s €9,99 a month."}
         ]},
-      {q: "Show me more Belgian films like this", a: "Ferry is the closest match and is included with Netflix. It has a similar rise-and-fall story and runs for 1h 46. Undercover follows the same character across a series.", posterTitles: ["Ferry", "Undercover"],
+      {q: "Any Belgian films like this?", a: "Ferry is the closest, on Netflix in your plan. Same kind of rise-and-fall story, 1h 46.", posterTitles: ["Ferry", "Undercover"],
         follow: [
-          {id: "zill-close", q: "What’s close if I can’t play this tonight?", a: "Ferry is the closest option you can watch now. It is included with Netflix and runs for 1h 46."},
-          {id: "zill-belg", q: "Anything Flemish that isn’t crime?", a: "Alex Agnew for two hours of Antwerp with no plot, or Jade en de Belgen for the country laughing at itself. Both comedy, both Flemish, no crime in sight."}
+          {id: "zill-close", q: "What can I watch tonight instead?", a: "Ferry, included with Netflix."},
+          {id: "zill-belg", q: "Anything Flemish that isn’t crime?", a: "Alex Agnew for stand-up, or Jade en de Belgen for comedy."}
         ]}
     ],
     "Gladiator II": [
-      {q: "Do I need to have seen the first Gladiator?", a: "Not strictly. The story stands alone, but Maximus haunts the whole film. It means more if you know why that name matters.",
+      {q: "Do I need to have seen the first Gladiator?", a: "Not strictly. The story stands alone, but Maximus from the first film matters throughout. It means more if you know him.",
         follow: [
-          {id: "glad-ghost", q: "What if I barely remember Maximus?", a: "Then rewatch the first, or accept watching a son live in the shadow of a legend you can’t quite place. The arena spectacle works either way."}
+          {id: "glad-ghost", q: "Who’s in it?", a: "Paul Mescal, Pedro Pascal, Denzel Washington and Connie Nielsen. Ridley Scott directed both films."}
         ]},
-      {q: "How violent is it?", a: "It is quite violent, with frequent battles and visible injuries, but it is not especially graphic or cruel.",
+      {q: "How violent is it?", a: "Quite violent, with frequent battles and visible injuries. Not one for kids.",
         follow: [
-          {id: "glad-room", q: "Is this okay to watch while other people are around?", a: "It is loud and violent, so it is not ideal while other people are around. Apple TV is not currently subscribed. Inside Out 2 on Disney+ is the easier option for a mixed group."}
+          {id: "glad-room", q: "How long is it?", a: "2h 28."}
         ]},
-      {q: "Is it worth adding Apple TV for?", a: "Probably not for this film alone. Apple TV costs € 9,99 a month, and Gladiator II is the only saved title pointing to it. Add it if you also want to watch Severance or more of the catalogue.",
+      {q: "Where can I watch it?", a: "On Apple TV, which you don’t have yet. It’s €9,99 a month.",
         follow: [
-          {id: "glad-plan", q: "What can I watch without adding another subscription?", a: "Squid Game is the strongest action option already included with Netflix. Dune: Part Two needs HBO Max, so it would still mean adding another subscription."}
+          {id: "glad-plan", q: "What else is on Apple TV?", a: "Severance, Slow Horses, Ted Lasso and Mayday."}
         ]}
     ],
     "Wicked": [
-      {q: "Do I need to know the musical first?", a: "No. The plot works without it. Knowing the songs just adds recognition. If ‘Defying Gravity’ rings a bell, you’re ahead.",
+      {q: "Do I need to know the musical?", a: "No. The story works on its own. If ‘Defying Gravity’ rings a bell, that’s a bonus.",
         follow: [
-          {id: "wk-songs", q: "Will I be lost if I don’t know the songs?", a: "You’ll follow the story fine. What you’ll miss is the ‘ah, that one’ moment when the big numbers start. That’s all."}
+          {id: "wk-songs", q: "Who’s in it?", a: "Cynthia Erivo as Elphaba and Ariana Grande as Glinda."}
         ]},
-      {q: "How much of it is singing?", a: "A lot. It’s a full musical, and the big emotional moments arrive in song. There are plenty of spoken scenes in between, but if musicals aren’t your thing, this won’t convert you.",
+      {q: "How much of it is singing?", a: "A lot. It’s a full musical, with spoken scenes in between.",
         follow: [
-          {id: "wk-skip", q: "So I should skip it if I hate musicals?", a: "Yes. It is a full musical, so it is unlikely to win you over if you normally dislike musicals. Barbie has a similar sense of colour without the singing."}
+          {id: "wk-skip", q: "How long is it?", a: "2h 40."}
         ]},
-      {q: "This is only part one, right?", a: "Yes. It’s the first half of the story and ends on a high point, not a conclusion. Part Two completes it.",
+      {q: "Is this only part one?", a: "Yes. It’s the first half of the story. Wicked: For Good finishes it.",
         follow: [
-          {id: "wk-end", q: "Will I be annoyed it doesn’t finish?", a: "Possibly. It stops mid-story by design. Pick a closed film like Ferry (1h 46) if that would bother you."}
+          {id: "wk-end", q: "Does it end on a cliffhanger?", a: "Yes, on purpose. The story continues in the second film."}
         ]}
     ],
     "Deadpool & Wolverine": [
-      {q: "How crude is it?", a: "Very. R-rated jokes, comic gore and constant fourth-wall breaking. Great fun for the right audience. Firmly not a family film.",
+      {q: "How crude is it?", a: "Very. Crude jokes, comic gore and Deadpool talking to the camera the whole time. Not a family film.",
         follow: [
-          {id: "dp-kids", q: "So definitely not with kids in the room?", a: "Correct. Wait until they’re in bed. Inside Out 2 or Barbie cover the family slot."}
+          {id: "dp-kids", q: "Is it okay for teenagers?", a: "From about 16. The gore and the language are strong. Inside Out 2 or Barbie are the family options."}
         ]},
-      {q: "Do I need to know the other Marvel films?", a: "No. Knowing who Deadpool and Wolverine are is enough to follow the plot. Deep Marvel knowledge only pays off in the cameos.",
+      {q: "Do I need to know the other Marvel films?", a: "No. Knowing who Deadpool and Wolverine are is enough. Marvel fans get more out of the cameos.",
         follow: [
-          {id: "dp-cameo", q: "Will I be lost on the cameos?", a: "You’ll miss a few winks, nothing more. The claws and the jokes need no background knowledge."}
+          {id: "dp-cameo", q: "Do I need the earlier Deadpool films?", a: "It helps a little, but the film catches you up."}
         ]},
-      {q: "Is it a good one to watch with friends?", a: "Yes. The jokes and cameos work especially well with friends, although it is still enjoyable alone.",
+      {q: "Who’s in it?", a: "Ryan Reynolds as Deadpool and Hugh Jackman as Wolverine.",
         follow: [
-          {id: "dp-date", q: "Bad date film?", a: "Depends on the date. It’s loud, crude and self-aware. If they already quote Deadpool, perfect. If not, Barbie is the safer laugh."}
+          {id: "dp-date", q: "Are there a lot of cameos?", a: "Yes, and some are surprises, so we won’t list them."}
         ]}
     ],
     "Challengers": [
-      {q: "Do I need to care about tennis?", a: "Not at all. Tennis is the frame, not the point. It’s about three people locked in rivalry and desire. The matches are just where they say it.",
+      {q: "Do I need to like tennis?", a: "No. Tennis is the setting. The film is about three people and their rivalry.",
         follow: [
-          {id: "ch-tennis", q: "Do I need to care about tennis?", a: "No. You need to care about the looks they exchange between points. The tennis explains itself."}
+          {id: "ch-tennis", q: "Who’s in it besides Zendaya?", a: "Josh O’Connor and Mike Faist. Luca Guadagnino directed it."}
         ]},
-      {q: "How steamy is it?", a: "Steamy. Charged rather than explicit. Not one for watching with your parents. Fine for almost anyone else.",
+      {q: "How steamy is it?", a: "Charged rather than explicit. Probably not one to watch with your parents.",
         follow: [
-          {id: "ch-shy", q: "Too much if I’m watching with parents around?", a: "Probably. The sexual tension is central to the film, so it may be uncomfortable to watch with parents. Barbie is the safer choice."}
+          {id: "ch-shy", q: "Is it okay for teenagers?", a: "From about 16. The language is strong and the sexual tension runs through the whole film."}
         ]},
-      {q: "Would this work as a date night?", a: "Yes, if you like a film that leaves you talking. It’s competitive, sexy and a little mean. Choose the date accordingly.",
+      {q: "Does it work for a date night?", a: "It can. It’s tense, flirty and a bit mean, and runs 2h 11.",
         follow: [
-          {id: "ch-wrong", q: "Is this a risky date-night choice?", a: "Then it’s a long 2h 11. Barbie is the safer date pick. Dune if the plan is not talking at all."}
+          {id: "ch-wrong", q: "Something lighter for a date?", a: "Barbie is the lighter pick."}
         ]}
     ],
     "Inside Out 2": [
-      {q: "Is it just for kids?", a: "No. It’s properly aimed at both. Kids get the adventure. Adults get a surprisingly sharp film about anxiety and growing up.",
+      {q: "Is it just for kids?", a: "No. Kids get the adventure, adults get a sharp film about anxiety and growing up.",
         follow: [
-          {id: "io-age", q: "How young is too young?", a: "Any kid who managed the first film will be fine. Anxiety is named and talked about, never used to frighten. Watching together helps if puberty is still a distant country."}
+          {id: "io-age", q: "What age is it for?", a: "Any child who managed the first film. Anxiety is talked about, never used to scare."}
         ]},
-      {q: "Do I need the first film?", a: "It helps. The first film sets up how the emotions and Headquarters work. You’d follow this one anyway, but the setup makes it work better.",
+      {q: "Do I need the first film?", a: "It helps. The first film explains how the emotions and Headquarters work, but you’d follow this one anyway.",
         follow: [
-          {id: "io-fuzzy", q: "Joy and Sadness are fuzzy. Should I rewind?", a: "Then rewatch the first. It’s short, and this one assumes you know how Headquarters works."}
+          {id: "io-fuzzy", q: "What happens in the first film?", a: "Riley moves to a new city at eleven, and her emotions, led by Joy, struggle to cope. Joy and Sadness get lost in her mind and learn that both of them matter."}
         ]},
-      {q: "Am I going to cry?", a: "Quite possibly. It’s short, sharp and aimed straight at whoever you were at thirteen. Keep a tissue within reach.",
+      {q: "Will it make me cry?", a: "Possibly. It’s about growing up and anxiety, and it often hits adults hardest.",
         follow: [
-          {id: "io-night", q: "Is 1h 36 a weeknight?", a: "Yes. At 1h 36, it is short enough to finish on a normal weeknight."}
+          {id: "io-night", q: "How long is it?", a: "1h 36."}
         ]}
     ]
   };

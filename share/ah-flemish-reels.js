@@ -32,60 +32,60 @@
   const catalog = {
     bockie: {
       id: "bockie", title: "Bockie Gaat Naar School",
-      syn: "A rapper, a schoolbag, thirty days", kind: "Series", length: "6 ep", ...P.play, ...art("bockie"),
+      syn: "Rapper back at school for thirty days", kind: "Series", length: "6 ep", ...P.play, ...art("bockie"),
       about: "Bockie De Repper goes back to the derde graad for thirty days — the bell, the huiswerk, the TikTok trends, a full uniform. Six episodes on Play. Funny for two of them, then quietly not.",
       chips: [
-        F("Is this just a stunt?", "For about two episodes. Then the classmates stop performing for the camera and it turns into something else. Thirty days is long enough that everyone forgets he’s Bockie.", [
-          { id: "bck-work", q: "Does he actually do the huiswerk?", a: "He does, badly, on camera. Watching a grown man fail at wiskunde is most of the first episode and he knows it." },
-          { id: "bck-who", q: "Who is he, again?", a: "Jonas van Boxstael. Rapper first, YouTube second, television lately. If the name means nothing, the show introduces him in about a minute.", who: "Jonas van Boxstael" }
+        F("Do I watch it in order?", "Yes. The thirty days run in order and you get to know the classmates as you go. There are six episodes.", [
+          { id: "bck-work", q: "How long is an episode?", a: "Short enough for a weeknight. Most people watch one a night." },
+          { id: "bck-who", q: "Anything else like it?", a: "Jade en de Belgen, also free on Play. Different subject, same interest in ordinary people.", who: "Jonas van Boxstael" }
         ]),
-        F("Would my teenager sit through this?", "This is the one on your list they’d pick themselves. It’s their school, their apps, their week — and it doesn’t explain Gen Z to the parents watching.", [
-          { id: "bck-cringe", q: "Is it embarrassing to watch together?", a: "Only for him. The show is on the kids’ side, so nobody in the room gets laughed at except Bockie." },
-          { id: "bck-see", q: "Anything I’d rather they didn’t see?", a: "Nothing sharper than a school corridor. It’s Play at family hour, not a late-night slot." }
+        F("Is it made for teenagers?", "Yes. It’s about their school and their week, and it doesn’t explain Gen Z to the parents watching.", [
+          { id: "bck-cringe", q: "Can we watch it together as a family?", a: "Yes. The only person who gets laughed at is Bockie." },
+          { id: "bck-see", q: "Is there anything unsuitable in it?", a: "No. It’s family-hour TV on Play." }
         ]),
-        F("Can I dip in, or is it a run?", "A run, but a short one. The thirty days go in order and the classmates only land once you know their names. Six episodes — that’s two evenings.", [
-          { id: "bck-len", q: "How long is one?", a: "Short enough for a weeknight and built for one a night. Nothing that needs a free evening." },
-          { id: "bck-like", q: "What else is like this?", a: "Jade en de Belgen, also Play and also free. Different subject, same trick of taking ordinary people seriously." }
+        F("Who is Bockie?", "Jonas van Boxstael. He started as a rapper, then did YouTube, and now TV. The show introduces him in the first minute.", [
+          { id: "bck-len", q: "Does he really go to classes?", a: "Yes, homework included. He struggles with maths on camera, which is a big part of the first episode." },
+          { id: "bck-like", q: "Is it scripted?", a: "No. It’s a real school with real classmates. After a couple of episodes they stop performing for the camera." }
         ])
       ]
     },
 
     nonkels: {
       id: "nonkels", title: "Nonkels",
-      syn: "West-Vlaams, and three uncles who won’t move", kind: "Series", length: "3 seasons", ...P.play, ...art("nonkels"),
+      syn: "West-Flemish comedy about three uncles", kind: "Series", length: "3 seasons", ...P.play, ...art("nonkels"),
       about: "A comedy that keeps turning into a drama in the same scene. Three West-Flemish nonkels, a world that moved on without asking, and dialect thick enough that Flemings put the subtitles on too. Three seasons on Play, the third is the new one.",
       chips: [
-        F("Will I understand a word of it?", "Put the ondertitels on for episode one. Flemish viewers do. By the second you’ve stopped reading, and by then you’ve worked out the dialect is most of the joke.", [
-          { id: "non-thick", q: "Is it really that thick?", a: "Thick enough that it’s a running gag in Flanders. Nobody expects you to catch every word, and nothing in the plot hangs on one." },
-          { id: "non-dub", q: "Is there a dub?", a: "No, and it would kill it. The whole show is written to sound like that kitchen table." }
+        F("Will I understand the dialect?", "Turn on subtitles for the first episode, like many Flemish viewers do. The dialect is a big part of the joke.", [
+          { id: "non-thick", q: "How strong is the dialect?", a: "Strong enough to be a running joke in Flanders. Nothing in the plot depends on catching every word." },
+          { id: "non-dub", q: "Is there a dubbed version?", a: "No." }
         ]),
-        F("Comedy or drama?", "It swings mid-scene. Jelle De Beule and Rik Verheye play it for laughs until one of them can’t say the thing he needs to say, and then the room goes quiet. That’s the show.", [
-          { id: "non-bleak", q: "Does it get bleak?", a: "In stretches. It’s about men who don’t talk, so the weight arrives sideways rather than in a big speech." },
-          { id: "non-cast", q: "Where do I know them from?", a: "Jelle De Beule from Neveneffecten and Het Peulengaleis, Rik Verheye from Callboys and Undercover. Very different register here.", who: "Jelle De Beule" }
+        F("Is it a comedy or a drama?", "Both. It’s played for laughs until one of them can’t say what he needs to say. Then the room goes quiet.", [
+          { id: "non-bleak", q: "Does it get sad?", a: "In parts. It’s about men who don’t talk, so the heavy moments come quietly." },
+          { id: "non-cast", q: "Who’s in it?", a: "Jelle De Beule and Rik Verheye.", who: "Jelle De Beule" }
         ]),
-        F("Season three, or start at one?", "Start at one. The point of these three is that they don’t change, and you only feel it having watched them not do it for two seasons. Twenty-two episodes in total.", [
-          { id: "non-run", q: "Is that a long run?", a: "Seven or eight a season, so no. A season goes down in a week of weeknights." },
-          { id: "non-room", q: "Good with people around?", a: "Only if they’ll read. It’s a talking comedy, so half-watching costs you the whole thing." }
+        F("Do I start at season one?", "Yes. The show builds on watching these three never change, so it works best in order. There are 22 episodes.", [
+          { id: "non-run", q: "How long is a season?", a: "Seven or eight episodes." },
+          { id: "non-room", q: "Can I half-watch it?", a: "Not really. The jokes are in the dialogue." }
         ])
       ]
     },
 
     kotmadam: {
       id: "kotmadam", title: "Kotmadam Sergeant",
-      syn: "Famous kotmadam, seven students, one year", kind: "Series", length: "2 seasons", ...P.vtm, ...art("kotmadam"),
+      syn: "Seven students, one famous landlady", kind: "Series", length: "2 seasons", ...P.vtm, ...art("kotmadam"),
       about: "A well-known actress takes a studentenkot in Ghent for a full academic year. Barbara Sarafian ran the first house, Ingeborg Sergeant this one. Real students, real kitchen, real argument about the dishes. VTM GO.",
       chips: [
-        F("Is any of this real?", "All of it except the casting. Seven actual students, one actual kot in Ghent, one academic year. The only invented part is that their landlady is famous.", [
-          { id: "kot-know", q: "Do the students know who she is?", a: "From day one, and it’s awkward for about a week. Then the rent and the afwas take over and she’s just the woman upstairs." },
-          { id: "kot-year", q: "Do they last the full year?", a: "Not all of them, and the leaving is the part the show is actually about. I’ll leave which ones to the episodes." }
+        F("Is there an earlier season?", "Yes, with Sarafian as the landlady. Different students and a different kot, so you can watch either one first.", [
+          { id: "kot-know", q: "How is it different from Sarafian’s?", a: "Sergeant’s season is the warmer one. Sarafian’s house was wilder." },
+          { id: "kot-year", q: "Do I need the first season?", a: "No. Only the format carries over. Both are on VTM GO." }
         ]),
-        F("Sarafian or Sergeant?", "Sergeant is the newer and the warmer of the two. Sarafian’s house is the wilder one. Separate students, separate kot, so it’s a choice of temperament rather than an order.", [
-          { id: "kot-first", q: "Do I need the first season?", a: "Not at all. Nothing carries over but the format. Both are sitting on VTM GO whenever you want the other one." },
-          { id: "kot-talk", q: "Which one do people bring up?", a: "Sarafian’s, usually, because she picked more fights. Sergeant’s is the one people finish." }
+        F("Can I have it on in the background?", "Yes. Episodes run 50 minutes, ten per season, and they’re easy to follow.", [
+          { id: "kot-first", q: "Is it okay for the whole family?", a: "Mostly. There’s student talk, nothing sharper than that." },
+          { id: "kot-talk", q: "Anything similar?", a: "Blind Getrouwd, also on VTM GO, if you like strangers thrown together and filmed." }
         ]),
-        F("Can I half-watch this?", "Comfortably. Fifty minutes, ten a season, nothing to keep track of week to week. It survives a room that’s talking over it.", [
-          { id: "kot-fam", q: "Family evening, or not?", a: "Mostly fine. Student life comes with student conversations, but nothing sharper than you’d hear at that age." },
-          { id: "kot-like", q: "Anything like it in my plan?", a: "Blind Getrouwd on the same VTM GO if you want people thrown together and filmed. Louder, but the same curiosity." }
+        F("What’s the idea?", "Seven real students share a kot in Ghent for a full academic year. Their landlady is a famous face.", [
+          { id: "kot-fam", q: "Do the students know who she is?", a: "Yes, from day one. It’s awkward for about a week, then rent and dishes take over." },
+          { id: "kot-like", q: "Do they all stay the whole year?", a: "Not all of them. The episodes show who leaves." }
         ])
       ]
     },
@@ -95,97 +95,97 @@
       syn: "Strangers, married on sight", kind: "Series", length: "11 seasons", ...P.vtm, ...art("blindgetrouwd"),
       about: "Experts match strangers, the strangers marry the day they meet, and the weeks after decide it. Legally binding, which is the only reason it has stakes. Eleven seasons on VTM GO — you want the newest one.",
       chips: [
-        F("Eleven seasons. Where do I start?", "The newest. Nothing carries over — new couples, new verdict, same format. There’s no backlog here and no order to get wrong.", [
-          { id: "bg-famous", q: "Is there a season people still bring up?", a: "Two or three, and they come up every time the show does. But they’re self-contained, so the one people are arguing about now is the current one." },
-          { id: "bg-same", q: "Has it changed much in eleven years?", a: "Barely, which is either the appeal or the complaint. If the premise works on you it still works." }
+        F("Can I have it on while doing other things?", "Yes. It’s easy to follow, even if you look away for a while.", [
+          { id: "bg-famous", q: "Something shorter that’s free?", a: "Thuis is 25 minutes on VRT MAX, and Zeg Eens Euh is about 40 minutes on Play. Both are free." },
+          { id: "bg-same", q: "Is it the same as Married at First Sight?", a: "Yes, it’s the Flemish version of the same format." }
         ]),
-        F("Are they actually married?", "Legally, from the day they meet. That’s the bit that separates this from the rest of the genre. The edit shapes the story, but the marriage isn’t part of the edit.", [
-          { id: "bg-last", q: "Do any of them last?", a: "Some do, and following which is half of why people watch. Not saying which from this season." },
-          { id: "bg-exp", q: "What do the experts actually do?", a: "Match them on personality tests and interviews, then sit back. Whether that’s science is the argument the show runs on." }
+        F("Are they actually married?", "Yes, legally, from the day they meet.", [
+          { id: "bg-last", q: "Do any couples stay together?", a: "Some do. The last episodes show who’s still together, so we won’t say which." },
+          { id: "bg-exp", q: "How do the experts match them?", a: "With personality tests and interviews. After that, the experts mostly watch from the side." }
         ]),
-        F("Can this just be on?", "That’s how most people watch it. Hour-long, easy to follow, survives a conversation over the top. Nothing to add — it’s on VTM GO.", [
-          { id: "bg-hour", q: "An hour is a lot for a Tuesday.", a: "It is. This is a Sunday-afternoon show more than a weeknight one, unless it’s on while you do something else." },
-          { id: "bg-short", q: "Something shorter that’s free?", a: "Thuis at 25 minutes on VRT MAX, or Zeg Eens Euh on Play after ten. Both free, both in and out quickly." }
+        F("Where do I start with eleven seasons?", "With the newest one. Every season has new couples, so nothing carries over.", [
+          { id: "bg-hour", q: "Has the format changed over the years?", a: "Barely. Matched by experts, married on sight, a verdict at the end. Every season follows the same steps." },
+          { id: "bg-short", q: "How long is an episode?", a: "About an hour, on VTM GO." }
         ])
       ]
     },
 
     gottalent: {
       id: "gottalent", title: "Belgium’s Got Talent",
-      syn: "Buzzers, a gouden buzzer, a crying dad", kind: "Series", length: "7 seasons", ...P.vtm, ...art("gottalent"),
+      syn: "Talent show, every audition stands alone", kind: "Series", length: "7 seasons", ...P.vtm, ...art("gottalent"),
       about: "Laura Tesoro, Koen Wauters and An Lemmens behind the buzzers. Audities, halve finales, a final, and one act a year that everybody forwards to everybody. Seven seasons on VTM GO. Nobody watches it in order.",
       chips: [
-        F("Do I have to commit to a season?", "No, and almost nobody does. The audition episodes are the good ones and each stands on its own. Pick any episode from any season and you’ve lost nothing.", [
-          { id: "gt-which", q: "Which ones are the audities?", a: "The early episodes of each season. Once it reaches the halve finales it turns into a competition you have to follow." },
-          { id: "gt-stop", q: "When does it stop being dippable?", a: "At the semi-finals. From there the show assumes you’ve met everyone and have a favourite." }
+        F("Do I need to watch from the start?", "No. The audition episodes stand on their own, so you can pick any episode from any season.", [
+          { id: "gt-which", q: "Which episodes are the auditions?", a: "The first episodes of each season. From the semi-finals on, it’s a competition you follow week to week." },
+          { id: "gt-stop", q: "Who’s on the jury?", a: "Laura Tesoro, Koen Wauters and An Lemmens." }
         ]),
-        F("Is this one for the kids?", "Probably the best on your list for it. Self-contained, nothing to explain, acts pitched at a family. The danger acts get genuinely tense, on purpose.", [
-          { id: "gt-upset", q: "Anything that’d upset them?", a: "Only the danger acts, and the judges break the tension fast. Nothing else in it lands hard." },
-          { id: "gt-len", q: "How long is an episode?", a: "They run long — an hour and three quarters is normal. Treat it as something to dip into rather than sit through." }
+        F("Is it okay for kids?", "Yes. Episodes stand alone and the acts are family-friendly. Some danger acts are tense on purpose.", [
+          { id: "gt-upset", q: "Is anything too scary for them?", a: "Only the danger acts, and those are short. The rest is light." },
+          { id: "gt-len", q: "How long is an episode?", a: "Long, often around an hour and three quarters. Easy to watch in parts." }
         ]),
-        F("Is the Belgian one different?", "Same format the world over, but the judges and the acts are ours, so the jokes land closer to home. Koen Wauters has been in that chair long enough to be furniture.", [
-          { id: "gt-judge", q: "Who’s judging now?", a: "Laura Tesoro, Koen Wauters and An Lemmens. Between them they’ve covered Eurovision, Clouseau and half of VTM." },
-          { id: "gt-laura", q: "Where do I know Laura Tesoro from?", a: "Eurovision 2016, then presenting more or less everything since. She’s the one who takes the acts most seriously.", who: "Laura Tesoro" }
+        F("Is it the same as the British one?", "Same format, with Belgian judges and Belgian acts. Koen Wauters has been on the jury for years.", [
+          { id: "gt-judge", q: "Where do I know Laura Tesoro from?", a: "She sang for Belgium at Eurovision 2016 and has presented a lot of TV since." },
+          { id: "gt-laura", q: "What’s the golden buzzer?", a: "Each judge can press it once per season to send an act straight through to the live shows.", who: "Laura Tesoro" }
         ])
       ]
     },
 
     isgelukt: {
       id: "isgelukt", title: "Is ’t Gelukt?",
-      syn: "Eight secret challenges, one year, one reveal", kind: "Series", length: "8 ep", ...P.vrt, ...art("isgelukt"),
+      syn: "Eight Belgians, one secret challenge each", kind: "Series", length: "8 ep", ...P.vrt, ...art("isgelukt"),
       about: "Sven de Leijer spent a year handing eight bekende Vlamingen a secret opdracht each, none of them knowing about the others. Then he finds out who managed it. Eight episodes on VRT MAX. The year is the format.",
       chips: [
-        F("What’s the actual game?", "Eight famous Belgians, one secret challenge each, a full year to do it and nobody told anybody. Fien Germijns, Bart Cannaerts and Annemie Struyf among them. The show is the reveal.", [
-          { id: "ig-year", q: "They really had a year?", a: "Filmed quietly across the whole year before it aired, which is why the reveals land. None of it was arranged the week before." },
-          { id: "ig-sven", q: "Who’s running it?", a: "Sven de Leijer, who kept the whole thing secret while it was being made. That’s the trick the format depends on.", who: "Sven de Leijer" }
+        F("Is it mean?", "No. It’s warm, and the failures are as funny as the successes.", [
+          { id: "ig-year", q: "Is it fun to watch together?", a: "Yes. Guessing who managed theirs is half the fun." },
+          { id: "ig-sven", q: "Anything similar that’s free?", a: "Zeg Eens Euh on Play, if you like watching famous Belgians try and fail.", who: "Sven de Leijer" }
         ]),
-        F("Can I start anywhere?", "Not this one. Take it from episode one — the pleasure is knowing what everyone’s hiding before they admit it, and arriving late just hands you the answers.", [
-          { id: "ig-fast", q: "How quickly does it go?", a: "Eight episodes and it moves. Two evenings covers it if the reveals get their hooks in, which they tend to." },
-          { id: "ig-know", q: "Do I need to know these people?", a: "It helps — half the fun is guessing who’d crack first. But the show introduces all eight properly before it asks you to care." }
+        F("Do I need to watch in order?", "Yes. Start at episode one so the reveals land.", [
+          { id: "ig-fast", q: "How many episodes are there?", a: "Eight." },
+          { id: "ig-know", q: "Who takes part?", a: "Eight well-known Belgians, including Fien Germijns, Bart Cannaerts and Annemie Struyf." }
         ]),
-        F("Is it mean?", "Not at all. It’s warm, and the failures are funnier than the successes, which is the whole difference between this and a format with a cash prize.", [
-          { id: "ig-room", q: "Good with the room?", a: "Better with company. Guessing out loud who managed theirs is most of the entertainment." },
-          { id: "ig-free", q: "What else like this is free?", a: "Zeg Eens Euh on Play for the game-show register, De Verraders on VTM GO if you want people hiding things. Neither costs anything." }
+        F("How does it work?", "Each person gets one secret challenge and a full year to do it, without telling anyone. The show is the reveal.", [
+          { id: "ig-room", q: "Did they really have a whole year?", a: "Yes. It was filmed across the year before it aired." },
+          { id: "ig-free", q: "Who’s behind it?", a: "Sven De Leijer, who kept the whole thing secret while it was being made." }
         ])
       ]
     },
 
     makeupdate: {
       id: "makeupdate", title: "Make Up Date",
-      syn: "A brush, and the actual conversation", kind: "Series", length: "4 seasons", ...P.vrt, ...art("makeupdate"),
+      syn: "Honest talks over a make-up challenge", kind: "Series", length: "4 seasons", ...P.vrt, ...art("makeupdate"),
       about: "Bert De Kock does a make-up challenge with a bekende jongere and gets them talking about what they’re genuinely onzeker about. The make-up is the excuse to sit close. Four seasons on VRT MAX.",
       chips: [
-        F("Is this a beauty show?", "No, and it’s barely pretending. The challenge is a mess on purpose — it’s there so two people have something to do with their hands while they say the difficult thing.", [
-          { id: "mu-learn", q: "Would I learn anything about make-up?", a: "Nothing. Neither of them is any good at it and that’s the point of the format." },
-          { id: "mu-bert", q: "Who’s the host?", a: "Bert De Kock, who came up through TikTok. That’s why the register is so much closer than a normal interview.", who: "Bert De Kock" }
+        F("Will I learn anything about make-up?", "No. Nobody on it is good at make-up, and that’s the joke.", [
+          { id: "mu-learn", q: "Does it get uncomfortable?", a: "Sometimes, and it doesn’t cut away when it does." },
+          { id: "mu-bert", q: "Anything similar that’s free?", a: "Bockie Gaat Naar School on Play.", who: "Bert De Kock" }
         ]),
-        F("How honest does it get?", "Properly. Guests talk about insecurity in a way they don’t in ordinary interviews, and the camera stays on them a beat longer than is comfortable. Four seasons of that on VRT MAX.", [
-          { id: "mu-hard", q: "Does it get uncomfortable?", a: "Sometimes, and it doesn’t cut away when it does. That restraint is why people trust it." },
-          { id: "mu-start", q: "Which episode should I start with?", a: "Any with a face you recognise. Twenty-eight of them and not one needs another." }
+        F("What’s the idea?", "Bert De Kock and a guest take on a make-up challenge and talk while they do it.", [
+          { id: "mu-hard", q: "How personal does it get?", a: "Very. Guests talk about insecurity in a way they don’t in normal interviews." },
+          { id: "mu-start", q: "Who is Bert De Kock?", a: "A presenter who came up through TikTok." }
         ]),
-        F("How long is one?", "Short, and that’s the appeal. Twenty-eight episodes across four seasons and you can stop after one. Good for the gap where nothing else fits.", [
-          { id: "mu-teen", q: "Would a teenager watch it?", a: "It’s aimed almost exactly at them. The talk about insecurity is the reason to put it on together, not the reason not to." },
-          { id: "mu-sim", q: "Anything similar that’s free?", a: "Bockie Gaat Naar School on Play is the nearest for that audience, and also costs nothing." }
+        F("How long is an episode?", "Short. There are 28 episodes across four seasons on VRT MAX.", [
+          { id: "mu-teen", q: "Where should I start?", a: "With any guest you recognise. Every episode stands alone." },
+          { id: "mu-sim", q: "Is it for teenagers?", a: "Yes, it’s made for them, and it’s a good one to watch together." }
         ])
       ]
     },
 
     celvermiste: {
       id: "celvermiste", title: "Cel Vermiste Personen",
-      syn: "The unit that looks for the missing", kind: "Series", length: "2 seasons", ...P.vrt, ...art("celvermiste"),
+      syn: "Doc series on the missing persons unit", kind: "Series", length: "2 seasons", ...P.vrt, ...art("celvermiste"),
       about: "Inside the federal unit that takes thousands of verdwijningen a year — set up after Dutroux, run by Alain Remue ever since. Fatma Taspinar reports. Seven episodes on VRT MAX, and it’s careful with every one of them.",
       chips: [
-        F("How heavy is this?", "Heavy. Real families, real cases, and no music telling you how to feel. It’s a documentary rather than true crime, and the difference shows in what it refuses to linger on.", [
-          { id: "cv-dut", q: "Does Dutroux come up?", a: "It has to — the cel exists because of it. But this is about the work now, not a retelling of 1996." },
-          { id: "cv-after", q: "Will it sit with me afterwards?", a: "Some of it will. It’s made with care and it spares you the worst, but the subject is the subject." }
+        F("How many episodes are there?", "Seven cases across two seasons.", [
+          { id: "cv-dut", q: "Do I watch them in order?", a: "The cases stand alone, but season one explains how the unit works, so it’s the easier start." },
+          { id: "cv-after", q: "Who presents it?", a: "Fatma Taspinar, with Alain Remue, who has led the unit for most of its history." }
         ]),
-        F("Do the cases get solved?", "Some. Not all, and the series doesn’t pretend otherwise. That honesty is most of why it works — the unresolved ones are given the same time as the rest.", [
-          { id: "cv-order", q: "Do I watch them in order?", a: "The cases stand alone, but season one sets up the cel and is the better way in." },
-          { id: "cv-many", q: "How many are there?", a: "Seven across two seasons, so it’s short enough to take as one thing rather than a commitment." }
+        F("Is this true crime?", "No, it’s a documentary about the unit’s work. Real families and real cases, without dramatic music.", [
+          { id: "cv-order", q: "Do the cases get solved?", a: "Some do, some don’t. The unsolved ones get as much time as the rest." },
+          { id: "cv-many", q: "Does the Dutroux case come up?", a: "Yes, because the unit was set up after it. But the series is about the work today, not a retelling of 1996." }
         ]),
-        F("Is this one to watch with someone?", "Better with someone than alone, but it needs a room that’s actually watching. Not something to have on while you do the dishes.", [
-          { id: "cv-who", q: "Who’s presenting it?", a: "Fatma Taspinar, with Alain Remue of the cel. He’s run it for almost its entire existence, which is why people talk to him the way they do.", who: "Fatma Taspinar" },
-          { id: "cv-after2", q: "What do I put on after it?", a: "Thuis at 25 minutes on VRT MAX, or Zeg Eens Euh on Play. Both free and both a long way from this." }
+        F("How heavy is it?", "Heavy. It’s about real families and missing people. It’s made with care and doesn’t linger on the worst details.", [
+          { id: "cv-who", q: "Can I have it on in the background?", a: "Not really. It needs your attention.", who: "Fatma Taspinar" },
+          { id: "cv-after2", q: "Something lighter for after?", a: "Thuis, 25 minutes on VRT MAX, or Zeg Eens Euh on Play. Both are free." }
         ])
       ]
     },
@@ -194,34 +194,34 @@
 
     thuis: {
       id: "thuis", title: "Thuis",
-      syn: "Daily. Local. Easy.", kind: "Series", length: "Daily · ~25m", ...P.vrt, ...art("thuis"),
+      syn: "Daily soap, about 25 minutes", kind: "Series", length: "Daily · ~25m", ...P.vrt, ...art("thuis"),
       about: "The Flemish daily — 25 minutes, already in your plan. Not a case. The thing you chip away when the night is done, or when the room is local and talking.",
       chips: [
-        F("Is this actually leaving?", "Yes. Daily, ~25 minutes, VRT MAX. You’re already in it. Easy to chip away this week without making it the night."),
-        F("Too soapy for tonight?", "It’s a daily. If you wanted a case, that’s Assisen or 1985. If you wanted 25 minutes and home, this is it."),
-        F("Can I watch this with people talking?", "That’s the point. Local, easy, nobody has to sit up.")
+        F("How long is an episode?", "About 25 minutes, every weekday, on VRT MAX."),
+        F("Can I pick it up at any point?", "Yes. It’s a daily soap, and you’re already watching."),
+        F("Can I have it on while people talk?", "Yes. It’s easy to follow.")
       ]
     },
 
     verraders: {
       id: "verraders", title: "De Verraders",
-      syn: "Traitors. Sofa. Format.", kind: "Series", length: "S3 · ~50m", ...P.vtm, ...art("verraders"),
+      syn: "Game show with secret traitors", kind: "Series", length: "S3 · ~50m", ...P.vtm, ...art("verraders"),
       about: "The Belgian sofa format — traitors, a round table, talking over it. Not a story-twist; a format-twist. Locked on VTM GO.",
       chips: [
-        F("Can we talk over this?", "That’s the one. Format, not prestige. People stay in the room. Locked unless you add VTM GO."),
-        F("Do I need earlier seasons?", "Each season is a new table. Start here if this is the one in the house."),
-        F("What’s the in-plan sofa version?", "Thuis if local and easy. Squid Game if you wanted talking after and Netflix. This one waits on VTM GO.")
+        F("How does the game work?", "The players work as a team, but a few of them are secret traitors. Every round the group votes out the person they think is a traitor."),
+        F("Do I need to watch earlier seasons?", "No. Each season has new players."),
+        F("Where can I watch it?", "On VTM GO, which you don’t have yet.")
       ]
     },
 
     detwaalf: {
       id: "detwaalf", title: "De Twaalf",
-      syn: "Jury. Flanders. Heat.", kind: "Series", length: "S1 · ~50m", ...P.streamz, ...art("detwaalf"),
+      syn: "Jury drama, twelve people, one case", kind: "Series", length: "S1 · ~50m", ...P.streamz, ...art("detwaalf"),
       about: "Twelve ordinary people judge an extraordinary case. Flemish intensity — the closest neighbour if The Bear’s kitchen heat is what you wanted, with a courtroom instead of a pass.",
       chips: [
-        F("Something like The Bear?", "Closest on intensity: De Twaalf. Abbott if you wanted the humour without the panic. Locked on Streamz."),
-        F("Do I need to know Belgian law?", "No. Twelve people in a room. The case explains itself."),
-        F("In my plan?", "Streamz, so it carries a lock. 1985 is the in-plan Flemish case.")
+        F("Is it based on a real case?", "No. The case is fictional."),
+        F("Do I need to know Belgian law?", "No. The case explains itself through the twelve jurors."),
+        F("Where can I watch it?", "On Streamz, which you don’t have yet. 1985 is a Flemish case series that’s already in your plan.")
       ]
     }
   };
