@@ -391,7 +391,9 @@
   .navitem.on svg{fill:currentColor;stroke-width:1.2}
 
   .dock{
-    position:absolute;left:4.33cqw;right:3.3cqw;
+    /* 12px, the inset My Stuff and Following use; 3.3cqw moved the Ask
+       button further from the edge on a wider handset */
+    position:absolute;left:4.33cqw;right:12px;
     bottom:calc(7.51cqh + var(--dock-lift) + var(--safe-bottom));
     z-index:36;
     display:flex;align-items:flex-end;gap:12px;
@@ -412,7 +414,9 @@
   }
   .hero{display:flex;align-items:flex-start;gap:12px;width:100%}
   .poster{
-    width:14.25cqw;height:9.86cqh;border-radius:8px;overflow:hidden;flex-shrink:0;
+    /* the height was 9.86cqh, which only came out at 2/3 because the phone
+       happens to be 393x852 -- any other container reshaped the poster */
+    width:14.25cqw;aspect-ratio:2/3;border-radius:8px;overflow:hidden;flex-shrink:0;
     background:#111;box-shadow:0 8px 18px rgba(0,0,0,.4);
     pointer-events:auto;
     cursor:pointer;
@@ -474,7 +478,9 @@
   .facts span{opacity:.7}
 
   .cta-rail{
-    flex-shrink:0;width:13.7cqw;
+    /* the rail is exactly the button, so the button lands on the dock's own
+       right edge rather than centred in a wider column */
+    flex-shrink:0;width:48px;
     display:flex;flex-direction:column;align-items:center;gap:16px;
     pointer-events:auto;
   }
@@ -484,7 +490,9 @@
   }
   .slide.is-convo .watch-rail{opacity:.2;pointer-events:none}
   .btn-watch{
-    width:12.21cqw;height:12.21cqw;border-radius:16px;overflow:hidden;
+    /* 48px, the size My Stuff and Following use; cqw here meant the button
+       tracked the handset's width and no two screens agreed */
+    width:48px;height:48px;border-radius:16px;overflow:hidden;
     background:rgba(255,255,255,.1);
   }
   .btn-watch img{width:100%;height:100%;object-fit:cover;display:block;border-radius:15px}
@@ -502,7 +510,7 @@
   .slide.is-convo .ask-rail{opacity:0;pointer-events:none}
 
   .ask-blob{
-    position:relative;width:12.21cqw;height:12.21cqw;border-radius:16px;
+    position:relative;width:48px;height:48px;border-radius:16px;
     overflow:hidden;
     background:rgba(10,8,12,.5);
     box-shadow:0 4px 14px rgba(0,0,0,.35);
@@ -1411,6 +1419,13 @@ let pageLive = true;
 
 function isPageLive(){
   if (!pageLive || document.hidden) return false;
+  // A detail page over the feed counts as the feed not being on screen. Pausing
+  // once when it opens is not enough on its own: a load, a seek or a play()
+  // promise already in flight lands a moment later and starts the clip again
+  // underneath the overlay, which is why it kept playing behind it. The title
+  // page sets is-title before it calls onOpen and clears it before onClose, so
+  // this gate closes for the whole time it is up and the resume still works.
+  if (document.getElementById("phone")?.classList.contains("is-title")) return false;
   try {
     const frame = window.frameElement;
     if (frame) {
