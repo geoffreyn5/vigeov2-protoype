@@ -167,7 +167,7 @@
     border-radius: 0;
   }
   html.is-app .scene{bottom: calc(64px + var(--safe-bottom))}
-  html.is-app .ask-rail{bottom: calc(84px + var(--safe-bottom))}
+  html.is-app .ask-rail{bottom: calc(74px + var(--safe-bottom))}
 
   .phone{
     width:min(100%,393px);aspect-ratio:393/852;border-radius:42px;overflow:hidden;
@@ -857,8 +857,10 @@
     filter:brightness(0) invert(1);opacity:1;
   }
   .ask-rail{
-    position:absolute;right:12px;bottom:84px;z-index:45;
-    display:flex;flex-direction:column;align-items:center;gap:5px;width:54px;
+    /* 74px and a button-wide rail, so the Ask button lands in the same
+       place as it does on Home and does not jump when tabs change */
+    position:absolute;right:12px;bottom:74px;z-index:45;
+    display:flex;flex-direction:column;align-items:center;gap:5px;width:48px;
     transition:opacity .2s ease, transform .45s var(--ease-star);
   }
   .askfab{
