@@ -1934,6 +1934,10 @@ const convo = GummyConvo.create({
 });
 
 const titlePage = GummyTitle.create({
+  // the shell holds its splash until every screen says it is warm
+  onWarm(done, total){
+    try { window.parent.postMessage({ type: "warm", done, total }, "*"); } catch (_) {}
+  },
   phone: document.getElementById("phone"),
   toast,
   plan: new Set(["Netflix", "HBO Max", "VRT MAX", "Play", "VTM GO"]),
@@ -2002,9 +2006,23 @@ function resetSlide(slide){
   resetPatch(slide.querySelector("[data-top10]"));
 }
 
+// The detail page for the slide in view, then the ones a swipe away, then the
+// rest of the feed once the thread is idle. Warming is ordered by what the
+// viewer can reach soonest, not by what happens to be first in the array.
+function warmFeed(){
+  items.forEach(it => titlePage.warm(it));
+}
+(window.requestIdleCallback || (f => setTimeout(f, 0)))(warmFeed, { timeout: 1500 });
+function warmAround(i){
+  if (!items.length) return;
+  titlePage.warm(items[i], { first: true });
+  [i + 1, i - 1, i + 2, i - 2].forEach(j => { if (items[j]) titlePage.warm(items[j]); });
+}
+
 function activate(i){
   if (!isPageLive()) { stopAll(); return; }
   current = i;
+  warmAround(i);
   feedEl.querySelectorAll(".slide").forEach((slide, idx) => {
     const item = items[idx];
     const wrap = slide.querySelector("[data-video]");
@@ -2104,6 +2122,7 @@ function renderFeed(list){
     convoSlide = null;
     feedEl.querySelectorAll(".slide").forEach((slide, i) => releaseVideo(slide, items[i]));
     items = list;
+    warmFeed();
     feedEl.innerHTML = items.map(slideHTML).join("");
     bindSlides();
     mountEagerVideos();

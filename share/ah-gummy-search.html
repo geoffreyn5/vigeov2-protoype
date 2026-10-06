@@ -2336,11 +2336,64 @@ function toast(msg){
   toastEl._t = setTimeout(() => toastEl.classList.remove("on"), 1300);
 }
 const titlePage = GummyTitle.create({
+  // the shell holds its splash until every screen says it is warm
+  onWarm(done, total){
+    try { window.parent.postMessage({ type: "warm", done, total }, "*"); } catch (_) {}
+  },
   phone,
   toast,
   plan: PLAN,
   reduceMotion
 });
+
+// Warming everything this screen can open.
+//
+// The lobby's own map covers the reel rail and the id-based collections, but
+// two things sit outside it and were still loading on open: the films named in
+// the awards page, which exist only as titles in that list, and the genre
+// pages, whose contents arrive from /api/genre. Both are warmed here, art
+// included, so a collection opens already drawn.
+(function warmLobby(){
+  const idle = window.requestIdleCallback || (f => setTimeout(f, 600));
+  const img = u => { if (u) { const i = new Image(); i.src = u; } };
+
+  idle(() => {
+    Object.values(titles).forEach(t => t && t.title && titlePage.warm(t));
+
+    // the awards films, which are names rather than entries in the map
+    const named = new Set();
+    Object.values(COLLECTION_PAGES).forEach(page =>
+      (page.awards || []).forEach(a => (a.entries || []).forEach(e => e.film && named.add(e.film))));
+    named.forEach(film => titlePage.warm({ title: film }));
+
+    // their art is resolved through /api/posters and kept in tmdbArt, which is
+    // the same cache the collection reads when it renders
+    const missing = [...named].filter(t => !tmdbArt.has(t));
+    for (let i = 0; i < missing.length; i += 30) {
+      const batch = missing.slice(i, i + 30);
+      fetch("/api/posters", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ titles: batch })
+      }).then(r => r.ok ? r.json() : null).then(j => {
+        Object.entries((j && j.posters) || {}).forEach(([t, url]) => { tmdbArt.set(t, url); img(url); });
+      }).catch(() => {});
+    }
+
+    // and the genre pages, into the same cache fillGenre reads
+    Object.keys(GENRE_PAGES).forEach(name => {
+      if (genreCache.has(name)) return;
+      fetch(`/api/genre?name=${encodeURIComponent(name)}`)
+        .then(r => r.ok ? r.json() : null)
+        .then(d => {
+          if (!d || !d.ok) return;
+          genreCache.set(name, d);
+          [...(d.films || []), ...(d.series || [])].forEach(t => img(t.poster));
+          [...(d.actors || []), ...(d.directors || [])].forEach(p => img(p.photo));
+        }).catch(() => {});
+    });
+  }, { timeout: 5000 });
+})();
 // warm a title the moment a finger goes down on its poster, so the fetch is
 // already in flight while the page animates in
 phone.addEventListener("pointerdown", e => {

@@ -1064,6 +1064,21 @@ function mixLocal(id, extra){
 // the two lists now live in ah-my-lists.js, shared with the reel's algorithm page
 const titles = (globalThis.MyLists && MyLists.titles) || [];
 
+// Everything on this screen opens a detail page, so warm the lists in the order
+// they are laid out -- continue watching leads, because that is the rail the
+// thumb lands on first.
+(function warmLists(){
+  const idle = window.requestIdleCallback || (f => setTimeout(f, 500));
+  idle(() => {
+    const seen = new Set();
+    [...titles, ...recs].sort((a, b) => (b.continue ? 1 : 0) - (a.continue ? 1 : 0)).forEach(t => {
+      if (!t || !t.title || seen.has(t.title)) return;
+      seen.add(t.title);
+      titlePage.warm(t);
+    });
+  }, { timeout: 4000 });
+})();
+
 const recs = [
   {id:"sev", title:"Severance", kind:"Series", provider:"Apple TV", logo:"apple tv logo.jpg", poster:POSTER("/pPHpeI2X1qEd1CS1SeyrdhZ4qnT.jpg"), fallback:POSTER("/pPHpeI2X1qEd1CS1SeyrdhZ4qnT.jpg")},
   {id:"penguin", title:"The Penguin", kind:"Series", provider:"HBO Max", logo:"hbo-max-new-logo.jpg", poster:POSTER("/vOWcqC4oDQws1doDWLO7d3dh5qc.jpg"), fallback:POSTER("/vOWcqC4oDQws1doDWLO7d3dh5qc.jpg")},
@@ -1880,6 +1895,10 @@ function openAsk(startId){
 function collapseAsk(){ convo.close(); }
 
 const titlePage = GummyTitle.create({
+  // the shell holds its splash until every screen says it is warm
+  onWarm(done, total){
+    try { window.parent.postMessage({ type: "warm", done, total }, "*"); } catch (_) {}
+  },
   phone: phoneEl,
   toast,
   plan: PLAN,

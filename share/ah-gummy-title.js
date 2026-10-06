@@ -710,8 +710,14 @@
     const sameOrigin = u =>
       /^https?:\/\/image\.tmdb\.org\//.test(u) ? `/api/img?u=${encodeURIComponent(u)}` : u;
 
+    const toneCache = new Map();
     function toneFrom(url, onTone) {
       if (!url) return;
+      if (toneCache.has(url)) {
+        const hit = toneCache.get(url);
+        onTone(hit ? hit.tone : null, hit ? hit.solid : null);
+        return;
+      }
       const img = new Image();
       img.crossOrigin = "anonymous";
       img.onload = () => {
@@ -731,9 +737,12 @@
           r = Math.round(r / n); g = Math.round(g / n); b = Math.round(b / n);
           // darken toward the black the page ends on, so the fade has somewhere to go
           const mix = (v) => Math.round(v * 0.42);
-          onTone(`rgba(${r},${g},${b},.55)`, `rgb(${mix(r)},${mix(g)},${mix(b)})`);
-        } catch (_) {}
+          const tone = `rgba(${r},${g},${b},.55)`, solid = `rgb(${mix(r)},${mix(g)},${mix(b)})`;
+          toneCache.set(url, { tone, solid });
+          onTone(tone, solid);
+        } catch (_) { toneCache.set(url, null); onTone(null, null); }
       };
+      img.onerror = () => { toneCache.set(url, null); onTone(null, null); };
       img.src = sameOrigin(url);
     }
 
@@ -766,6 +775,20 @@
       else if (extra && extra.runtime) { bits.push(extra.runtime); if (extra.epLen) bits.push(extra.epLen); }
       if (item.provider) bits.push(item.provider);
       return bits.filter(Boolean).join(" · ");
+    }
+
+    function settleHero(item) {
+      if (current !== item) return;
+      const heroEl = scroll.querySelector("[data-tpage-hero]");
+      if (!heroEl) return;
+      if (!item._heroArt) return;                      // no art decoded yet
+      if (!item._tone && !item._toneDone) return;      // colour still coming
+      if (item._tone) {
+        heroEl.style.setProperty("--tone", item._tone.tone);
+        heroEl.style.setProperty("--tone-solid", item._tone.solid);
+      }
+      heroEl.style.backgroundImage = `url('${item._heroArt}')`;
+      heroEl.classList.add("has-art");
     }
 
     function render() {
@@ -872,17 +895,7 @@
         // graded with arrive together in a single write, so the page goes from
         // tinted wash to finished backdrop in one cross-fade instead of
         // stepping through "bright art, no gradient" on the way.
-        const land = () => {
-          if (!heroEl.isConnected || current !== item) return;
-          if (!item._heroArt || item._heroArt !== hero) return;
-          if (!item._tone && !item._toneDone) return;      // colour still coming
-          if (item._tone) {
-            heroEl.style.setProperty("--tone", item._tone.tone);
-            heroEl.style.setProperty("--tone-solid", item._tone.solid);
-          }
-          heroEl.style.backgroundImage = `url('${hero}')`;
-          heroEl.classList.add("has-art");
-        };
+        const land = () => settleHero(item);
 
         // tint from the poster, which is on screen first, so the gradient is the
         // title's own colour rather than a generic wash. Computed once per
@@ -892,17 +905,18 @@
           // also given a deadline: art must not wait on a colour that is never
           // going to arrive
           const settleTone = (tone, solid) => {
-            if (item._toneDone) return;
-            item._toneDone = true;
+            if (item._tone) return;                    // already coloured
+            item._toneDone = true;                     // stop art waiting on it
             if (tone) item._tone = { tone, solid };
             if (current !== item) return;
-            if (tone && heroEl.isConnected) {
-              heroEl.style.setProperty("--tone", tone);
-              heroEl.style.setProperty("--tone-solid", solid);
+            const live = scroll.querySelector("[data-tpage-hero]");
+            if (tone && live) {
+              live.style.setProperty("--tone", tone);
+              live.style.setProperty("--tone-solid", solid);
             }
-            land();
+            settleHero(item);
           };
-          setTimeout(() => settleTone(null, null), 700);
+          setTimeout(() => settleTone(null, null), 250);
           toneFrom(item.poster || hero, settleTone);
         }
 
@@ -930,6 +944,9 @@
           };
           pre.src = hero;
         }
+        // both halves can already be in hand on a re-render, or when the title
+        // was warmed before it was opened
+        settleHero(item);
       }
     }
 
@@ -1144,6 +1161,83 @@
       startLoad(key, { title, year: year || null, kind: null });
     }
 
+    // Warming the titles the app already ships.
+    //
+    // Opening a detail page costs two round trips in sequence: the facts call,
+    // and then the artwork whose URL only that call can tell us. Doing both
+    // ahead of time is what turns the open from "watch it assemble" into
+    // "it is already there".
+    //
+    // Only in-app titles can be warmed. A title that comes back from a chat
+    // answer is not known until the model names it, so it keeps paying both
+    // trips -- there is nothing to do about that.
+    //
+    // It runs three at a time and hands the thread back between each, because
+    // the feed is playing video while this happens and the warming must never
+    // be what makes the reel stutter. bodyFor already asks for no generated
+    // questions on a scripted title, so this is TMDB only -- no model calls.
+    const warmed = new Set();
+    const waiting = [];
+    let running = 0;
+    // reported so the shell can hold a splash until the app is warm; total grows
+    // as later batches are queued, which the bar accounts for
+    let warmDone = 0, warmTotal = 0;
+    const tellWarm = () => {
+      if (typeof opts.onWarm === "function") opts.onWarm(warmDone, warmTotal);
+    };
+    const idle = fn => (window.requestIdleCallback || (f => setTimeout(f, 80)))(fn, { timeout: 2000 });
+
+    function preloadArt(item, store) {
+      const facts = (store && store.facts) || {};
+      const urls = [facts.backdrop, item.poster || facts.poster].filter(Boolean);
+      // the gradient's colour is read off the poster, and that read is its own
+      // round trip through /api/img -- warm it here or it is the last thing the
+      // open still waits for
+      toneFrom(item.poster || facts.poster || facts.backdrop, () => {});
+      return Promise.all(urls.map(u => new Promise(done => {
+        const img = new Image();
+        img.onload = img.onerror = done;
+        img.src = u;
+      })));
+    }
+
+    // Six at a time, and the next job starts as soon as one finishes rather than
+    // waiting for an idle slot. The work is network-bound -- it is waiting on
+    // TMDB and on images, not using the main thread -- and an idle callback
+    // between every job is throttled to a crawl in a backgrounded tab, which is
+    // exactly when a user test is loading. The initial kick is still idle-timed
+    // so the first paint is never what pays for this.
+    function pump() {
+      while (running < 6 && waiting.length) {
+        const job = waiting.shift();
+        running++;
+        job().catch(() => {}).then(() => {
+          running--; warmDone++; tellWarm();
+          pump();
+        });
+      }
+    }
+
+    function warm(raw, { first = false } = {}) {
+      // the sponsored slide has a title but no detail page behind it, so there
+      // is nothing to look up and nothing to preload
+      if (!raw || raw.ad) return;
+      const item = raw._scripted !== undefined ? raw : enrich(raw);
+      if (!item || !item.title) return;
+      const key = `${item.title}|${item.year || ""}`;
+      if (warmed.has(key)) return;
+      warmed.add(key);
+      const job = () => {
+        if (seen.has(key)) return preloadArt(item, seen.get(key));
+        const rec = pending.get(key) || startLoad(key, bodyFor(item));
+        return rec.promise.then(store => preloadArt(item, store));
+      };
+      warmTotal++; tellWarm();
+      // the slide being looked at goes to the head of the queue
+      if (first) waiting.unshift(job); else waiting.push(job);
+      idle(pump);
+    }
+
     // Flies a copy of the tapped poster to the hero, so the overlay explains
     // where it came from. Purely additive: no source element, no art, or reduced
     // motion and the page just does its normal slide.
@@ -1281,7 +1375,7 @@
       }
     });
 
-    return { open, close, isOpen: () => root.classList.contains("is-on"), enrich, listed, prefetch };
+    return { open, close, isOpen: () => root.classList.contains("is-on"), enrich, listed, prefetch, warm };
   }
 
   global.GummyTitle = { create, enrich, catalog, listed, toggleList, lookup };
