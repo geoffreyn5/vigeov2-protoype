@@ -1562,10 +1562,16 @@ const kickPlayback = () => {
 ["pointerdown", "touchstart", "touchmove", "keydown"].forEach(ev =>
   document.addEventListener(ev, kickPlayback, { passive: true, capture: true }));
 
-document.addEventListener("pointerdown", e => {
-  const onClip = e.target.closest && e.target.closest("[data-video]");
-  if (!onClip) return;
-  if (e.target.closest("button, a, [role='button']")) return;
+// Touching the feed at all -- a tap on the slide, or the start of a swipe --
+// is engaging with the reel, and that is a request for sound. It used to need a
+// tap on the video itself, so a swipe that began on the dock left the first
+// clip silent all the way through.
+//
+// The controls are still excluded. Tapping the poster opens a detail page, and
+// sound arriving unannounced on the way back out is what this got wrong before.
+feedEl.addEventListener("pointerdown", e => {
+  if (!e.target.closest) return;
+  if (e.target.closest("[data-poster], [data-title], [data-ask], [data-watch], [data-list], button, a, [role='button']")) return;
   unlockSound();
 }, { passive: true });
 
@@ -2356,6 +2362,14 @@ window.addEventListener("message", e => {
   if (d.type === "app-reel" && d.reel) {
     pageLive = true;
     openReel(d.reel);
+  }
+  // the Start tap on the loading screen. It is a real gesture in the shell, and
+  // sticky activation reaches the same-origin frames, so this is the one moment
+  // the first clip can be unmuted before anyone has touched the feed.
+  if (d.type === "app-start") {
+    pageLive = true;
+    kickPlayback();
+    unlockSound();
   }
 });
 document.addEventListener("visibilitychange", () => {
