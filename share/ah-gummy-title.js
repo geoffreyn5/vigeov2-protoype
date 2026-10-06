@@ -784,11 +784,34 @@
       // until TMDB answered, which meant the entire background swapped mid-read.
       // Until then the gradient carries it -- and it is tinted from the poster,
       // so the colour is already right when the art arrives.
-      const hero = (ex && ex.backdrop) || item.backdrop || item.still || "";
+      // The title's own art wins over TMDB's. A still that ships with the title
+      // was picked for it; TMDB's backdrop is the fallback for titles that have
+      // none, and it is sometimes just the poster's key art again -- Wednesday
+      // ships a shot from the dance and TMDB answers with the umbrella artwork
+      // the poster already shows, so the hero ended up holding the poster twice.
+      // Preferring the local art also means the hero settles once rather than
+      // being replaced a second later.
+      const hero = [item.backdrop, item.still, ex && ex.backdrop]
+        .find(u => u && !(item._heroBad && item._heroBad[u])) || "";
       const poster = item.poster || (ex && ex.poster) || hero;
 
+      // render() runs again on every streamed phase, and it rebuilds the hero
+      // from scratch each time. Anything the hero has already settled -- its
+      // tone, its decoded art -- is written straight back into the markup, or
+      // the page drops to the generic wash and climbs back out once per phase,
+      // which is most of what read as lag.
+      const tone = item._tone;
+      // whatever art the hero has already decoded stays up, even when a better
+      // one is on its way: dropping back to the wash while TMDB's backdrop
+      // decodes would put the flash back in, one upgrade later
+      const settled = item._heroArt || "";
+      const heroStyle = [
+        tone ? `--tone:${tone.tone};--tone-solid:${tone.solid}` : "",
+        settled ? `background-image:url('${settled}')` : ""
+      ].filter(Boolean).join(";");
+
       scroll.innerHTML = `
-        <div class="tpage-hero" data-tpage-hero>
+        <div class="tpage-hero${settled ? " has-art" : ""}" data-tpage-hero${heroStyle ? ` style="${heroStyle}"` : ""}>
           <div class="tpage-poster" data-tilt>
             <img src="${esc(poster)}" alt="${esc(item.title)}">
             <span class="sheen"></span>
@@ -835,22 +858,75 @@
 
       bindRail(scroll);
       bindTilt();
+      const posterImg = scroll.querySelector(".tpage-poster img");
+      if (posterImg) {
+        // a cached file reports complete synchronously, so the class lands in
+        // this same frame and the viewer never sees the tint underneath
+        if (posterImg.complete && posterImg.naturalWidth) posterImg.classList.add("is-in");
+        else posterImg.addEventListener("load", () => posterImg.classList.add("is-in"), { once: true });
+      }
+
       const heroEl = scroll.querySelector("[data-tpage-hero]");
       if (heroEl) {
+        // The hero changes once, not three times. The art and the colour it is
+        // graded with arrive together in a single write, so the page goes from
+        // tinted wash to finished backdrop in one cross-fade instead of
+        // stepping through "bright art, no gradient" on the way.
+        const land = () => {
+          if (!heroEl.isConnected || current !== item) return;
+          if (!item._heroArt || item._heroArt !== hero) return;
+          if (!item._tone && !item._toneDone) return;      // colour still coming
+          if (item._tone) {
+            heroEl.style.setProperty("--tone", item._tone.tone);
+            heroEl.style.setProperty("--tone-solid", item._tone.solid);
+          }
+          heroEl.style.backgroundImage = `url('${hero}')`;
+          heroEl.classList.add("has-art");
+        };
+
         // tint from the poster, which is on screen first, so the gradient is the
-        // title's own colour rather than a generic wash
-        toneFrom(item.poster || hero, (tone, solid) => {
-          heroEl.style.setProperty("--tone", tone);
-          heroEl.style.setProperty("--tone-solid", solid);
-        });
-        if (hero) {
+        // title's own colour rather than a generic wash. Computed once per
+        // title and kept on the item -- a re-render reuses it.
+        if (!item._tone && !item._toneDone) {
+          // the read can fail quietly (a blocked canvas, a dead URL), so it is
+          // also given a deadline: art must not wait on a colour that is never
+          // going to arrive
+          const settleTone = (tone, solid) => {
+            if (item._toneDone) return;
+            item._toneDone = true;
+            if (tone) item._tone = { tone, solid };
+            if (current !== item) return;
+            if (tone && heroEl.isConnected) {
+              heroEl.style.setProperty("--tone", tone);
+              heroEl.style.setProperty("--tone-solid", solid);
+            }
+            land();
+          };
+          setTimeout(() => settleTone(null, null), 700);
+          toneFrom(item.poster || hero, settleTone);
+        }
+
+        if (hero && item._heroArt !== hero) {
           // decode first, then fade in: setting background-image directly makes
           // the hero pop in a frame late, which reads as a flicker
           const pre = new Image();
           pre.onload = () => {
-            if (!heroEl.isConnected) return;
-            heroEl.style.backgroundImage = `url('${hero}')`;
-            heroEl.classList.add("has-art");
+            // A title with no backdrop of its own falls back to a still, and for
+            // a good few of those the "still" is the poster under another name.
+            // Portrait art stretched behind a landscape hero reads as a bug on
+            // its own, and worse once TMDB answers and the whole background
+            // swaps underneath the reader. Only landscape art earns the
+            // background; everything else keeps the tinted gradient until the
+            // real backdrop arrives, which is what a collection title does.
+            if (pre.naturalWidth <= pre.naturalHeight) {
+              // remember the reject so the next render reaches past it rather
+              // than offering the same portrait art again
+              (item._heroBad = item._heroBad || {})[hero] = true;
+              if (current === item) render();
+              return;
+            }
+            item._heroArt = hero;
+            land();
           };
           pre.src = hero;
         }
@@ -1133,8 +1209,14 @@
       // its start position until the fallback timer swept it up.
       fly.style.transformOrigin = "top left";
       fly.style.transform = "translate(0px, 0px) scale(1, 1)";
+      fly.style.borderRadius = "14px";
       fly.getBoundingClientRect();          // commits the start value
       fly.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
+      // A transform scales the corners with the box, so a clone that grows by
+      // sx lands on a corner sx times too round and then snaps to the real
+      // poster's 14px the instant it is swapped. Counter-scaling the radius as
+      // it travels keeps the rendered corner at 14px the whole way.
+      fly.style.borderRadius = `${(14 / sx).toFixed(2)}px / ${(14 / sy).toFixed(2)}px`;
       // transform and opacity finish together, so listen for the transform one
       // specifically rather than whichever fires first
       fly.addEventListener("transitionend", e => {
