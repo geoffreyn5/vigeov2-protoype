@@ -7,12 +7,12 @@ import { VOICE, PROFILE } from "./_shared.js";
 // Model is an env var so it can be pointed at whatever the account has without
 // a code change and a redeploy of this file.
 //
-// Haiku rather than Opus: these answers are two or three sentences in a fixed
-// voice, with the facts already supplied in the prompt -- there is very little
-// here to reason about, and the wait is the whole experience, because the reply
-// types itself out on screen. Set ANTHROPIC_MODEL to claude-sonnet-5-5 if the
-// answers start reading thin.
-const MODEL = process.env.ANTHROPIC_MODEL || "claude-haiku-5-5";
+// Sonnet rather than Haiku: the chat is asked about Flemish rappers, presenters
+// and local shows that neither TMDB nor the app knows, and Haiku answered those
+// by guessing from the sound of the name. Sonnet knows the ground far better and
+// is one of the models the current web_search tool runs on. Set ANTHROPIC_MODEL
+// to claude-haiku-5-5 to trade that back for speed and cost.
+const MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-5-5";
 
 // The reply shape lives here rather than in the shared voice: the title endpoint
 // asks for a different one. The shape is instructed rather than enforced -- the
@@ -23,6 +23,9 @@ const SHAPE = `Reply with JSON only, in this exact shape:
 {"answer": "<your answer, following the rules above>",
  "titles": [{"title": "<exact title>", "year": <release year or null>, "kind": "film" | "series"}],
  "follow": ["<short follow-up>", "<short follow-up>"]}
+
+Search first if you need to, then reply. Your entire reply is the JSON object
+and nothing else -- no narration before it, no note about having searched.
 
 "titles" lists the films or series your answer is about, at most eight. Put any
 that appear in the service list above FIRST, in the order they are most relevant,
@@ -166,8 +169,13 @@ export default async function handler(req, res) {
       // deliberate over, and the thinking this saves comes straight off the wait.
       // Thinking cannot be turned off on this model -- effort is the control.
       output_config: { effort: "low" },
-      // the budget covers the thinking as well as the visible answer
+      // the budget covers the thinking and any searching as well as the answer
       max_tokens: 4000,
+      // Lets an answer go past TMDB and the app's own copy. Most questions are
+      // answered without it -- the model only reaches for it when it is unsure,
+      // which is exactly the case that used to produce a confident invention.
+      // Capped, because every search is time the viewer spends watching a cursor.
+      tools: [{ type: "web_search_20260209", name: "web_search", max_uses: 3 }],
     });
 
     let sentLen = 0;
