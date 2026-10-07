@@ -1,7 +1,16 @@
-import OpenAI from "openai";
+import Anthropic from "@anthropic-ai/sdk";
 import { VOICE, PROFILE, tmdbLookup } from "./_shared.js";
 
-const MODEL = process.env.OPENAI_MODEL || "gpt-5.5";
+const MODEL = process.env.ANTHROPIC_MODEL || "claude-haiku-5-5";
+
+// A reply is a list of content blocks, not one string: thinking blocks ride
+// alongside the text. Join the text ones and leave the rest. A safety decline
+// comes back as a 200 with stop_reason "refusal" and no text, so it lands here
+// as an empty string and the caller's own fallback takes over.
+function textOf(msg) {
+  if (!msg || !Array.isArray(msg.content)) return "";
+  return msg.content.filter(b => b.type === "text").map(b => b.text).join("");
+}
 
 // Everything a title page needs that the prototype does not already hold:
 // facts and art from TMDB, the blurb and the questions written in the house
@@ -11,18 +20,16 @@ const MODEL = process.env.OPENAI_MODEL || "gpt-5.5";
 // strings is a small ask, so it lands well before the blurb -- and the answers
 // are generated on tap through /api/ask, which keeps this call light.
 async function writeQuestions(title, year, kind, overview) {
-  if (!process.env.OPENAI_API_KEY) return null;
+  if (!process.env.ANTHROPIC_API_KEY) return null;
   try {
-    const client = new OpenAI();
-    const c = await client.chat.completions.create({
+    const client = new Anthropic();
+    const c = await client.messages.create({
       model: MODEL,
-      response_format: { type: "json_object" },
       // three short strings need no deliberation, and the rail is the first
       // thing the page waits on -- low effort roughly halves the wait
-      reasoning_effort: "low",
-      max_completion_tokens: 400,
-      messages: [
-        { role: "system", content: `You write the questions a viewer would tap on a
+      output_config: { effort: "low" },
+      max_tokens: 2000,
+      system: `You write the questions a viewer would tap on a
 title page in a Belgian TV app. Reply with JSON only:
 {"questions": ["<question>", "<question>", "<question>"]}
 
@@ -32,12 +39,13 @@ person where it reads naturally, under about forty-five characters. No emoji,
 no exclamation marks.
 
 Always write in English, including for Dutch and Flemish titles -- those keep
-their own spelling, but the question around them is English.` },
+their own spelling, but the question around them is English.`,
+      messages: [
         { role: "user", content: `${title}${year ? ` (${year})` : ""}${kind ? `, ${kind}` : ""}.` +
           (overview ? `\n${overview}` : "") },
       ],
     });
-    const j = JSON.parse(c.choices?.[0]?.message?.content || "");
+    const j = JSON.parse(textOf(c));
     return Array.isArray(j.questions)
       ? j.questions.filter(x => typeof x === "string" && x.trim()).slice(0, 3).map(x => x.trim())
       : null;
@@ -47,24 +55,24 @@ their own spelling, but the question around them is English.` },
 }
 
 async function writeAbout(title, year, kind, overview) {
-  if (!process.env.OPENAI_API_KEY) return null;
+  if (!process.env.ANTHROPIC_API_KEY) return null;
   try {
-    const client = new OpenAI();
-    const c = await client.chat.completions.create({
+    const client = new Anthropic();
+    const c = await client.messages.create({
       model: MODEL,
-      response_format: { type: "json_object" },
-      max_completion_tokens: 700,
-      messages: [
-        { role: "system", content: VOICE + "\n\n" + PROFILE + `
+      output_config: { effort: "low" },
+      max_tokens: 2000,
+      system: VOICE + "\n\n" + PROFILE + `
 
 Write the page blurb for one title. Reply with JSON only:
 {"about": "<2 or 3 sentences -- what it is, who it is for, and whether it is a
-  weeknight or a proper night>"}` },
+  weeknight or a proper night>"}`,
+      messages: [
         { role: "user", content: `${title}${year ? ` (${year})` : ""}${kind ? `, ${kind}` : ""}.` +
           (overview ? `\nSynopsis: ${overview}` : "") },
       ],
     });
-    const j = JSON.parse(c.choices?.[0]?.message?.content || "");
+    const j = JSON.parse(textOf(c));
     return typeof j.about === "string" ? j.about.trim() : null;
   } catch (_) {
     return null;

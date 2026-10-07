@@ -8,8 +8,8 @@
     "invites": "node scripts/invite-admin.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.132.0",
     "@clerk/backend": "^2.4.1",
-    "jose": "^6.0.11",
-    "openai": "^7.23.0"
+    "jose": "^6.0.11"
   }
 }
