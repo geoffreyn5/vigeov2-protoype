@@ -1,4 +1,4 @@
-import OpenAI from "openai";
+import Anthropic from "@anthropic-ai/sdk";
 import { VOICE, PROFILE } from "./_shared.js";
 
 // Answers are generated rather than read from the scripted bank. The key stays
@@ -6,11 +6,19 @@ import { VOICE, PROFILE } from "./_shared.js";
 //
 // Model is an env var so it can be pointed at whatever the account has without
 // a code change and a redeploy of this file.
-const MODEL = process.env.OPENAI_MODEL || "gpt-5.5";
+//
+// Haiku rather than Opus: these answers are two or three sentences in a fixed
+// voice, with the facts already supplied in the prompt -- there is very little
+// here to reason about, and the wait is the whole experience, because the reply
+// types itself out on screen. Set ANTHROPIC_MODEL to claude-sonnet-5-5 if the
+// answers start reading thin.
+const MODEL = process.env.ANTHROPIC_MODEL || "claude-haiku-5-5";
 
 // The reply shape lives here rather than in the shared voice: the title endpoint
-// asks for a different one. It also has to name JSON, or the API refuses
-// response_format: json_object.
+// asks for a different one. The shape is instructed rather than enforced -- the
+// streaming answer is read out of half-written JSON as it arrives, and the
+// schema-enforced path is a single non-streaming call, which would put the
+// cursor back to waiting for the whole reply.
 const SHAPE = `Reply with JSON only, in this exact shape:
 {"answer": "<your answer, following the rules above>",
  "titles": [{"title": "<exact title>", "year": <release year or null>, "kind": "film" | "series"}],
@@ -106,7 +114,7 @@ export default async function handler(req, res) {
     res.status(405).json({ ok: false, error: "method" });
     return;
   }
-  if (!process.env.OPENAI_API_KEY) {
+  if (!process.env.ANTHROPIC_API_KEY) {
     // The client falls back to the scripted answer on this, so a deployment
     // without a key still demos -- it just stops being live.
     res.status(503).json({ ok: false, error: "no_key" });
@@ -124,7 +132,8 @@ export default async function handler(req, res) {
   }
   const turns = Array.isArray(body.history) ? body.history.slice(-6) : [];
 
-  const messages = [{ role: "system", content: buildSystem(body.context) }];
+  const system = buildSystem(body.context);
+  const messages = [];
   for (const t of turns) {
     if (!t || !t.q || !t.a) continue;
     messages.push({ role: "user", content: String(t.q) });
@@ -132,7 +141,7 @@ export default async function handler(req, res) {
   }
   messages.push({ role: "user", content: question });
 
-  const client = new OpenAI();
+  const client = new Anthropic();
 
   res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
   res.setHeader("Cache-Control", "no-cache, no-transform");
@@ -149,22 +158,23 @@ export default async function handler(req, res) {
   // the titles and follow-ups are still being written.
   let raw = "";
   try {
-    const stream = await client.chat.completions.create({
+    const stream = client.messages.stream({
       model: MODEL,
+      system,
       messages,
-      response_format: { type: "json_object" },
       // the answer is short and the shape is fixed; there is little here to
-      // deliberate over, and the saved reasoning tokens come straight off the wait
-      reasoning_effort: "low",
-      // this model family wants max_completion_tokens, and the budget has to
-      // cover any reasoning tokens as well as the visible answer
-      max_completion_tokens: 2000,
-      stream: true,
+      // deliberate over, and the thinking this saves comes straight off the wait.
+      // Thinking cannot be turned off on this model -- effort is the control.
+      output_config: { effort: "low" },
+      // the budget covers the thinking as well as the visible answer
+      max_tokens: 4000,
     });
 
     let sentLen = 0;
-    for await (const chunk of stream) {
-      const piece = chunk.choices?.[0]?.delta?.content;
+    for await (const event of stream) {
+      if (event.type !== "content_block_delta") continue;
+      if (event.delta.type !== "text_delta") continue;
+      const piece = event.delta.text;
       if (!piece) continue;
       raw += piece;
       const soFar = partialAnswer(raw);
