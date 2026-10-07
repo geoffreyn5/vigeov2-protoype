@@ -13,7 +13,11 @@
 }
 .csheet.is-on .csheet-scrim{opacity:1}
 .csheet-panel{
-  position:absolute;left:0;right:0;bottom:0;
+  /* --kb is how much of the screen the on-screen keyboard is covering, published
+     by the shell. The panel sits on top of it instead of behind it: the sheet
+     used to open over the tab bar, and once the keyboard came up the input it
+     was holding was under both. */
+  position:absolute;left:0;right:0;bottom:var(--kb, 0px);
   height:min(76%, 620px);
   display:flex;flex-direction:column;
   border-radius:22px 22px 0 0;
@@ -160,8 +164,10 @@ html.is-app .csheet{
   bottom: calc(64px + var(--safe-bottom, 0px));
 }
 html.is-app .csheet-panel{
-  bottom: 0;
-  height: min(72%, 620px, calc(100% - 54px));
+  /* sits on top of the keyboard, and gives up the height it takes, so the panel
+     is never taller than what is left of the screen */
+  bottom: var(--kb, 0px);
+  height: min(72%, 620px, calc(100% - 54px - var(--kb, 0px)));
 }
 html.is-app.is-bare .csheet,
 .phone.is-bare .csheet{
@@ -169,8 +175,10 @@ html.is-app.is-bare .csheet,
 }
 html.is-app.is-bare .csheet-panel,
 .phone.is-bare .csheet-panel{
-  bottom: var(--safe-bottom, 0px);
-  height: min(78%, calc(100% - 54px));
+  /* with the keyboard up it covers the home indicator anyway, so the larger of
+     the two insets is the right one rather than their sum */
+  bottom: max(var(--kb, 0px), var(--safe-bottom, 0px));
+  height: min(78%, calc(100% - 54px - var(--kb, 0px)));
 }
 @media (prefers-reduced-motion:reduce){
   .csheet-scrim, .csheet-panel{transition:none}
@@ -195,4 +203,13 @@ html.is-app.is-bare .csheet-panel,
 .ask-shot span{
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
   margin-top:6px;font-size:10.5px;font-weight:600;line-height:1.22;color:rgba(255,255,255,.74);
+}
+
+
+/* A row of posters under an answer reads as a non sequitur without a line
+   saying what it is -- these are the titles the answer just named. */
+.ask-lane-label{
+  margin:14px 0 6px;
+  font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:rgba(255,255,255,.42);
 }

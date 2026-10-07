@@ -5,6 +5,29 @@
   function esc(s) {
     return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
+  // How much of the screen the keyboard is covering, published by the shell --
+  // the sheet lives on six pages and only Search was listening, so everywhere
+  // else the input it holds ended up under the keyboard. Registered once, here,
+  // because every page that has the sheet loads this file.
+  if (!global.__kbWired) {
+    global.__kbWired = true;
+    const setKb = px =>
+      document.documentElement.style.setProperty("--kb", `${Math.max(0, Math.round(px))}px`);
+    global.addEventListener("message", e => {
+      const d = e.data;
+      if (d && d.type === "app-kb" && typeof d.kb === "number") setKb(d.kb);
+    });
+    // and measured directly when the page is opened on its own rather than
+    // inside the shell's frame
+    const vv = global.visualViewport;
+    if (vv && global.parent === global) {
+      const measure = () => setKb(global.innerHeight - vv.height - vv.offsetTop);
+      vv.addEventListener("resize", measure);
+      vv.addEventListener("scroll", measure);
+      measure();
+    }
+  }
+
   function textOf(item) {
     if (!item) return "";
     const a = item.a;
@@ -168,6 +191,13 @@
           <span>${esc(sh.title)}</span>
         </button>`).join("");
       afterEl.insertAdjacentElement("afterend", lane);
+      // the lane goes in first, then the label in front of it: both would
+      // otherwise be inserted after the answer and the label would end up
+      // underneath the posters it is meant to introduce
+      const label = document.createElement("div");
+      label.className = "ask-lane-label";
+      label.textContent = "In this answer";
+      lane.insertAdjacentElement("beforebegin", label);
       afterEl.parentElement && (afterEl.parentElement.scrollTop = afterEl.parentElement.scrollHeight);
     }
 
