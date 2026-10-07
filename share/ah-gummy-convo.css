@@ -163,6 +163,20 @@
 html.is-app .csheet{
   bottom: calc(64px + var(--safe-bottom, 0px));
 }
+
+/* While the sheet is open, the sheet IS the screen.
+   The rule above reserves the tab bar's height so the sheet never covers the
+   navigation -- which is right when it is a panel over a page, but it also
+   holds the input a whole bar off the keyboard, with the nav stranded in the
+   gap between them. With the keyboard up the bar is unreachable behind the
+   scrim anyway, so it goes, and the sheet runs to the bottom: the field then
+   sits directly on the keyboard.
+   Keyed off the sheet's own state rather than a per-page class, because the
+   six pages that host it do not all set one. */
+.phone:has(.csheet.is-on) .tabbar,
+.phone:has(.csheet.is-on) .navfrost{ display: none; }
+html.is-app .phone:has(.csheet.is-on) .csheet,
+.phone:has(.csheet.is-on) .csheet{ bottom: 0; }
 html.is-app .csheet-panel{
   /* sits on top of the keyboard, and gives up the height it takes, so the panel
      is never taller than what is left of the screen */
