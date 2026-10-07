@@ -445,16 +445,6 @@
       handle.addEventListener("pointercancel", end);
     }
 
-    if (window.visualViewport) {
-      const syncKb = () => {
-        const vv = window.visualViewport;
-        const kb = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
-        sheet.style.setProperty("--csheet-kb", kb > 40 ? `${kb}px` : "0px");
-      };
-      window.visualViewport.addEventListener("resize", syncKb);
-      window.visualViewport.addEventListener("scroll", syncKb);
-    }
-
     return { open, close, ask, askText, isOpen, setBank, setStarters, find };
   }
 

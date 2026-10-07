@@ -315,8 +315,12 @@
   z-index:6;
 }
 .tpage .csheet-panel{
-  bottom: var(--safe-bottom, 0px) !important;
-  height: min(78%, calc(100% - 54px));
+  /* The !important is here because .tpage wins over the app-mode rules by
+     accident of order, not intent; it must still track the keyboard, or the
+     sheet on a detail page sits a home indicator above the bottom and stays
+     there when the keyboard comes up. The inset moves inside the footer. */
+  bottom: var(--kb, 0px) !important;
+  height: min(78%, calc(100% - 54px - var(--kb, 0px)));
 }
 @media (prefers-reduced-motion:reduce){
   .tpage, .tpage-scroll{transition:none}

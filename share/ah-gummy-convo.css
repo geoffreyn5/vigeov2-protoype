@@ -114,7 +114,12 @@
 .csheet .qchip .star, .csheet .qchip img{display:none}
 .csheet .qconvo-foot{
   flex-shrink:0;padding-top:8px;
-  padding-bottom:calc(8px + var(--csheet-kb, 0px));
+  /* The panel's own bottom is on the keyboard, so the only inset left to clear
+     from in here is the home indicator -- and only while the keyboard is down,
+     which is covering it otherwise. Padding rather than lifting the panel, so
+     the sheet still reaches the bottom of the screen and no page shows under
+     it. */
+  padding-bottom:calc(8px + max(0px, var(--safe-bottom, 0px) - var(--kb, 0px)));
 }
 .csheet .askinput{display:flex;gap:8px;align-items:center;position:relative}
 .csheet .askinput input,
@@ -189,9 +194,7 @@ html.is-app.is-bare .csheet,
 }
 html.is-app.is-bare .csheet-panel,
 .phone.is-bare .csheet-panel{
-  /* with the keyboard up it covers the home indicator anyway, so the larger of
-     the two insets is the right one rather than their sum */
-  bottom: max(var(--kb, 0px), var(--safe-bottom, 0px));
+  bottom: var(--kb, 0px);
   height: min(78%, calc(100% - 54px - var(--kb, 0px)));
 }
 @media (prefers-reduced-motion:reduce){
