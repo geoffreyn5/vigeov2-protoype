@@ -2,93 +2,39 @@
   const F = (q, a, follow) => ({ q, a, follow: follow || [] });
 
   const tafelChips = [
-    F("What’s tonight’s episode about?", "Dolly Parton, the record Belgian summer and Theo Francken’s climate post, with KU Leuven climate scientist Nicole Van Lipzig at the table.", [
-      { id: "tafel-climate", q: "What did Gert say about Francken’s post?", a: "He said he understood it. Van Lipzig answered with her graphs, and that exchange took up most of the segment." },
-      { id: "tafel-catch", q: "Can I watch just one topic?", a: "Yes. The show is split into segments, so you can pick the topics or guests you want." }
-    ]),
-    F("Can I watch it later?", "Yes. Every episode is on Play the morning after. It follows the news, so it dates quickly.", [
-      { id: "tafel-ruben", q: "Is there a weekly recap?", a: "Yes. De Tafel van de Week collects the best moments of the week." },
-      { id: "tafel-live", q: "What’s on after it?", a: "Zeg Eens Euh, around 22:00 on Play." }
-    ]),
-    F("Who are tonight’s guests?", "Jade Mintjens on her new Play show, Little Kim and Christophe Vekeman on Dolly Parton, and Nicole Van Lipzig on the summer heat. Regulars Hannes Heynderickx, Nora Gharib and Peter Van de Veire are there too.", [
-      { id: "tafel-week", q: "Who hosts this season?", a: "Gert Verhulst most nights, with Tine Embrechts filling in and Ruben Van Gucht as the new third host." },
-      { id: "tafel-sofa", q: "When is it on?", a: "Monday to Thursday at 20:00 on Play, live from De Zuiderkroon." }
-    ])
+    F("Who’s at the table in this episode?", "Jade Mintjens on her new Play show, Little Kim and Christophe Vekeman on Dolly Parton, and Nicole Van Lipzig on the summer heat. Regulars Hannes Heynderickx, Nora Gharib and Peter Van de Veire are there too."),
+    F("What did Gert say about Francken?", "He said he understood it. Van Lipzig answered with her graphs, and that exchange took up most of the segment."),
+    F("Is Jade talking about her new show?", "Yes. In this episode, Jade Mintjens is at the table to discuss her new Play show.")
   ];
 
   const familieChips = [
-    F("What did I miss this week?", "The season opened with an extra-long Monday episode. Victor is still missing, Erik walked into the Jan & Alleman asking for Peter Van den Bossche, and Hanne came back without Gaston.", [
-      { id: "fam-monday", q: "Where should I start?", a: "With Monday’s extra-long episode. It sets up the whole week." },
-      { id: "fam-miss", q: "Can I catch up on the whole week at once?", a: "Yes. VTM GO+ has the full week from Saturday." }
-    ]),
-    F("Can I start now, without the backstory?", "Yes. It’s a daily soap, made to join at any point. The show fills you in on this week’s storylines as you go.", [
-      { id: "fam-week", q: "What’s happening this week?", a: "Victor is still missing, Erik turned up asking for Peter Van den Bossche, and Hanne came home without Gaston." },
-      { id: "fam-thuis", q: "How long is an episode?", a: "25 minutes, every weekday, on VTM GO." }
-    ]),
-    F("Who are the main characters right now?", "The Van den Bossche family. Mathias is searching for Victor and Hanne is back at the pub. The new face is Erik (Bert Haelvoet).", [
-      { id: "fam-hanne", q: "Why is Hanne back without Gaston?", a: "That’s this week’s big question. The show answers it in the coming episodes." },
-      { id: "fam-peter", q: "Is Peter Van den Bossche back?", a: "No. Gunther Levi only appears in flashbacks." }
-    ])
+    F("Is Peter Van den Bossche really back?", "In the source episode, Gunther Levi appears in flashbacks rather than Peter returning to the present-day story."),
+    F("Who’s asking for Peter at the pub?", "That is Erik, played by Bert Haelvoet. He is the new arrival asking for Peter Van den Bossche."),
+    F("Why did Margot take a break from Familie?", "Margot Hallemans took a year away to focus on her yoga retreats. Her return as Hanne follows that break.")
   ];
 
   const jadeChips = [
-    F("What’s the first episode about?", "Traffic: the Brussels Ring, roadworks and the car inspection, with guests from Bart De Wever to a fire-breather named Flor.", [
-      { id: "jade-theme", q: "Is every episode a different topic?", a: "Yes. One Belgian cliché per week." },
-      { id: "jade-guests", q: "Are the guests famous?", a: "Some are. Jade mixes famous and ordinary Belgians on purpose." }
-    ]),
-    F("Can I watch episodes in any order?", "Yes. Each episode has its own theme. New ones come out on Thursdays on Play.", [
-      { id: "jade-plan", q: "Is it on VRT MAX?", a: "No, it’s on Play." },
-      { id: "jade-when", q: "How long is an episode?", a: "About 40 minutes." }
-    ]),
-    F("What kind of humour is it?", "Observational comedy about Belgians, in the style of Philippe Geubels’ show. Famous and ordinary Belgians complain about the same thing.", [
-      { id: "jade-who", q: "Who is Jade Mintjens?", a: "The sidekick from De Ideale Wereld, now with her own show for the first time." },
-      { id: "jade-geubels", q: "Is it connected to Geubels’ show?", a: "She has his blessing, but it’s her own take, for a younger generation." }
-    ])
+    F("Is this the old Geubels format?", "Yes. Jade takes over the format of Geubels en de Belgen, bringing her own perspective to Belgian habits and irritations."),
+    F("Are those guests ordinary Belgians?", "Some are. Jade mixes familiar faces with people from outside television, including a fire-breather and a mermaid performer."),
+    F("Is Jade from De Ideale Wereld?", "Yes. Jade Mintjens appeared as a sidekick on De Ideale Wereld before fronting her own show.")
   ];
 
   const zegChips = [
-    F("Is it fun to watch with kids?", "Mostly. The game is family-friendly, but the panel’s jokes can go further.", [
-      { id: "zeg-kids", q: "What age does it work for?", a: "About eight and up." },
-      { id: "zeg-tonight", q: "When is it on?", a: "Monday to Thursday around 22:10 on Play. Episodes run about 40 minutes." }
-    ]),
-    F("Can we play along at home?", "Yes. Pick a forbidden word, set a timer for one minute and see who cracks first.", [
-      { id: "zeg-open", q: "What happened on the first night?", a: "Viktor Verhulst talks like a robot to avoid saying ‘euh’, and Ruth Beeckmans copies him straight away." },
-      { id: "zeg-panel", q: "Who’s on the panel this week?", a: "It changes nightly. Opening week had Ruth Beeckmans, Viktor Verhulst, Erik Van Looy and Céline Van Ouytsel, then Ruben Van Gucht, Lynn Van den Broeck, Metejoor and Toby Alderweireld." }
-    ]),
-    F("How does the game work?", "Talk for one minute without saying ‘euh’, hesitating or using the forbidden word. Four panellists, a buzzer, and James Cooke as host.", [
-      { id: "zeg-gert", q: "Why isn’t Gert hosting?", a: "Gert hosts De Tafel at 20:00, so James Cooke took this one at 22:10." },
-      { id: "zeg-old", q: "Is it a remake?", a: "Yes, of the 90s VRT show. Some old episodes are on VRT MAX." }
-    ])
+    F("Is this the old Zeg Eens Euh?", "Yes. It revives the earlier word game rather than introducing a completely new format."),
+    F("Wasn’t Gert the host before?", "Yes. Gert Verhulst hosted the earlier Play version. James Cooke hosts the new revival."),
+    F("Can we play the game ourselves?", "Yes. Set a one-minute timer and choose a forbidden word, then try speaking without saying it or “euh”.")
   ];
 
   const axelChips = [
-    F("Where does he go this season?", "The Mexican border and Palm Springs among Trump supporters, then Sedona for aliens, Bigfoot hunters and the QAnon shaman. One region per episode.", [
-      { id: "axel-trump", q: "Is it a political show?", a: "Not really. It’s a travel series about the US. Trump supporters are the focus of the first episode." },
-      { id: "axel-s2", q: "What happens at the border?", a: "A man blocks their van and shouts them away. In Palm Springs they meet the ‘Trumpettes’, and a Mexican restaurant serves a burrito named after the president." }
-    ]),
-    F("Do I need to have seen season 1?", "No. Each episode is a separate trip to a different part of America. ‘Welcome to Trumpland’ is the one people are talking about.", [
-      { id: "axel-sedona", q: "What happens in the Sedona episode?", a: "Axel meets people with magnetic implants, a woman who says she has alien children, UFO spotters and a Bigfoot hunter." },
-      { id: "axel-length", q: "How long is an episode?", a: "About an hour. New episodes land on Tuesdays on Play." }
-    ]),
-    F("Any other travel shows like this?", "Not in the catalogue right now. Jade en de Belgen is the closest: the same curious interviews, with Belgians instead of Americans.", [
-      { id: "axel-sofa", q: "Is it fun to watch with friends?", a: "Yes. It gets people talking, especially the Palm Springs part." },
-      { id: "axel-more", q: "Where can I watch Jade en de Belgen?", a: "On Play. New episodes come out on Thursdays and run about 40 minutes." }
-    ])
+    F("Does Axel meet Trump supporters?", "Yes. In Palm Springs he meets Trump supporters, as part of a wider trip through different parts of America."),
+    F("What’s Axel doing in Sedona?", "He meets UFO enthusiasts, a Bigfoot hunter and people with unusual beliefs about aliens."),
+    F("Does he meet the QAnon shaman?", "Yes. The Sedona trip includes a meeting with the QAnon shaman, alongside Axel’s encounters with UFO enthusiasts.")
   ];
 
   const agnewChips = [
-    F("Which show is this?", "Wake Me Up When It’s Over, the show he wrote during lockdown and toured to 150,000 people. It’s his most recent recorded show.", [
-      { id: "agnew-bits", q: "Which bits do people quote?", a: "The dog story, the e-scooter rant and the Leopold II section. The material about gender divides people more." },
-      { id: "agnew-clip", q: "Is the full show like the clip?", a: "Same tone, but much longer. The full show is 2h 43 of Agnew on stage." }
-    ]),
-    F("How rough does the language get?", "Very strong, from start to finish. He also covers lockdown, BLM, gender and Leopold II. Not one for children.", [
-      { id: "agnew-woke", q: "Which topics does he cover?", a: "Lockdown, BLM, gender and Leopold II, plus a lot of everyday material, like his dog and the so-called avocado elite." },
-      { id: "agnew-kids", q: "Can I watch it with the kids still up?", a: "No. The language is strong from the first minutes. Barbie or Zeg Eens Euh work better while kids are around." }
-    ]),
-    F("How long is it?", "2h 43 in one go. Many people split it over two evenings.", [
-      { id: "agnew-long", q: "Can I stop halfway and finish later?", a: "Yes. It’s one continuous show, so you can pause between bits and pick it up later." },
-      { id: "agnew-app", q: "Is it on VTM GO or Streamz?", a: "Both. The card here opens it on VTM GO." }
-    ])
+    F("Is this the show about “woke” culture?", "He tackles subjects including BLM, gender and Leopold II, but there is also everyday material, including stories about his dog."),
+    F("Is the rest as blunt as this clip?", "Yes. The full show uses the same blunt tone and strong language as the clip."),
+    F("Was this written during lockdown?", "Yes. Wake Me Up When It’s Over grew out of material Alex Agnew wrote during lockdown.")
   ];
 
   function item(base, clip, extra) {

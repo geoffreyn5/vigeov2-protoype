@@ -238,7 +238,14 @@
         if (turns.length > 6) turns.shift();
         an.parentElement && (an.parentElement.scrollTop = an.parentElement.scrollHeight);
       };
-      const fallback = () => streamText(scripted, an, () => finish(scripted));
+      // Five reviewed lane questions ship without a written answer on purpose --
+      // they need a rating, a classification or a comparison the editor would
+      // not assert, so the model answers them live. If the model is not
+      // reachable, those would otherwise land as an empty bubble.
+      const fallback = () => {
+        const text = scripted || "I can\u2019t work that one out offline \u2014 ask me again in a moment.";
+        streamText(text, an, () => finish(text));
+      };
 
       const live = global.AlforaLLM;
       if (!live || !live.enabled()) { fallback(); return; }
