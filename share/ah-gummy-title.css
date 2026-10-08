@@ -173,6 +173,9 @@
 .tpage-sk.line.w90{width:90%} .tpage-sk.line.w70{width:70%} .tpage-sk.line.w50{width:50%}
 .tpage-sk.face{width:84px;height:84px;border-radius:50%;flex:0 0 84px}
 .tpage-sk.shot{width:232px;aspect-ratio:16/9;border-radius:12px;flex:0 0 232px}
+/* the question rail while the model writes its three */
+.tpage-sk.qpill{height:34px;border-radius:999px;flex:0 0 auto;align-self:center}
+.tpage-sk.qpill.w60{width:58%} .tpage-sk.qpill.w40{width:34%}
 
 .tpage .lane-q{margin-top:14px}
 .tpage .lane-q{

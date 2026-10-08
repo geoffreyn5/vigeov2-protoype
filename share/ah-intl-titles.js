@@ -35,18 +35,9 @@
       syn: "True crime drama, the 1892 Borden murders", kind: "Series", length: "8 ep", ...P.netflix, ...art("monster-lizzie-borden"),
       about: "The fourth Monster, and this time the case is the 1892 axe murders in Fall River. Ella Beatty plays Lizzie, with Sarah Paulson and Vicky Krieps around her. Eight episodes on Netflix, already in your plan.",
       chips: [
-        F("How gruesome does it get?", "Gruesome in a few moments. The murders are shown, but most of the eight episodes focus on the household and the trial.", [
-          { id: "liz-vs", q: "Will it keep me up at night?", a: "The atmosphere might, more than the gore. It’s a slow, cold kind of dread." },
-          { id: "liz-sleep", q: "Is it okay for teenagers?", a: "Older teens at most. The murders are shown on screen." }
-        ]),
-        F("Do I need the other Monster seasons?", "No. Each season tells a different true case with a new cast.", [
-          { id: "liz-order", q: "Which season came first?", a: "The Jeffrey Dahmer story. The seasons are separate, so the order doesn’t matter." },
-          { id: "liz-anthology", q: "Who makes it?", a: "Ryan Murphy and Ian Brennan. All seasons are on Netflix." }
-        ]),
-        F("Is it a true story?", "Yes. Lizzie Borden was accused of killing her father and stepmother in 1892 and acquitted in 1893. Nobody else was ever charged. The series fills in what the record leaves out.", [
-          { id: "liz-verdict", q: "Did she do it?", a: "The court said no. The series takes a position, so we’ll leave that to the episodes." },
-          { id: "liz-rhyme", q: "Where does the ‘forty whacks’ rhyme come from?", a: "It appeared after the trial and got the number wrong. It stuck anyway." }
-        ])
+        F("Was Lizzie Borden a real person?", "Yes. She was tried for the 1892 killings of her father and stepmother and acquitted. The series dramatises the case; an acquittal does not resolve every historical question."),
+        F("Is this the “forty whacks” story?", "Yes. The rhyme refers to Lizzie Borden, but its famous count of axe blows is inaccurate."),
+        F("Is this linked to the Dahmer series?", "Yes. It is another instalment of the Monster anthology, focused on a different historical case.")
       ]
     },
 
@@ -55,18 +46,9 @@
       syn: "Turkish thriller, a nanny with secrets", kind: "Series", length: "8 ep", ...P.netflix, ...art("not-a-stranger"),
       about: "A Turkish psychological thriller. A painter goes back to work, hires the nanny she has been looking for, and the house slowly stops being hers. Eight episodes on Netflix, already in your plan.",
       chips: [
-        F("How many episodes are there?", "Eight, with one storyline. It’s on Netflix, included in your plan.", [
-          { id: "str-binge", q: "Can I finish it in a weekend?", a: "Yes, easily." },
-          { id: "str-scary", q: "Does it start slow?", a: "No. The nanny is unsettling from the first episode." }
-        ]),
-        F("Is it in Turkish?", "Yes. Netflix has subtitles and a dub.", [
-          { id: "str-dub", q: "Is the dub any good?", a: "It’s fine if you’re half-watching. A lot of the show is in faces and pauses, so the original audio works better." },
-          { id: "str-turkish", q: "Any other Turkish thrillers?", a: "Netflix has a lot of Turkish drama. Ask and I’ll find a few in the same tone." }
-        ]),
-        F("Is it scary or just tense?", "Tense. There’s no horror, just a stranger in the house and a marriage with secrets.", [
-          { id: "str-kids", q: "Is it okay for teenagers?", a: "From about 15. There’s no gore, but the themes are adult." },
-          { id: "str-half", q: "Can I follow it while doing something else?", a: "Early on, mostly. The later episodes need your attention." }
-        ])
+        F("Is the nanny a supernatural threat?", "No. The tension comes from the nanny’s unsettling presence and the family’s secrets, rather than a supernatural threat."),
+        F("Is Funda played by the Love for Rent star?", "Yes. Elçin Sangu plays Funda, the painter and new mother who hires Nazlı."),
+        F("Is this adapted from a thriller novel?", "No. Not a Stranger is an original series, created and written by Tuğba Doğan.")
       ]
     },
 
@@ -75,18 +57,9 @@
       syn: "Inherited estate, inherited weed farm", kind: "Series", length: "2 seasons", ...P.netflix, ...art("the-gentlemen"),
       about: "Guy Ritchie's series spin on his own film. Eddie inherits a duke's estate and the enormous cannabis operation underneath it, and cannot get rid of either. Two seasons on Netflix, already in your plan.",
       chips: [
-        F("Do I need to see the film first?", "No. Same world and director, different characters. The series is on Netflix, in your plan.", [
-          { id: "gen-film", q: "Is it very Guy Ritchie?", a: "Yes. Fast dialogue, criminals with manners, and sudden violence." },
-          { id: "gen-ritchie", q: "Who’s in it?", a: "Theo James and Kaya Scodelario." }
-        ]),
-        F("How violent is it?", "Short bursts, often played for laughs. Less bloody than most crime drama.", [
-          { id: "gen-room", q: "Can I watch it with people around?", a: "Yes. The plot is easy to follow." },
-          { id: "gen-funny", q: "Is it a comedy?", a: "A crime show with a lot of jokes. Theo James plays it straight while everything around him is absurd." }
-        ]),
-        F("How many seasons are there?", "Two, each with eight episodes of about fifty minutes.", [
-          { id: "gen-two", q: "Is season two the same cast?", a: "Yes. Same cast and tone, with a bigger scheme." },
-          { id: "gen-night", q: "Does each episode stand alone?", a: "Partly. Each one has its own scheme inside the bigger story." }
-        ])
+        F("Is it the same story as the film?", "No. The series uses the same criminal world and Guy Ritchie sensibility, but follows different characters and a different story."),
+        F("Is Guy Ritchie behind this too?", "Yes. The fast dialogue, sharply dressed criminals and bursts of violence carry over from his film style."),
+        F("Is that Effy from Skins?", "Yes. Kaya Scodelario plays Susie Glass, who runs her father’s criminal business.")
       ]
     },
 
@@ -95,18 +68,9 @@
       syn: "Green Lantern cops on a murder case", kind: "Series", length: "8 ep", ...P.hbo, ...art("lanterns"),
       about: "Two Green Lanterns, a rookie and a legend, investigating a murder in the American heartland. Damon Lindelof behind it, Aaron Pierre and Kyle Chandler in front. Eight episodes on HBO Max, which is not in your plan.",
       chips: [
-        F("Do I need to know the comics?", "No. It’s a crime story with space cops, and it explains its own rules.", [
-          { id: "lan-dc", q: "Does it connect to Superman?", a: "It’s set in the same new DC world, but it works on its own." },
-          { id: "lan-add", q: "Where can I watch it?", a: "On HBO Max, which you don’t have yet. Basic with Ads is €6,99 a month." }
-        ]),
-        F("Is it a superhero action show?", "Not really. It’s a slow murder mystery in small-town America, with more conversation than fighting.", [
-          { id: "lan-true", q: "Is it like True Detective?", a: "That’s the comparison people make: two mismatched investigators and one dark case." },
-          { id: "lan-pace", q: "Is there any action?", a: "Some, but not much. Superman is the louder option." }
-        ]),
-        F("Is it a complete story?", "Yes. The case opens and closes over eight episodes of about an hour.", [
-          { id: "lan-month", q: "Will there be a second season?", a: "It’s set up to continue, but this season closes its own case." },
-          { id: "lan-more", q: "Who’s in it?", a: "Kyle Chandler and Aaron Pierre play the two Lanterns. Damon Lindelof is one of the makers." }
-        ])
+        F("Why are Green Lanterns solving a murder?", "The series puts Hal Jordan and John Stewart on an Earth-based murder investigation in the American heartland. It uses the Green Lantern characters in a detective-story setting."),
+        F("Is it like True Detective?", "The point of comparison is the pair of mismatched investigators working on one dark case. Lanterns brings that structure into the DC universe."),
+        F("Are there two Green Lanterns?", "Yes. Hal Jordan is the experienced Lantern and John Stewart is the new recruit. The series follows them working together.")
       ]
     },
 
@@ -115,18 +79,9 @@
       syn: "Reacher spin-off, Neagley on her own case", kind: "Series", length: "8 ep", ...P.prime, ...art("neagley"),
       about: "The Reacher spin-off. Frances Neagley, ex-110th and now a private investigator in Chicago, goes after the suspicious death of an old friend. Eight episodes on Prime Video, which is not in your plan.",
       chips: [
-        F("Do I need to have watched Reacher?", "No, but it helps, because Neagley is introduced there. Both are on Prime Video, which you don’t have yet. It’s €5,99 a month.", [
-          { id: "nea-order", q: "Who plays Neagley?", a: "Maria Sten, the same actor as in Reacher." },
-          { id: "nea-cheap", q: "How many seasons of Reacher are there?", a: "Four. One Prime Video subscription covers both shows." }
-        ]),
-        F("Is it like Reacher?", "Same world, smaller scale. Neagley investigates more and fights less, so it’s closer to a detective show.", [
-          { id: "nea-fights", q: "Are there still fights?", a: "Yes, but fewer, and less one-sided." },
-          { id: "nea-sten", q: "How many episodes are there?", a: "Eight, with one case running through them.", who: "Maria Sten" }
-        ]),
-        F("Does it end on a cliffhanger?", "No. The case is solved by the end of the season, with room left for more.", [
-          { id: "nea-first", q: "Does it start quickly?", a: "Yes. Her friend dies in episode one and she’s on the case straight away." },
-          { id: "nea-end", q: "How violent is it?", a: "People get hurt, but it’s less brutal than Reacher." }
-        ])
+        F("Is this Reacher’s Neagley?", "Yes. Maria Sten returns as Frances Neagley, this time leading her own story as a private investigator in Chicago."),
+        F("How is it different from Reacher?", "It keeps the same world but centres on Neagley’s investigation, with less emphasis on Reacher’s overpowering fights."),
+        F("Does she have her own Lee Child book?", "Her first standalone novel, Zero Margin, is due in March 2027, written by Lee Child and Yasmin Angoe. The TV spin-off arrives before it.")
       ]
     },
 
@@ -135,18 +90,9 @@
       syn: "Action series, one case per season", kind: "Series", length: "4 seasons", ...P.prime, ...art("reacher"),
       about: "Jack Reacher drifts into a town, finds something rotten, and takes it apart. Four seasons and no homework needed. On Prime Video, which is not in your plan, at EUR 5,99 a month.",
       chips: [
-        F("Where can I watch it?", "On Prime Video, which you don’t have yet. It’s €5,99 a month and also has the spin-off Neagley.", [
-          { id: "rea-skip", q: "How long are the episodes?", a: "About fifty minutes, eight per season." },
-          { id: "rea-books", q: "Who plays Reacher?", a: "Alan Ritchson." }
-        ]),
-        F("Is it just fighting?", "It’s a mystery with fights in it. Reacher works out what happened, then the last episodes settle it. The violence is heavy but brief.", [
-          { id: "rea-gore", q: "How graphic is the violence?", a: "Blunt rather than bloody. Broken bones, not long gore scenes." },
-          { id: "rea-room", q: "Is it fun to watch with friends?", a: "Yes. The plots are clear and easy to follow, even with people talking." }
-        ]),
-        F("Where do I start with four seasons?", "Season one. Each season adapts one book and stands alone, but the first is the easiest start.", [
-          { id: "rea-alt", q: "Can I skip to a later season?", a: "Yes. Each season is its own case." },
-          { id: "rea-month", q: "Do I need to read the books?", a: "No. The show explains everything." }
-        ])
+        F("Is this the Reacher from the books?", "Yes. The series adapts Lee Child’s Jack Reacher novels."),
+        F("Is this connected to the Tom Cruise films?", "It is a separate adaptation of Lee Child’s character. Alan Ritchson plays Reacher in the series; Tom Cruise played him in the films."),
+        F("Does each season adapt a different book?", "Yes. The series takes a different Reacher novel for each season, rather than dividing one book across the whole show.")
       ]
     },
 
@@ -155,18 +101,9 @@
       syn: "Comedy, an American coaching English football", kind: "Series", length: "4 seasons", ...P.apple, ...art("ted-lasso"),
       about: "An American football coach is hired to manage an English club he knows nothing about, and refuses to be cynical about any of it. Four seasons on Apple TV, which is not in your plan, at EUR 9,99 a month.",
       chips: [
-        F("Do I need to like football?", "No. Football is the setting. The show is about the people at the club. It’s on Apple TV, which you don’t have yet.", [
-          { id: "las-rules", q: "Do I need to know the rules?", a: "No. Ted doesn’t know them either, which is the joke in season one." },
-          { id: "las-club", q: "Is AFC Richmond a real club?", a: "No, it’s made up. The Premier League around it is real." }
-        ]),
-        F("Is it a feel-good show?", "Mostly. The comedy comes from kindness in a cynical place. The later seasons get sadder.", [
-          { id: "las-sad", q: "Does it get heavy?", a: "Season two deals with grief and anxiety. Still funny, but less light than season one." },
-          { id: "las-bad", q: "Who plays Ted?", a: "Jason Sudeikis, who also co-created the show." }
-        ]),
-        F("How long is an episode?", "About half an hour at first, closer to 45 minutes later on.", [
-          { id: "las-one", q: "How many seasons are there?", a: "Three so far, and a fourth has been announced." },
-          { id: "las-apple", q: "What else is on Apple TV?", a: "Severance, Slow Horses, Mayday and Gladiator II from your list." }
-        ])
+        F("Is AFC Richmond a real club?", "No. AFC Richmond is fictional, although the show places it within the real world of English football."),
+        F("Will I like it if I don’t follow football?", "Football gives it its setting, but the relationships and comedy are the main draw. You don’t need to know the sport’s rules."),
+        F("Does Ted even know how football works?", "Not when he first arrives. His unfamiliarity with the sport is part of the joke as he tries to lead AFC Richmond.")
       ]
     },
 
@@ -175,18 +112,9 @@
       syn: "Spy series about MI5’s rejects", kind: "Series", length: "6 seasons", ...P.apple, ...art("slow-horses"),
       about: "The spies MI5 could not fire are parked in a dead-end office under Jackson Lamb, who is vile and the best of them. Gary Oldman in the part. Six seasons on Apple TV, which is not in your plan.",
       chips: [
-        F("How dark does it get?", "Bleak about the institutions, warm about the people. Characters you like do die.", [
-          { id: "slo-oldman", q: "Can I watch it with others?", a: "Yes, if they follow the plot. The dialogue is quick.", who: "Gary Oldman" },
-          { id: "slo-bond", q: "Something lighter in my plan?", a: "The Gentlemen on Netflix: crime with jokes, already in your plan." }
-        ]),
-        F("Where do I start with six seasons?", "Season one. Each season is six episodes and adapts one book. It’s on Apple TV, which you don’t have yet.", [
-          { id: "slo-len", q: "How long is a season?", a: "Six episodes of about 45 minutes, so around four and a half hours." },
-          { id: "slo-order", q: "Do the seasons connect?", a: "Each case closes, but the characters carry on. Watch them in order." }
-        ]),
-        F("Is it a serious spy show or a funny one?", "Both. The jokes are constant and the deaths are real.", [
-          { id: "slo-room", q: "Who’s in it?", a: "Gary Oldman as Jackson Lamb, with Jack Lowden and Kristin Scott Thomas." },
-          { id: "slo-swap", q: "Is it like Bond?", a: "No. Bad coffee, worse offices and a lot of paperwork. It’s closer to le Carré, with jokes." }
-        ])
+        F("Is Slow Horses anything like Bond?", "It is closer to a grubby, bureaucratic spy story, with plenty of dark humour. These agents are MI5’s sidelined staff rather than glamorous secret agents."),
+        F("Is that Gary Oldman under all that hair?", "Yes. He plays Jackson Lamb, the boss of the sidelined agents at Slough House."),
+        F("Is Mick Jagger singing the theme?", "Yes. He sings “Strange Game”, the theme written for Slow Horses.")
       ]
     },
 
@@ -195,18 +123,9 @@
       syn: "French sitcom set in a prison", kind: "Series", length: "8 ep", ...P.streamz, ...art("minimum-security"),
       about: "A French workplace comedy set inside Chénoise prison, where the staff are more trouble than the inmates. Audrey Lamy and Jean-Pascal Zadi lead it. Eight episodes on Streamz, which is not in your plan, at EUR 9,99 a month for Basic.",
       chips: [
-        F("Is it a comedy or a prison drama?", "A comedy. The jokes are about the staff, not the prisoners.", [
-          { id: "min-dark", q: "Does it get dark?", a: "No, it stays light the whole way through." },
-          { id: "min-office", q: "Is it like a workplace sitcom?", a: "Yes. A manager tries to hold together a team that shouldn’t be working together." }
-        ]),
-        F("Is it in French?", "Yes, with subtitles. The humour is in the dialogue, so subtitles work better than a dub.", [
-          { id: "min-sub", q: "Are the subtitles fast?", a: "Fairly fast, since it’s a dialogue comedy." },
-          { id: "min-belg", q: "Anything Belgian like it?", a: "Zeg Eens Euh on Play, though it’s a game show rather than a sitcom." }
-        ]),
-        F("Where can I watch it?", "On Streamz, which you don’t have yet. Streamz Basic is €9,99 a month.", [
-          { id: "min-combo", q: "What else is on Streamz?", a: "Zillion, De Twaalf and other Belgian series. With Telenet’s 5% combination discount, Basic costs €9,49." },
-          { id: "min-short", q: "How long are the episodes?", a: "About half an hour. There are eight." }
-        ])
+        F("Is the comedy about guards or prisoners?", "The focus is the prison staff: idealistic Corinne and the mismatched team trying to keep the place running."),
+        F("Is her own son in the prison?", "That is the opening complication: Corinne’s beliefs about rehabilitation are tested when her own son is arrested."),
+        F("Do the inmates really get a day out?", "In the prison-outing episode, Corinne does take the inmates out. Keeping that trip under control is another matter.")
       ]
     },
 
@@ -215,18 +134,9 @@
       syn: "DC reboot, a hopeful Superman", kind: "Film", length: "2h 10", ...P.netflix, ...art("superman"),
       about: "James Gunn's reset. Clark Kent reporting in Metropolis, trying to square Krypton with Kansas, with Nicholas Hoult's Lex Luthor against him. 2h 10 on Netflix, already in your plan.",
       chips: [
-        F("Do I need to have seen the old ones?", "No. This starts the story over and only assumes you know who Superman is. It’s on Netflix, in your plan.", [
-          { id: "sup-dc", q: "Is it connected to other DC films?", a: "It starts a new run. Supergirl follows from it, and Lanterns is set in the same world." },
-          { id: "sup-snyder", q: "Is it like the Zack Snyder films?", a: "No. It’s brighter and funnier." }
-        ]),
-        F("Who plays Superman?", "David Corenswet, with Rachel Brosnahan as Lois Lane and Nicholas Hoult as Lex Luthor.", [
-          { id: "sup-split", q: "Who directed it?", a: "James Gunn, who also made Guardians of the Galaxy." },
-          { id: "sup-dog", q: "Is it loud?", a: "The fights are. Check the volume if people are sleeping." }
-        ]),
-        F("Is it good with kids?", "Yes, from about eight. Comic-book fights and nothing nasty. At 2h 10, it’s long for little ones.", [
-          { id: "sup-loud", q: "Can we split it over two nights?", a: "Yes. There’s a break about halfway." },
-          { id: "sup-next", q: "Is there a dog in it?", a: "Yes, Krypto the superdog." }
-        ])
+        F("Who is the dog with superpowers?", "That is Krypto, the superdog."),
+        F("Is this a fresh start for Superman?", "Yes. This begins a new version of Superman’s story rather than continuing the older films."),
+        F("Is this by the Guardians director?", "Yes. James Gunn directed Guardians of the Galaxy and this Superman film.")
       ]
     },
 
@@ -235,18 +145,9 @@
       syn: "Bollywood-fusion dance, college stakes", kind: "Film", length: "1h 52", ...P.netflix, ...art("best-of-the-best"),
       about: "Two childhood friends join UCLA's Bollywood-fusion dance team and find the road to nationals rougher than expected. Maitreyi Ramakrishnan leads. 1h 52 on Netflix, already in your plan.",
       chips: [
-        F("Is it okay for younger kids?", "From about ten. There’s some college language and romance, nothing more.", [
-          { id: "bob-dance", q: "How long is it?", a: "1h 52, on Netflix, already in your plan." },
-          { id: "bob-music", q: "Is it in English?", a: "Yes. The soundtrack mixes Hindi tracks with western pop." }
-        ]),
-        F("What’s it about?", "A comedy about two friends who fall out, set around a US college Bollywood-fusion dance competition.", [
-          { id: "bob-room", q: "Is there a lot of dancing?", a: "Yes. The routines are the big set pieces, danced to Hindi tracks mixed with western pop." },
-          { id: "bob-kids", q: "Does it work with a group?", a: "Yes. It’s a broad comedy and easy to follow, even with people talking." }
-        ]),
-        F("Who’s in it?", "Maitreyi Ramakrishnan plays the lead.", [
-          { id: "bob-lead", q: "Where do I know her from?", a: "Never Have I Ever, the Netflix series that made her known. She also voiced Mei in Turning Red.", who: "Maitreyi Ramakrishnan" },
-          { id: "bob-real", q: "Are these competitions real?", a: "Yes. Bollywood-fusion dance is a real US college circuit with national championships. The film exaggerates the stakes." }
-        ])
+        F("Are these dance competitions real?", "Yes. Bollywood-fusion dance teams compete on a real US college circuit. The film turns that world into a fictional comedy."),
+        F("Is that Devi from Never Have I Ever?", "Yes. Maitreyi Ramakrishnan, who played Devi, plays Maya in Best of the Best."),
+        F("What does Bollywood fusion mix together?", "The routines mix Bollywood dance and Hindi tracks with Western pop. That mix is central to the college dance competitions in the film.")
       ]
     },
 
@@ -255,18 +156,9 @@
       syn: "A missing boy, a retired detective", kind: "Film", length: "1h 51", ...P.netflix, ...art("the-whisper-man"),
       about: "A widower's son vanishes, and the only person who can help is his estranged father, the detective who caught the serial killer the case now points back at. Robert De Niro and Michelle Monaghan. 1h 51 on Netflix, already in your plan.",
       chips: [
-        F("How dark does it get?", "Dark. It’s about a missing child and a serial killer. Very little is shown, but the subject weighs on the whole film.", [
-          { id: "whi-kids", q: "Is anything shown on screen?", a: "Almost nothing explicit. The dread does the work." },
-          { id: "whi-sleep", q: "Will it keep me up at night?", a: "It might. It’s a quiet, creeping kind of scary." }
-        ]),
-        F("Who’s in it?", "Robert De Niro and Adam Scott as father and son, with Michelle Monaghan as the detective.", [
-          { id: "whi-deniro", q: "Who does De Niro play?", a: "A retired detective, and the father of Adam Scott’s character.", who: "Robert De Niro" },
-          { id: "whi-scott", q: "Is Adam Scott in a serious role?", a: "Yes, a dramatic one." }
-        ]),
-        F("Is it based on a book?", "Yes, Alex North’s novel of the same name.", [
-          { id: "whi-end", q: "Does it have a clear ending?", a: "Yes. It wraps up within the film." },
-          { id: "whi-like", q: "How long is it?", a: "1h 51, on Netflix, in your plan." }
-        ])
+        F("Are De Niro and Adam Scott father and son?", "Yes. They play an estranged father and son drawn together when the younger man’s child disappears."),
+        F("Is this the Alex North book?", "Yes. The film adapts Alex North’s novel The Whisper Man."),
+        F("Is the killer already in prison?", "The original Whisper Man was convicted years earlier. A new child’s disappearance raises questions about the connection to that old case.")
       ]
     },
 
@@ -275,18 +167,9 @@
       syn: "DC film, Superman’s cousin on her own", kind: "Film", length: "1h 48", ...P.hbo, ...art("supergirl"),
       about: "Kara Zor-El remembers Krypton, which Clark never did, and that makes her a harder character. Milly Alcock in the part, with Jason Momoa alongside. 1h 48 on HBO Max, which is not in your plan.",
       chips: [
-        F("Do I need to see Superman first?", "It helps but isn’t needed. They share a world, but this is her story. Superman is on Netflix, in your plan.", [
-          { id: "sgl-order", q: "Which should I watch first?", a: "Superman, then Supergirl." },
-          { id: "sgl-both", q: "Where can I watch it?", a: "On HBO Max, which you don’t have yet. It’s €6,99 a month and also has Dune: Part Two, The Last of Us and Barbie from your list." }
-        ]),
-        F("How long is it?", "1h 48.", [
-          { id: "sgl-kids", q: "Should I use headphones?", a: "If you can. A lot of the spectacle is in the sound." },
-          { id: "sgl-alcock", q: "Is it based on a comic?", a: "Yes, Supergirl: Woman of Tomorrow by Tom King.", who: "Milly Alcock" }
-        ]),
-        F("Is it as light as Superman?", "No. Kara survived Krypton and remembers it, so the film is angrier. It’s still a big adventure.", [
-          { id: "sgl-sound", q: "Is it okay for kids?", a: "From about twelve. The fights are comic-book, but the grief is real." },
-          { id: "sgl-wait", q: "Who plays Supergirl?", a: "Milly Alcock, known from House of the Dragon." }
-        ])
+        F("Why is Supergirl angrier than Superman?", "Kara remembers the loss of Krypton in a way Superman does not. Her experience gives this story a harder emotional edge."),
+        F("Is that Rhaenyra from House of the Dragon?", "Yes. Milly Alcock, who played young Rhaenyra, plays Supergirl."),
+        F("Which comic is Supergirl based on?", "Supergirl: Woman of Tomorrow, written by Tom King.")
       ]
     },
 
@@ -295,18 +178,9 @@
       syn: "Star Wars film, Mando and Grogu", kind: "Film", length: "2h 12", ...P.disney, ...art("mandalorian-and-grogu"),
       about: "Din Djarin and Grogu on a proper film budget, in a galaxy where the Empire has fallen and the warlords have not. Jon Favreau directing. 2h 12 on Disney+, already in your plan.",
       chips: [
-        F("Do I need to have watched the series?", "It helps, but the film works as a way in. It explains who the man in the helmet is and why he’s raising Grogu.", [
-          { id: "man-series", q: "How many seasons does the series have?", a: "Three, all on Disney+." },
-          { id: "man-star", q: "Do I need the Star Wars films?", a: "No. It’s set after the original trilogy, and knowing the Empire lost is enough." }
-        ]),
-        F("Is it good with kids?", "Yes. The violence is blasters and armour, nothing nasty.", [
-          { id: "man-age", q: "How young is too young?", a: "Six and up usually manages it. There are tense moments and a lot of shooting." },
-          { id: "man-split", q: "Can we watch it over two nights?", a: "Yes. There’s a clean break about halfway." }
-        ]),
-        F("Is it a proper film or a long episode?", "A proper film, with one story and an ending. Jon Favreau directed it.", [
-          { id: "man-pascal", q: "Who’s in it?", a: "Pedro Pascal, with Sigourney Weaver and Jeremy Allen White.", who: "Pedro Pascal" },
-          { id: "man-next", q: "How long is it?", a: "2h 12, on Disney+, in your plan." }
-        ])
+        F("Is Grogu the one called Baby Yoda?", "Yes. “Baby Yoda” is the nickname viewers gave Grogu before learning his name. He belongs to Yoda’s species, but is a different character."),
+        F("Do I need to catch up on The Mandalorian?", "The series gives you the history of Din Djarin and Grogu’s bond, but the film also introduces the pair for new viewers."),
+        F("Who does Jeremy Allen White play?", "He voices Rotta the Hutt, Jabba’s son. You hear him rather than see him on screen.")
       ]
     },
 
@@ -315,18 +189,9 @@
       syn: "Sequel, back at Runway twenty years on", kind: "Film", length: "1h 59", ...P.disney, ...art("devil-wears-prada-2"),
       about: "Andy comes back to Runway, Miranda is fighting for the magazine's survival, and Emily now runs the luxury brand holding the money. Streep, Hathaway, Blunt and Tucci all back. 1h 59 on Disney+, already in your plan.",
       chips: [
-        F("Do I need to rewatch the first one?", "No. It reintroduces everyone in the first twenty minutes, though a rewatch makes the reunions land harder. It’s on Disney+, in your plan.", [
-          { id: "pra-first", q: "Is the original cast back?", a: "Yes: Meryl Streep, Anne Hathaway, Emily Blunt and Stanley Tucci." },
-          { id: "pra-cast", q: "What’s changed since the first film?", a: "Mostly the magazine industry, which is what the film is about." }
-        ]),
-        F("What’s it about?", "Twenty years on, Miranda Priestly runs a magazine in an industry that’s struggling, and Andy and Emily end up in her orbit again.", [
-          { id: "pra-mean", q: "Is Miranda still as cruel?", a: "Yes, but this time she has more at stake.", who: "Meryl Streep" },
-          { id: "pra-emily", q: "Does Emily have a bigger part?", a: "Yes. Emily Blunt gets more screen time than in the first film.", who: "Emily Blunt" }
-        ]),
-        F("How long is it?", "Just under two hours.", [
-          { id: "pra-room", q: "Can someone who missed the first one follow it?", a: "Yes. They’ll miss a few callbacks, nothing more." },
-          { id: "pra-double", q: "Can we watch both in one night?", a: "Together they run about four hours. The first film is the shorter one." }
-        ])
+        F("Do I need to rewatch the first one?", "A rewatch is optional. Remembering Andy’s time working for Miranda will give you more context for the reunions."),
+        F("Is the original cast back?", "Yes. Meryl Streep, Anne Hathaway, Emily Blunt and Stanley Tucci return as Miranda, Andy, Emily and Nigel."),
+        F("How is this different from the first one?", "The sequel revisits Runway in a struggling magazine industry, with Miranda under new pressure and Andy and Emily back in her orbit.")
       ]
     },
 
@@ -335,18 +200,9 @@
       syn: "Cold War buddy comedy", kind: "Film", length: "1h 51", ...P.apple, ...art("mayday"),
       about: "A US Navy pilot goes down behind enemy lines on a secret Cold War run and has to get out with an eccentric ex-KGB agent. Ryan Reynolds and Kenneth Branagh. 1h 51 on Apple TV, which is not in your plan.",
       chips: [
-        F("Is it an action film or a comedy?", "Both. It’s a buddy action comedy: Ryan Reynolds is the fast talker and Kenneth Branagh plays it straight.", [
-          { id: "may-rey", q: "Is it typical Ryan Reynolds?", a: "Yes, the fast, sarcastic version of him.", who: "Ryan Reynolds" },
-          { id: "may-branagh", q: "Is Branagh funny in it?", a: "He plays the straight man, and most of the jokes come from the clash between the two." }
-        ]),
-        F("Do I need to know the history?", "No. It’s the Cold War, they’re stuck behind enemy lines and need to get home. That’s all the setup there is.", [
-          { id: "may-real", q: "Is it based on a true story?", a: "No. The setting is real, the story is made up." },
-          { id: "may-tense", q: "Is it tense?", a: "In parts, but it’s mostly a comedy. Nothing grim." }
-        ]),
-        F("Where can I watch it?", "On Apple TV, which you don’t have yet. It’s €9,99 a month.", [
-          { id: "may-month", q: "How long is it?", a: "1h 51." },
-          { id: "may-alt", q: "What else is on Apple TV?", a: "Gladiator II from your list, plus Severance, Slow Horses and Ted Lasso." }
-        ])
+        F("Is Kenneth Branagh doing comedy here?", "Yes. He teams up with Ryan Reynolds in a buddy comedy built around a Cold War spy adventure."),
+        F("Is Reynolds playing it like Deadpool?", "He brings the fast, sarcastic style, but this is a Cold War buddy comedy rather than another superhero role."),
+        F("Are the American and KGB man allies?", "Yes. Reynolds plays an American pilot who ends up relying on an eccentric former KGB agent, played by Branagh.")
       ]
     },
 
@@ -355,18 +211,9 @@
       syn: "French teen romance with a thriller turn", kind: "Film", length: "1h 34", ...P.prime, ...art("you-me-against-the-world"),
       about: "Alma is supposed to be studying law and is secretly making films. Vadim is the trouble she was not planning on. Someone is watching both of them. 1h 34 on Prime Video, which is not in your plan.",
       chips: [
-        F("Is it just a teen romance?", "It starts as one. Two students are forced to work together, then something darker surfaces around them.", [
-          { id: "ym-thrill", q: "How much thriller is there?", a: "Enough to change the last half hour." },
-          { id: "ym-age", q: "What age is it for?", a: "Teens and up. The leads are eighteen and twenty." }
-        ]),
-        F("Is it in English?", "No, it’s French. You can watch with subtitles or a dub.", [
-          { id: "ym-short", q: "Is the dub okay?", a: "Yes. It’s a plot-driven film, so you lose less with a dub." },
-          { id: "ym-dub", q: "How long is it?", a: "1h 34." }
-        ]),
-        F("Where can I watch it?", "On Prime Video, which you don’t have yet. It’s €5,99 a month.", [
-          { id: "ym-with", q: "What else is on Prime Video?", a: "Reacher and its spin-off Neagley." },
-          { id: "ym-plan", q: "Anything similar in my plan?", a: "Best of the Best on Netflix, also light and young." }
-        ])
+        F("Is this based on a book?", "Yes. It is one of Prime Video’s adaptations of an international bestselling book."),
+        F("Is there a thriller behind the romance?", "Yes. The attraction between the leads is complicated by a threat trying to pull them apart."),
+        F("Why is Alma lying about her studies?", "She tells her parents she is studying law, while actually pursuing her ambition to become a filmmaker.")
       ]
     },
 
@@ -375,18 +222,9 @@
       syn: "Horror reboot, one night of outbreak", kind: "Film", length: "1h 35", ...P.netflix, ...art("resident-evil"),
       about: "Zach Cregger's take: a medical courier on an ordinary night shift as the city comes apart around him. Austin Abrams and Paul Walter Hauser. 1h 35 on Netflix, already in your plan.",
       chips: [
-        F("How scary is it?", "Very. Zach Cregger, who made Barbarian, directed it. It’s a horror film, not an action film with monsters.", [
-          { id: "re-gore", q: "Is it gory?", a: "Yes, in places. Infection and bodies come with the story." },
-          { id: "re-alone", q: "Who is Zach Cregger?", a: "The director of Barbarian and Weapons." }
-        ]),
-        F("Do I need to know the games?", "No. It’s a fresh start, not a remake of one game. Players will catch references.", [
-          { id: "re-films", q: "Is it connected to the older films?", a: "No. It shares the name and nothing else." },
-          { id: "re-games", q: "Is it like the games?", a: "In feel: a city, an outbreak, and ordinary people out of their depth." }
-        ]),
-        F("How long is it?", "1h 35. It’s on Netflix, already in your plan.", [
-          { id: "re-after", q: "Something lighter for after?", a: "Best of the Best or The Gentlemen, both on Netflix." },
-          { id: "re-cregger", q: "Is it okay for teenagers?", a: "Only older teens who like horror. It’s scary and gory." }
-        ])
+        F("Is this another reboot?", "Yes. Zach Cregger’s film reinvents the franchise with a new story and a new lead, medical courier Bryan."),
+        F("Is it by the director of Barbarian?", "Yes. Zach Cregger directed Barbarian and Weapons before this Resident Evil film."),
+        F("Is that Dylan from Severance?", "Yes. Zach Cherry, who plays Dylan in Severance, is in the cast of this Resident Evil film.")
       ]
     },
 
@@ -395,18 +233,9 @@
       syn: "Nolan’s take on Homer’s epic", kind: "Film", length: "2h 53", ...P.disney, ...art("the-odyssey"),
       about: "Christopher Nolan on Homer. Odysseus taking ten years to get back from Troy, with the gods and the monsters in his way. Matt Damon, Tom Holland, Anne Hathaway, Robert Pattinson. 2h 53 on Disney+, already in your plan.",
       chips: [
-        F("Do I need to know the myth?", "No. The film tells the story from the start. It’s on Disney+, in your plan.", [
-          { id: "ody-book", q: "Should I read the poem first?", a: "No need. The film isn’t a translation of it." },
-          { id: "ody-know", q: "Do I need to know about Troy?", a: "No. It starts after the war, and knowing there was one is enough." }
-        ]),
-        F("How long is it?", "2h 53.", [
-          { id: "ody-split", q: "Can I split it over two nights?", a: "Yes, the voyage has natural breaks, though it’s made to watch in one go." },
-          { id: "ody-loud", q: "Is it loud?", a: "It’s a Nolan sound mix: very quiet, then very loud. Headphones help if the house is asleep." }
-        ]),
-        F("Is it hard to follow like his other films?", "No. It’s one man trying to get home, told in order.", [
-          { id: "ody-nolan", q: "Is it like Tenet?", a: "No. One timeline, one journey." },
-          { id: "ody-cast", q: "Who’s in it?", a: "Matt Damon as Odysseus and Tom Holland as Telemachus, with Anne Hathaway and Robert Pattinson.", who: "Matt Damon" }
-        ])
+        F("Is this the story from Homer’s poem?", "Yes. Nolan’s film adapts The Odyssey, the story of Odysseus’s journey home after the Trojan War."),
+        F("Was the whole film shot in IMAX?", "Yes. It was the first theatrical feature filmed entirely with IMAX 70mm film cameras."),
+        F("Are Damon and Holland playing relatives?", "Yes. Matt Damon plays Odysseus and Tom Holland plays his son Telemachus.")
       ]
     },
 
@@ -415,18 +244,9 @@
       syn: "Spider-Man, after the world forgot him", kind: "Film", length: "2h 25", ...P.disney, ...art("spider-man-brand-new-day"),
       about: "Peter Parker doing the job full-time in a city that has forgotten who he is, while his friends move on without him. Tom Holland, Zendaya, Mark Ruffalo and Jon Bernthal. 2h 25 on Disney+, already in your plan.",
       chips: [
-        F("Do I need the earlier Spider-Man films?", "One thing helps: at the end of No Way Home, the world forgot Peter Parker. This film starts there.", [
-          { id: "spi-which", q: "Which film comes right before it?", a: "No Way Home, from 2021." },
-          { id: "spi-mcu", q: "Do I need the rest of Marvel?", a: "No. Mark Ruffalo appears, but the story is Peter’s." }
-        ]),
-        F("Is it darker than the others?", "Yes. He’s alone and the tone is street-level. Still funny, but the heaviest of them.", [
-          { id: "spi-kids", q: "Is it okay for kids?", a: "From about ten. The violence is harder than in the earlier films." },
-          { id: "spi-bern", q: "Is Jon Bernthal the Punisher?", a: "Yes, that’s his role in it." }
-        ]),
-        F("How long is it?", "2h 25. It’s on Disney+, already in your plan.", [
-          { id: "spi-split", q: "Is there a good place to split it?", a: "There’s a turn about halfway that works as a break." },
-          { id: "spi-room", q: "Who plays Spider-Man?", a: "Tom Holland." }
-        ])
+        F("Why has everyone forgotten Peter?", "At the end of No Way Home, Doctor Strange’s spell erased the world’s memory of Peter Parker. Brand New Day follows him living with that consequence."),
+        F("Is that the same Punisher actor?", "Yes. Jon Bernthal returns as Frank Castle, the Punisher."),
+        F("How long after No Way Home is this?", "Four years later. Peter is still living with the consequences of the spell that made everyone forget him.")
       ]
     }
   };

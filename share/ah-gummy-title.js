@@ -39,16 +39,9 @@
       seasons: ["S1", "S2"],
       about: "Wednesday Addams at Nevermore — deadpan, a murder, and that dance. You don’t need the old films. You’ll know in episode one if the claws are the point.",
       chips: [
-        F("Actually scary, or just gothic?", "Spooky-fun, not a horror hangover. Jump scares are mild; the vibe is gothic teen drama with claws. You’ll know in the first episode if the dance is the point.", [
-          { id: "wed-horror", q: "Would I still be fine if I don’t like horror?", a: "Yes. If jump-scare horror is the no, this isn’t that. If you hate deadpan teen murder altogether, skip." },
-          { id: "wed-sofa", q: "Is it okay for someone who scares easily?", a: "Mostly. The Nevermore mood is the scare. Sit with them for episode one; if the Thing scene is too much, this isn’t their show." },
-          { id: "wed-jenna", q: "Who made it?", a: "Jenna Ortega — you’ve seen the face. Wednesday is the one that stuck. You don’t need the old Addams films to get why she’s here.", who: "Jenna Ortega" }
-        ]),
-        F("Binge this, or drip it?", "Easy two-episode nights. Season arcs reward a weekend binge if you’re in the mood. Not a homework show — you can leave and come back.", [
-          { id: "wed-one", q: "What if I only have one episode tonight?", a: "That’s a good Wednesday. ~50 minutes, Netflix, you’re already mid-season. One tonight, another when the house is quiet." },
-          { id: "wed-s2", q: "Do I need season 1 for season 2?", a: "You’ll follow it. Season one is the map of Nevermore and the dance. Watch that if the family lore is fuzzy." }
-        ]),
-        F("Need the Addams movies first?", "Nope. It’s its own universe — knowing the family lore is just bonus smirk material. The show tells you who she is.")
+        F("Is Thing a real hand or CGI?", "Mostly a real hand: performer Victor Dorobantu plays Thing on set, with visual effects removing his body and adding shots where needed."),
+        F("Is she from The Addams Family?", "Yes. It is the same Addams Family character, with a new story centred on her time at Nevermore."),
+        F("Did Jenna make up that dance herself?", "Yes. Jenna Ortega choreographed the dance, drawing on several influences including Lisa Loring’s original Wednesday.")
       ]
     },
     dune: {
@@ -59,14 +52,9 @@
       seasons: ["Film"],
       about: "Paul Atreides joins the Fremen and walks the line between prophecy and revenge. The rare sequel that outgrows its first half — worms, war, and one very intense family dinner.",
       chips: [
-        F("Do I need Part One first?", "You’ll survive without it, but Part One is the map. Watch that if prophecy talk makes you itch, or if names like Chani still bounce off.", [
-          { id: "dune-names", q: "How long is Part One?", a: "Watch Part One. This film assumes you already took the sand. A recap will get you through a scene; it won’t get you through the politics." },
-          { id: "dune-ok", q: "I’ll be fine — I just want the war.", a: "Then start here. You’ll miss some quiet setup; you won’t miss the worms." }
-        ]),
-        F("A weeknight film, or Friday?", "2h 46 is a Friday film. Splitable around the mid-story time jump if you must. Not a Tuesday after work unless that’s the night you wanted.", [
-          { id: "dune-split", q: "How violent is it?", a: "Yes — around the mid-story time jump. Still a Friday film. Don’t start at 22:30 unless finishing at 1am is the point." }
-        ]),
-        F("How stressful is this, really?", "Tense in short hits — sandworms, politics, and that dinner. You’ll know after the first big set piece whether this is your night.")
+        F("Do I need to rewatch Dune: Part One?", "If you remember the characters and the struggle over Arrakis, a recap can be enough. Part Two continues that story rather than starting again."),
+        F("Why is everyone fighting over the spice?", "Spice makes interstellar travel possible. Controlling Arrakis, where it is found, means controlling a resource the whole empire depends on."),
+        F("Is that the actor who played Elvis?", "Yes. Austin Butler plays Feyd-Rautha, the Harkonnen fighter.")
       ]
     },
     under: {
@@ -77,14 +65,9 @@
       seasons: ["S1", "S2", "S3", "S4"],
       about: "Limburg camping, Dutch-Belgian border slang, and a villain you’ll weirdly root for. Crime-show tense, not torture. The series is the long game; Ferry is the origin glow-up.",
       chips: [
-        F("How Flemish is this, honestly?", "Fully — Limburg camping vibes, Dutch-Belgian border slang, and Ferry. Subtitles if you need them; the camping is the point.", [
-          { id: "uc-ferry", q: "Who is Ferry?", a: "The man you weirdly root for. Drug boss, camping, the long game. The film Ferry is his origin — watch that after if you want more Bouman.", who: "Ferry" },
-          { id: "uc-lang", q: "Is it in Dutch?", a: "You’ll get the camping and the double lives. The slang is flavour. Subtitles keep the jokes." }
-        ]),
-        F("Too violent for a weeknight?", "Crime-show tense, not torture porn. Ideal if you like Narcos energy without the homework. Skip if the room wanted pink.", [
-          { id: "uc-room", q: "What if someone else is on the sofa?", a: "Fine if they like crooks. Not fine if they wanted Barbie. Episode length is ~50 minutes — one and see." }
-        ]),
-        F("Start with the Ferry film instead?", "Undercover first, then Ferry if you’re hungry for more Bouman. The film is the origin; the series is the long game.")
+        F("Was the campsite operation real?", "The premise is loosely inspired by a real undercover operation against an XTC network on the Belgian-Dutch border. The series’ characters and story are fictionalised."),
+        F("Where does Ferry fit into Undercover?", "Undercover introduces Ferry as the drug boss. The Ferry film goes back to his earlier life."),
+        F("Is this a Belgian version of Narcos?", "It shares the drug-trade subject, but Undercover tells its own Belgian-Dutch story. The central tension comes from officers living undercover near a drug boss on a campsite.")
       ]
     },
     ferry: {
@@ -95,11 +78,9 @@
       seasons: ["Film"],
       about: "Ferry Bouman before the camping empire — Limburg, the underworld, the glow-up. A closed film if you wanted Undercover without another season.",
       chips: [
-        F("Do I need Undercover first?", "Helps, not required. The film is the origin; the series is the long game. Watch this after if you’re already in S3.", [
-          { id: "ferry-s3", q: "I’m already in Undercover — did I mess up?", a: "No. Keep going. Ferry still works after as the origin. You don’t rewind a camping for a film." }
-        ]),
-        F("Can I actually finish this tonight?", "Yes. 1h 46, Netflix, already in your plan. That’s the crime night that ends."),
-        F("Too violent for this room?", "Tense, not torture. Same energy as Undercover. Skip if the sofa wanted pink.")
+        F("Is Ferry set before Undercover?", "Yes. The film tells Ferry’s earlier story, before the events of Undercover."),
+        F("Is this the Ferry film or the series?", "This is the film. There is also a Ferry series, which picks up after it."),
+        F("Is it the same actor playing Ferry?", "Yes. Frank Lammers plays Ferry Bouman in both the film and Undercover.")
       ]
     },
     bear: {
@@ -110,11 +91,9 @@
       seasons: ["S1", "S2", "S3"],
       about: "Carmy comes home to Chicago to run the family sandwich shop. Kitchen pressure, family debt, a crew that doesn’t trust him. Stress in 20–30 minute hits.",
       chips: [
-        F("How stressful is it?", "Very, on purpose. The first episodes are intense, then it calms down around episode six.", [
-          { id: "bear-know", q: "How quickly will I know if it’s for me?", a: "Within two episodes." }
-        ]),
-        F("Where do I start?", "Season 1, episode 1. Each season builds on the one before."),
-        F("Where can I watch it?", "On Disney+.")
+        F("Is anyone in the cast a real chef?", "Yes. Matty Matheson, who plays Neil Fak, is a chef and restaurateur as well as a producer on the show."),
+        F("Is Richie actually Carmy’s cousin?", "No. Richie was close to Carmy’s brother Mikey and is treated as family. “Cousin” is what they call each other."),
+        F("Is Carmy the guy from Shameless?", "Yes. Jeremy Allen White, who played Lip Gallagher in Shameless, plays Carmy.")
       ]
     },
     y1985: {
@@ -125,11 +104,9 @@
       seasons: ["Miniserie"],
       about: "Three young friends from the countryside get pulled into the darkest unsolved case in Belgian history. Tense rather than graphic — dread, not gore.",
       chips: [
-        F("Is it based on a true story?", "Yes, the Bende van Nijvel case, which is still unsolved. It stays close to the known facts.", [
-          { id: "n1985-hist", q: "Do I need to know the history first?", a: "No. The series explains what you need. Belgians will recognise extra details." }
-        ]),
-        F("How dark is it?", "Tense rather than graphic."),
-        F("How long is an episode?", "About 50 minutes. It’s on VRT MAX, already in your plan.")
+        F("Is this about the Bende van Nijvel?", "Yes. The series draws on the Bende van Nijvel case, using a dramatised story to explore that period."),
+        F("Were Marc, Franky and Vicky real people?", "They are fictional characters used to tell a story set against real events from the period."),
+        F("Does the story begin in 1985?", "No. It begins in 1980, as the three young leads move to Brussels. The title points to the turbulent period the story builds towards.")
       ]
     },
     thuis: {
@@ -140,9 +117,9 @@
       seasons: ["Daily"],
       about: "The Flemish daily — 25 minutes, already in your plan. Not a case. The thing you chip away when the night is done, or when the room is local and talking.",
       chips: [
-        F("How long is an episode?", "About 25 minutes, every weekday, on VRT MAX."),
-        F("Can I pick it up at any point?", "Yes. It’s a daily soap, and you’re already watching."),
-        F("Can I have it on while people talk?", "Yes. It’s easy to follow.")
+        F("Was Frank in Thuis from the beginning?", "Yes. Frank Bomans, played by Pol Goossen, was among the original characters when Thuis began in 1995."),
+        F("How is Kaat related to Frank?", "Kaat is Frank and Simonne’s daughter, played by Leen Dendievel."),
+        F("Is the same actress back as Kaat?", "Yes. Leen Dendievel returned in 2025 after a break of more than five years.")
       ]
     },
     chantal: {
@@ -152,9 +129,9 @@
       seasons: ["S1", "S2"],
       about: "Flemish crime with a dry grin. If you liked it for the case, not the jokes, say so — that’s how the next pick stays on the crime side of the sofa.",
       chips: [
-        F("Is it more crime or comedy?", "Both. It’s a crime story told with humour."),
-        F("Do I need season one?", "Ideally, yes. Season two assumes you know who she is."),
-        F("Where can I watch it?", "On VRT MAX, already in your plan. Episodes run about 45 minutes.")
+        F("Is she the cop from Eigen Kweek?", "Yes. Maaike Cafmeyer returns as Chantal Vantomme, the police officer from Eigen Kweek, in her own series."),
+        F("Are the cases based on local crimes?", "They take inspiration from crime stories in West Flanders, but the makers freely fictionalise them."),
+        F("Is Loveringem a real place?", "No. Loveringem is fictional, although its setting and characters draw on the Westhoek.")
       ]
     },
     assisen: {
@@ -165,9 +142,9 @@
       seasons: ["S1", "S2"],
       about: "A Flemish courtroom that turns the room. Twisty rather than violent. Locked on VTM GO — the case you want if the night can take another app.",
       chips: [
-        F("How long is an episode?", "About 45 minutes. It’s on VTM GO, which you don’t have yet."),
-        F("How dark is it?", "Courtroom tension, no gore."),
-        F("Any similar series in my plan?", "1985 on VRT MAX, or Undercover on Netflix.")
+        F("Do viewers get to act as the jury?", "That is part of the original interactive format: viewers were invited to judge guilt or innocence. Whether voting is still open depends on the episode and broadcast."),
+        F("Do we find out if the jury was right?", "Yes. The final episode reveals what really happened, so you can compare it with the verdict."),
+        F("Why a trial if he already confessed?", "In De insulinemoord, the grandfather admits causing the death but claims he acted out of mercy. The trial tests that account against the family’s very different version.")
       ]
     },
     verraders: {
@@ -178,9 +155,9 @@
       seasons: ["S1", "S2", "S3"],
       about: "The Belgian sofa format — traitors, a round table, talking over it. Not a story-twist; a format-twist. Locked on VTM GO.",
       chips: [
-        F("How does the game work?", "The players work as a team, but a few of them are secret traitors. Every round the group votes out the person they think is a traitor."),
-        F("Do I need to watch earlier seasons?", "No. Each season has new players."),
-        F("Where can I watch it?", "On VTM GO, which you don’t have yet.")
+        F("Are the contestants all celebrities?", "Yes. The Flemish programme brings well-known participants together for its deception game."),
+        F("How do they choose who to banish?", "The players discuss their suspicions and vote for the person they think is a traitor. That person leaves the game."),
+        F("Can a traitor win the prize?", "Yes. The traitors are competing to survive the votes and win, while the other players try to expose them.")
       ]
     },
     squid: {
@@ -191,9 +168,9 @@
       seasons: ["S1", "S2"],
       about: "The game you already know — debt, survival, and a room that will talk after. You’re mid-season. It’s marked leaving, so this is the one you’ll feel if it goes.",
       chips: [
-        F("How violent is it?", "Very. Players die on screen in every game. Not for kids."),
-        F("Do I need season one?", "It helps. A recap covers the rules, but season one introduces the characters."),
-        F("Is it leaving soon?", "Yes, it’s marked as leaving. You’re 55% in.")
+        F("Are those real Korean children’s games?", "Many are inspired by childhood games. The lethal rules and high-stakes competition belong to the fiction."),
+        F("Is this the drama or the reality show?", "This is the scripted drama. Squid Game: The Challenge is the separate competition series with real contestants."),
+        F("Where does the creepy doll come from?", "Young-hee draws on a familiar character from Korean schoolbooks. Squid Game turns that childhood image into something threatening.")
       ]
     },
     tlou: {
@@ -204,9 +181,9 @@
       seasons: ["S1", "S2"],
       about: "Twenty years after the outbreak, what’s left of love and civilisation. You’re deep in — S2 E3, 67%. Care, not just fungus. Not background.",
       chips: [
-        F("Do I need to know the game?", "No. The show tells you who everyone is."),
-        F("How heavy is it?", "Heavy. It’s about loss, with some violent scenes. Not one to half-watch."),
-        F("Is it leaving soon?", "Yes. Of all your leaving titles, it’s the one you’re furthest into.")
+        F("Does it have as much action as the game?", "The show uses fewer action encounters, with each one carrying more lasting consequences. It can spend more time on the characters without the game’s combat and healing mechanics."),
+        F("Why do those creatures make clicking sounds?", "Clickers can’t see. They use the clicking sounds to sense their surroundings and track people."),
+        F("Are those the game’s Clicker voices?", "Yes. Misty Lee and Phillip Kovats, who created the Clicker sounds for the game, also worked on the show’s Clicker sounds.")
       ]
     },
     opp: {
@@ -216,11 +193,9 @@
       seasons: ["Film"],
       about: "The man who built the bomb, and what it built in him. The physics is flavour; the film is guilt, power, and the hangover of being right. A weekend sit.",
       chips: [
-        F("Three hours too long tonight?", "Three hours. A weekend film. Not a Tuesday after work unless you like finishing at 1am.", [
-          { id: "opp-split", q: "How long is it?", a: "You can. It will feel like you paused a trial. Better as one sit if the sofa can take it." }
-        ]),
-        F("Do I need the science?", "You don’t. The physics is flavour; the film is about guilt."),
-        F("Pair this with Barbie?", "Yes — that’s the joke. Barbie first if you want to land soft. Only if the night can hold both.")
+        F("How much of Oppenheimer really happened?", "The major events, including Los Alamos, the Trinity test and the security hearing, are historical. Private conversations are dramatised."),
+        F("Why are some scenes black and white?", "Those scenes show events from Lewis Strauss’s point of view. The colour scenes are Oppenheimer’s."),
+        F("How did they film the bomb explosion?", "They used practical effects and filmed real, non-nuclear explosions. Nolan did not detonate an atomic bomb for the scene.")
       ]
     },
     barb: {
@@ -230,11 +205,9 @@
       seasons: ["Film"],
       about: "Pink on the outside, a gut punch about being a person. Kids can watch; the joke is for you. 1h 54, HBO Max, already in your plan — the lighter night that still lands.",
       chips: [
-        F("Just for kids, or will it land?", "No. Pink on the outside, a gut punch about being a person. Kids can watch; the joke is for you.", [
-          { id: "barb-kids", q: "So I can put this on with the house still up?", a: "Yes. Nobody has to sit up for sandworms. The jokes are sharper if the room is grown." }
-        ]),
-        F("Would this work if the room wants something lighter?", "That’s the one. 1h 54, HBO Max, in your plan."),
-        F("Too long for tonight?", "Under two hours. Dune is the Friday. This is the night you can actually finish.")
+        F("Is it linked to Oppenheimer?", "Only by release date. Both opened on the same weekend in 2023, so people watched them as a double bill. The stories have nothing to do with each other."),
+        F("Did they really build Barbie Land?", "Yes. The Dreamhouses were built as physical sets, with rooms scaled smaller than real homes to recreate the proportions of the toys."),
+        F("Is Ryan Gosling really singing?", "Yes. Gosling performs “I’m Just Ken”. He also performed it at the Oscars with Mark Ronson.")
       ]
     },
     zill: {
@@ -244,9 +217,9 @@
       seasons: ["Film"],
       about: "Ghent nightlife, excess, the crash. Belgian glow without the camping. Locked on Streamz — the left turn if you wanted not-the-obvious-pick.",
       chips: [
-        F("Do I need to know the club?", "No. Rise, glow, crash. The club is the setting; the film is the hangover."),
-        F("In my plan?", "Streamz, so it carries a lock. Wednesday is the in-plan left turn. Ferry if you wanted Belgian glow on Netflix."),
-        F("Too much nightlife for a Tuesday?", "2h 03. A proper night. Not a dip after work unless the glow is the brief.")
+        F("Was Zillion an actual nightclub?", "Yes. Zillion was a real nightclub in Antwerp. The film dramatises its story rather than documenting every event exactly."),
+        F("Was Frank Verstraeten a real person?", "Yes. He founded the real Zillion nightclub. The film tells a dramatised version of his rise and fall."),
+        F("Is that Matteo Simoni under the wig?", "Yes. Matteo Simoni plays Dennis Black Magic in Zillion.")
       ]
     },
     jan: {
@@ -256,9 +229,9 @@
       seasons: ["S1"],
       about: "The local highwaymen — Flanders, myth, crooks you can actually place. Locked on Play. Undercover and Ferry are the in-plan crime if you wanted to stay inside Netflix.",
       chips: [
-        F("Is it based on a real story?", "Loosely. Jan de Lichte was a real 18th-century highwayman around Aalst."),
-        F("Where can I watch it?", "On Play. Undercover and Ferry are crime stories already in your plan."),
-        F("Is it very historical?", "It’s set in the 18th century, but it moves fast.")
+        F("Was Jan de Lichte a real outlaw?", "Yes. He was an 18th-century outlaw around Aalst. The series builds a fictionalised crime story around the historical figure."),
+        F("Is this the Louis Paul Boon story?", "Yes. The series is based on Boon’s novel De Bende van Jan de Lichte."),
+        F("Is he a Flemish Robin Hood?", "That is how this adaptation presents him: a robber who becomes a folk hero by giving to the poor. It is a fictionalised portrayal of the historical outlaw.")
       ]
     },
     schelde: {
@@ -268,9 +241,9 @@
       seasons: ["Film"],
       about: "The Scheldt, the war, a story that sits closer to home than a desert. Locked on Play. 1985 if you wanted Flanders without adding an app.",
       chips: [
-        F("How long is it?", "2h 04."),
-        F("Where can I watch it?", "On Play."),
-        F("Do I need to know the history?", "No. The film explains enough.")
+        F("Why was the Scheldt so important?", "Antwerp had been liberated, but German forces still blocked the approach to its port. Clearing the Scheldt let Allied supply ships reach it."),
+        F("Did this battle really happen here?", "Yes. The film draws on the 1944 Battle of the Scheldt, fought around the approaches to Antwerp in Belgium and the Netherlands."),
+        F("Is that Draco Malfoy?", "Yes. Tom Felton is in the cast of The Forgotten Battle, the film’s English title.")
       ]
     },
     glad: {
@@ -280,9 +253,9 @@
       seasons: ["Film"],
       about: "Sand, steel, a fight the night has to be able to take. Locked on Apple TV. Dune if you wanted spectacle already in your plan.",
       chips: [
-        F("Do I need the first Gladiator?", "Helps for the ghost of it. Not required for the fights."),
-        F("Too long, and locked?", "2h 28 and Apple TV. Dune is 2h 46 but HBO Max is already yours. Squid Game if you wanted loud in an episode."),
-        F("A weeknight?", "No. A proper night, and another app.")
+        F("Is Lucius the boy from the first film?", "Yes. Paul Mescal plays the grown-up Lucius, who witnessed Maximus in the arena as a boy."),
+        F("Is Ridley Scott directing this one too?", "Yes. Ridley Scott directed both Gladiator films."),
+        F("Is Lucilla played by the same actress?", "Yes. Connie Nielsen returns as Lucilla alongside the new cast.")
       ]
     },
     gladijs: {
@@ -292,9 +265,9 @@
       seasons: ["S1"],
       about: "Flemish tension on thin ice — local, a case, locked on VTM GO. 1985 if you wanted that feeling already in your plan.",
       chips: [
-        F("Where can I watch it?", "On VTM GO, which you don’t have yet."),
-        F("Is it a soap?", "No. It’s a drama series with one storyline."),
-        F("Do I start at episode one?", "Yes. It’s one story told over eight episodes of about 50 minutes.")
+        F("Is he staging his own kidnapping?", "Yes. That is the setup: ice-cream manufacturer Phil plans his own kidnapping, but the scheme goes wrong."),
+        F("Why would he kidnap himself?", "Phil discovers his wife and eldest son are selling the business behind his back. He plans to use the ransom to start over."),
+        F("Is that Barbara from Kotmadam Sarafian?", "Yes. Barbara Sarafian is part of the cast of Glad IJs as well as the familiar face from Kotmadam Sarafian.")
       ]
     },
     penguin: {
@@ -304,9 +277,9 @@
       seasons: ["S1"],
       about: "Gotham without the cape — a hustle, a voice, crime that wants you awake. HBO Max, already in your plan. Late and wired is the brief.",
       chips: [
-        F("Do I need The Batman first?", "It helps to know the character, but it’s not needed. This is Oz’s story."),
-        F("How many episodes are there?", "One season of eight episodes."),
-        F("Where can I watch it?", "On HBO Max, in your plan.")
+        F("Is that really Colin Farrell?", "Yes. Colin Farrell plays Oz Cobb, transformed with prosthetic makeup designed by Mike Marino."),
+        F("Is this the Penguin from The Batman?", "Yes. The series follows Oz, the Penguin introduced in The Batman, in his own story."),
+        F("Is Sofia Falcone from the comics too?", "Yes. Sofia Falcone comes from Batman comics, although the series develops its own version of her story.")
       ]
     },
     chefbbq: {
@@ -316,9 +289,9 @@
       seasons: ["Vol. 1"],
       about: "The Chef’s Table formula, pointed at fire and smoke. Pretty, slow, food as scenery. Netflix, already in your plan. An episode you can actually finish.",
       chips: [
-        F("Do I need the other Chef’s Tables?", "No. Each episode is about one chef."),
-        F("Can I have it on in the background?", "Yes, though it’s made to look at."),
-        F("How long is an episode?", "Under 45 minutes.")
+        F("Is this a barbecue competition?", "No. Each episode follows a chef and their approach to barbecue, rather than contestants competing against each other."),
+        F("Is it only about American barbecue?", "No. Alongside Texas and South Carolina, the series visits Lennox Hastie in Australia and Rosalia Chay Chuc in Mexico."),
+        F("Is she really still cooking at 85?", "Yes. Tootsie Tomanetz was 85 when featured, still working as a Texas pitmaster as well as a school custodian.")
       ]
     },
     abbott: {
@@ -328,11 +301,9 @@
       seasons: ["S1", "S2", "S3", "S4"],
       about: "A public school on no budget and one relentless teacher. Mockumentary like The Office, but warmer. Locked on Disney+ — 22 minutes if you add the app.",
       chips: [
-        F("What kind of comedy is it?", "A mockumentary sitcom in the style of The Office, set in an underfunded public school in Philadelphia.", [
-          { id: "abb-start", q: "Where do I start?", a: "Season 1, episode 1. Episodes are about 22 minutes." }
-        ]),
-        F("Is it okay to watch with kids?", "Yes. It’s funny without being crude."),
-        F("Where can I watch it?", "On Disney+.")
+        F("Is it filmed like The Office?", "Yes. It uses a mockumentary style, with the camera observing the teachers and their reactions."),
+        F("Is it inspired by a real teacher?", "Yes. Quinta Brunson drew inspiration from her mother, who was a teacher."),
+        F("Did Janine’s actress create the show?", "Yes. Quinta Brunson created Abbott Elementary and plays Janine Teagues.")
       ]
     },
     twaalf: {
@@ -342,9 +313,9 @@
       seasons: ["S1", "S2"],
       about: "Twelve ordinary people judge an extraordinary case. Flemish intensity — the closest neighbour if The Bear’s kitchen heat is what you wanted, with a courtroom instead of a pass.",
       chips: [
-        F("Is it based on a real case?", "No. The case is fictional."),
-        F("Do I need to know Belgian law?", "No. The case explains itself through the twelve jurors."),
-        F("Where can I watch it?", "On Streamz, which you don’t have yet. 1985 is a Flemish case series that’s already in your plan.")
+        F("Is this based on a real trial?", "No. The trial in De Twaalf is fictional."),
+        F("Why do we follow the jurors home?", "Their private lives shape how they judge the accused. The series explores the people deciding the verdict as much as the case itself."),
+        F("Does each season have a different trial?", "Yes. It is an anthology: a new case brings a different jury and a new cast.")
       ]
     },
     sev: {
@@ -354,11 +325,9 @@
       seasons: ["S1", "S2"],
       about: "Employees split their memory between work and life. Season 2 pays off everything the first season set up. Unsettling rather than scary. Locked on Apple TV.",
       chips: [
-        F("Can I watch it casually?", "Not really. It needs your attention, and most people are hooked within two episodes.", [
-          { id: "sev-s1", q: "Do I need to rewatch season 1 first?", a: "A recap is enough. Season 2 assumes you remember the main points." }
-        ]),
-        F("Is it scary?", "Unsettling rather than scary. No jump scares. It’s closer to an office thriller than to horror."),
-        F("Where can I watch it?", "On Apple TV, which you don’t have yet.")
+        F("Is Ben Stiller behind this?", "Yes. He is a director and executive producer. Dan Erickson created the series."),
+        F("What’s an “innie” and an “outie”?", "The innie is the work self; the outie is the person outside work. The severance procedure separates their memories."),
+        F("Is Ricken’s book a real book?", "It began as a fictional self-help book within the show. Apple has also published an extract of The You You Are for readers.")
       ]
     },
     wicked: {
@@ -367,9 +336,9 @@
       seasons: ["Film"],
       about: "The first half — it ends on a lift, not a bow. Songs carry the feelings. Locked on Apple TV. Barbie if you wanted colour without the belt.",
       chips: [
-        F("Need the musical first?", "Helps for the songs, not required for the plot. If you know Defying Gravity, you’re already in."),
-        F("Too much singing for me?", "It’s a musical. Skip if sung-through isn’t your night."),
-        F("Is this only part one?", "Yes. If you need a bow tonight, wait for both or pick a closed film. Ferry is 1h 46 and ends.")
+        F("Does this cover the whole musical?", "No. This film covers the first part. Wicked: For Good continues the story."),
+        F("Are Ariana and Cynthia singing live?", "Yes. Ariana Grande and Cynthia Erivo performed live on set, rather than only miming to prerecorded vocals."),
+        F("Is this before The Wizard of Oz?", "Yes. This part of the story follows Elphaba and Glinda in the years before Dorothy arrives in Oz.")
       ]
     },
     deadpool: {
@@ -378,9 +347,9 @@
       seasons: ["Film"],
       about: "R-rated jokes, gore gags, breaking the fourth wall. Not a family film. Locked on Apple TV.",
       chips: [
-        F("How crude is this, really?", "Very. House isn’t asleep? Pick Barbie. This one talks back at the screen."),
-        F("Do I need MCU homework?", "Helpful for the cameos, not for the plot. If you know who they are, you’re in."),
-        F("In my plan?", "Apple TV, locked. Barbie if you wanted a laugh already on HBO Max.")
+        F("Are there surprise Marvel cameos?", "Yes. Some of the appearances are meant as surprises, so naming them would spoil the reveals."),
+        F("Will I miss the jokes without Marvel?", "You can follow the central pairing without knowing every film, but the cameos and references reward familiarity with the earlier Marvel movies."),
+        F("Is the yellow suit from the comics?", "Yes. Wolverine’s yellow-and-blue look goes back to his early comic appearances, long before Hugh Jackman played him.")
       ]
     },
     challengers: {
@@ -389,9 +358,9 @@
       seasons: ["Film"],
       about: "Tennis as a three-person argument. Competitive, mean in a different way than Deadpool. Locked on Apple TV.",
       chips: [
-        F("Do I need to like tennis?", "No. The sport is the structure; the film is the triangle."),
-        F("Date film?", "Depends on the date. Competitive and mean. Pick the right person."),
-        F("In my plan?", "Apple TV, locked. Barbie if the date wanted colour in-plan.")
+        F("Is the tennis just a backdrop?", "The matches matter, but the rivalry and attraction between the three leads drive the story. You don’t need to follow tennis to understand those relationships."),
+        F("Who made the soundtrack?", "Trent Reznor and Atticus Ross composed the score."),
+        F("Did Zendaya learn to play tennis?", "Yes. She trained for the role with tennis professionals, including Melissa Nguyen.")
       ]
     },
     insideout: {
@@ -400,9 +369,9 @@
       seasons: ["Film"],
       about: "HQ grows up. Anxiety walks in. Kids can watch; the joke is sharper if you remember being fourteen. Locked on Disney+.",
       chips: [
-        F("Just for kids?", "No. The puberty one is for the grown-ups in the room too."),
-        F("Need the first film?", "Helps. You’ll follow it either way. Joy is still Joy."),
-        F("In my plan?", "Disney+, locked. Barbie if the house wanted colour already on HBO Max.")
+        F("What new emotions are introduced?", "Anxiety, Envy, Embarrassment and Ennui join the original emotions as Riley becomes a teenager."),
+        F("How is Anxiety different from Fear?", "Fear reacts to immediate, visible dangers. Anxiety thinks ahead about everything that could go wrong, especially as Riley tries to fit in."),
+        F("What does Ennui mean?", "It means boredom or listlessness. In Riley’s head, Ennui embodies that teenage feeling of being unimpressed by everything.")
       ]
     },
     arcane: {
@@ -412,9 +381,9 @@
       seasons: ["S1", "S2"],
       about: "Two sisters on opposite sides of a city tearing itself apart. Animated, not childish. Netflix, already in your plan.",
       chips: [
-        F("Do I need to know League of Legends?", "No. It stands on its own."),
-        F("Is it for kids?", "No. Heavy themes and real violence. Think sixteen and up."),
-        F("Is it in English?", "Yes, the original voices are English. Netflix also has dubs and subtitles.")
+        F("Are these League of Legends characters?", "Yes. Arcane develops the backstories of characters from League of Legends, including Vi and Jinx."),
+        F("Who made that animation?", "Fortiche, the French animation studio, made it in partnership with Riot Games."),
+        F("Are Imagine Dragons actually in it?", "Yes. Animated versions of the band perform “Enemy” in an alley in Zaun. Their song is also the opening theme.")
       ]
     }
   };
@@ -803,6 +772,13 @@
       // until the questions have settled -- TMDB is back in a few hundred ms
       // and would otherwise fill the page under a rail that is still generic.
       const lanes = item._qdone;
+      // A title with no reviewed bank gets its three from the model. Until they
+      // land the rail used to show the generic trio -- the same three questions
+      // on every title, with the name slotted in -- which reads like the real
+      // thing and is the first thing anyone sees on an Oscars title. It waits
+      // on a skeleton now. chipsOf's trio is still there if the call comes back
+      // with nothing, so the rail is never permanently empty.
+      const qWait = !item._scripted && !item._qdone;
       // Only a real backdrop goes behind the hero. The poster used to stand in
       // until TMDB answered, which meant the entire background swapped mid-read.
       // Until then the gradient carries it -- and it is tinted from the poster,
@@ -859,7 +835,9 @@
           <div class="lane-q" data-lane-q data-mesh="m0">
             <div class="qcard">
               <div class="qcard-track" data-qtrack>
-                ${chips.map((c, i) => `<button class="qcard-q${i === 0 ? " is-on" : ""}" type="button" data-tpage-ask="${esc(c.id)}" data-mesh="m${i % 3}" data-q="${esc(c.q)}"><span class="q-copy">${esc(c.q)}</span></button>`).join("")}
+                ${qWait
+                  ? `<span class="tpage-sk qpill w60"></span><span class="tpage-sk qpill w40"></span>`
+                  : chips.map((c, i) => `<button class="qcard-q${i === 0 ? " is-on" : ""}" type="button" data-tpage-ask="${esc(c.id)}" data-mesh="m${i % 3}" data-q="${esc(c.q)}"><span class="q-copy">${esc(c.q)}</span></button>`).join("")}
               </div>
             </div>
             <div class="qbeam">
