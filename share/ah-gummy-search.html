@@ -1816,6 +1816,18 @@ function closeDetail(){
 function openComposer(){
   scene.classList.add("is-ask");
   syncReels();
+  // is-ask hides the lobby and the dock only exists inside it, so tapping the
+  // search bar used to swap the whole screen for a black one with a field on
+  // it -- nothing to read, nothing to tap. An empty thread gets the genres to
+  // start from instead, which are also the only scripted destinations left.
+  if (!thread.children.length) {
+    const genres = Object.keys(asks).filter(id => asks[id].kind === "genre").slice(0, 6);
+    if (genres.length) {
+      moreLabel.textContent = "Start with a genre, or just type";
+      morePills.innerHTML = hintRow(genres);
+      askMore.classList.remove("hid");
+    }
+  }
   const el = scene.querySelector(".search.askdock input");
   if (el) { el.focus({preventScroll:true}); }
 }
@@ -1975,6 +1987,7 @@ const search = scene.querySelector(".search");
 const thread = document.getElementById("thread");
 const askMore = document.getElementById("askMore");
 const morePills = document.getElementById("morePills");
+const moreLabel = askMore.querySelector(".label-mini");
 const packEl = document.getElementById("pack");
 const packFrame = document.getElementById("packFrame");
 
@@ -2157,7 +2170,15 @@ function matchAsk(text){
       if (/why/.test(q) && /why/.test(hay)) return f.id;
     }
   }
-  if (/after a long/.test(q)) return "plan";
+  // Everything this routes to has to still exist. The mood bank it used to
+  // reach -- unwind, laugh, short, flanders and the rest -- was removed when
+  // the scripted prompts went, and a query matching one of those rules handed
+  // ask() an id with nothing behind it, which it dropped on the floor. Typing
+  // anything into Search did nothing at all.
+  //
+  // The genre pages are the only scripted destinations left, and they earn the
+  // detour: each one opens a curated bundle rather than a written answer.
+  // Everything else is for the model, which is the whole point of typing.
   if (/^action\b/.test(q)) return "g-action";
   if (/^comedy\b/.test(q)) return "g-comedy";
   if (/^drama\b/.test(q)) return "g-drama";
@@ -2171,44 +2192,12 @@ function matchAsk(text){
   if (/^mystery\b/.test(q)) return "g-mystery";
   if (/^family\b/.test(q)) return "g-family";
   if (/^adventure\b/.test(q)) return "g-adventure";
-  if (/can'?t decide|cannot decide|pick for me/.test(q)) return "decide";
-  if (/surprise/.test(q)) return "surprise";
-  if (/one more episode|another episode/.test(q)) return "episode";
-  if (/guilty/.test(q)) return "guilty";
-  if (/big screen|epic|fill the wall/.test(q)) return "epic";
-  if (/feel something|make me feel/.test(q)) return "feel";
-  if (/background|leave it on/.test(q)) return "noise";
-  if (/comfort food|comfort/.test(q)) return "comfort";
-  if (/start something new|something new/.test(q)) return "fresh";
-  if (/house isn'?t|lights on|family in the room/.test(q)) return "house";
-  if (/high stakes|stakes/.test(q)) return "stakes";
-  if (/based on|true story|true/.test(q)) return "true";
-  if (/weird|off.?centre|off.?center/.test(q)) return "weird";
-  if (/don'?t make me think|brain off/.test(q)) return "think";
-  if (/soft scare|horror|shiver/.test(q)) return "horror";
-  if (/late and wired|still awake|wired/.test(q)) return "wired";
-  if (/rainy|rain/.test(q)) return "rain";
-  if (/date night|date/.test(q)) return "date";
-  if (/slow and pretty|pretty/.test(q)) return "pretty";
-  if (/something loud|turn it up|loud/.test(q)) return "loud";
-  if (/laugh|funny|comedy/.test(q)) return "laugh";
-  if (/unwind|wind down|relax|calm/.test(q)) return "unwind";
-  if (/bear|kitchen/.test(q)) return "bear";
-  if (/40|forty|45|short|minutes|half hour|little something/.test(q)) return "short";
-  if (/tafel|gert|actualiteit|last night|gisteren/.test(q)) return "flanders";
-  if (/familie|victor|mechelen/.test(q)) return "flanders";
-  if (/flanders|vlaander|close to home|jade|zeg eens|axel|agnew/.test(q)) return "flanders";
-  if (/belgian|belg|flemish|crime|crook|danger/.test(q)) return "belgian";
-  if (/finish|continue|left off|company/.test(q)) return "finish";
-  if (/plan|already|start now|can i play|subscription|lock/.test(q)) return "plan";
-  if (/softer|lighter|easy|colour|color|tender/.test(q)) return "light";
-  if (/tonight|movie|film|15|thrill/.test(q)) return "tonight";
-  return "unwind";
+  return "";
 }
 function renderMore(except){
   const item = findAsk(except);
   const followIds = (item?.follow || []).map(f => f.id).filter(id => id !== except);
-  const more = (item?.more || ["unwind","flanders","plan","light"]).filter(id => id !== except && id !== item?.parent);
+  const more = (item?.more || ["g-comedy","g-crime","g-drama","g-doc"]).filter(id => id !== except && id !== item?.parent);
   const ids = [];
   const seen = new Set();
   [...followIds, ...more, ...moodAskIds()].forEach(id => {
@@ -2220,9 +2209,24 @@ function renderMore(except){
   });
   morePills.innerHTML = hintRow(ids, except);
 }
+// A typed question that matches nothing in the bank is the normal case now,
+// not an error: Search is answered by the model. It gets a stand-in item so
+// the rest of this function has something to hold -- the model supplies the
+// answer, the titles and the follow-ups, and the item is only consulted when
+// the model gives none of them. The written line is the offline one, because
+// a question that reaches here has no scripted answer to fall back to.
+function freeAsk(text){
+  return {
+    id: "free",
+    q: text,
+    a: "I can\u2019t reach that one offline \u2014 ask me again in a moment.",
+    lanes: []
+  };
+}
 function ask(id, spoken){
-  const item = findAsk(id);
+  const item = findAsk(id) || (spoken ? freeAsk(spoken) : null);
   if (!item) return;
+  if (item.id === "free") id = "free";
   const q = spoken || item.q;
   // re-tapping the chip that is already open does nothing, but a typed question
   // is always a new question even when it matches the ask already on screen
@@ -2235,6 +2239,7 @@ function ask(id, spoken){
   input.value = "";
   setTyped();
   input.blur();
+  moreLabel.textContent = "Add to this, or start over";
   askMore.classList.add("hid");
   const turn = document.createElement("div");
   turn.className = "turn";
