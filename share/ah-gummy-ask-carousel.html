@@ -247,6 +247,33 @@
     position:absolute;inset:0;pointer-events:none;
     background:linear-gradient(180deg, rgba(0,0,0,.58) 0%, transparent 24%, transparent 52%, rgba(0,0,0,.22) 78%, rgba(0,0,0,.38) 100%);
   }
+  /* Tap-to-pause. The overlay only takes the tap once it is up -- while the
+     clip is running the pause comes from a tap on the video itself, and this
+     must not stand in the way of it. */
+  .video-pause{
+    position:absolute;inset:0;z-index:4;
+    display:grid;place-items:center;
+    background:rgba(0,0,0,.46);
+    opacity:0;pointer-events:none;
+    transition:opacity .16s ease;
+  }
+  .videowrap.is-paused .video-pause{opacity:1;pointer-events:auto}
+  .vp-circle{
+    width:76px;height:76px;border-radius:50%;
+    display:grid;place-items:center;
+    background:rgba(255,255,255,.16);
+    border:1px solid rgba(255,255,255,.28);
+    backdrop-filter:blur(14px) saturate(1.2);
+    -webkit-backdrop-filter:blur(14px) saturate(1.2);
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
+    transform:scale(.88);
+    transition:transform .2s cubic-bezier(.22,.82,.28,1);
+  }
+  .videowrap.is-paused .vp-circle{transform:none}
+  .vp-circle svg{width:34px;height:34px;fill:#fff;margin-left:3px}
+  @media (prefers-reduced-motion:reduce){
+    .video-pause,.vp-circle{transition:none}
+  }
   .topfade{
     position:absolute;left:0;right:0;top:0;height:148px;z-index:30;pointer-events:none;
     background:linear-gradient(180deg, rgba(0,0,0,.78) 0%, rgba(0,0,0,.38) 42%, transparent 100%);
@@ -1341,6 +1368,11 @@ function slideHTML(item, i){
     <div class="videowrap" data-video>
       <div class="video-poster" style="background-image:url('${item.backdrop || item.poster || ""}')"></div>
       <div class="video-edgefade"></div>
+      <div class="video-pause" data-pause-overlay aria-hidden="true">
+        <span class="vp-circle">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+        </span>
+      </div>
     </div>
     ${patchHTML(item)}
     <div class="dock">
@@ -1550,7 +1582,7 @@ const kickPlayback = () => {
       try { v.pause(); v.currentTime = at; } catch (_) {}
     }).catch(() => {});
   });
-  if (cur && cur.paused) {
+  if (cur && cur.paused && pausedAt !== current) {
     cur.muted = !soundOn;
     cur.play().catch(() => { cur.muted = true; cur.play().catch(() => {}); });
   }
@@ -1561,6 +1593,57 @@ const kickPlayback = () => {
 // almost free.
 ["pointerdown", "touchstart", "touchmove", "keydown"].forEach(ev =>
   document.addEventListener(ev, kickPlayback, { passive: true, capture: true }));
+
+// Tap-to-pause.
+//
+// A manual pause has to survive everything else in here that starts playback,
+// and there is a lot of it: kickPlayback resumes the current clip on any
+// pointerdown -- including the very tap that just paused it -- and activate()
+// restarts the current slide whenever the page wakes or a detail page closes.
+// Both of those ask pausedAt first.
+//
+// The pause belongs to one slide, not to the feed. Swiping to another reel is
+// a new clip and it plays; coming back from a title page is the same clip, and
+// it stays as the viewer left it.
+let pausedAt = -1;
+
+function wrapAt(i){
+  const slide = feedEl.querySelectorAll(".slide")[i];
+  return slide ? slide.querySelector("[data-video]") : null;
+}
+function setPaused(i, on){
+  const wrap = wrapAt(i);
+  if (!wrap) return;
+  const video = wrap.querySelector("video");
+  wrap.classList.toggle("is-paused", on);
+  const overlay = wrap.querySelector("[data-pause-overlay]");
+  if (overlay) overlay.setAttribute("aria-hidden", on ? "false" : "true");
+  if (!video) return;
+  if (on) { try { video.pause(); } catch (_) {} }
+  else video.play().catch(() => { video.muted = true; video.play().catch(() => {}); });
+}
+function clearPause(){
+  if (pausedAt === -1) return;
+  setPaused(pausedAt, false);
+  pausedAt = -1;
+}
+function togglePause(){
+  if (!isPageLive()) return;
+  if (pausedAt === current) { setPaused(current, false); pausedAt = -1; return; }
+  if (pausedAt !== -1) setPaused(pausedAt, false);
+  pausedAt = current;
+  setPaused(current, true);
+}
+
+// The video is the whole slide behind the dock, so the tap target is the slide
+// minus its controls -- the same exclusions the sound unlock uses, since a tap
+// on the poster opens a title and must not also stop the clip behind it.
+feedEl.addEventListener("click", e => {
+  if (!e.target.closest) return;
+  if (e.target.closest("[data-poster], [data-title], [data-ask], [data-watch], [data-list], [data-cta], [data-q], button, a, [role='button']")) return;
+  if (!e.target.closest(".slide")) return;
+  togglePause();
+});
 
 // Touching the feed at all -- a tap on the slide, or the start of a swipe --
 // is engaging with the reel, and that is a request for sound. It used to need a
@@ -1599,13 +1682,20 @@ function ensureVideo(slide, item){
   let video = wrap.querySelector("video");
   if (wrap.dataset.loaded === item.youtube && video) return video;
   wrap.dataset.loaded = item.youtube;
-  wrap.classList.remove("is-playing", "is-ready");
+  // is-paused goes with the rest: this wrap is about to hold a different clip,
+  // and the overlay is rebuilt below along with everything else in here.
+  wrap.classList.remove("is-playing", "is-ready", "is-paused");
   wrap.innerHTML = `
     <div class="video-poster" style="background-image:url('${item.backdrop || item.poster || ""}')"></div>
     <video muted loop playsinline preload="auto" disablepictureinpicture>
       <source src="${trailerSrc(item.youtube)}" type="${trailerType(item.youtube)}">
     </video>
-    <div class="video-edgefade"></div>`;
+    <div class="video-edgefade"></div>
+    <div class="video-pause" data-pause-overlay aria-hidden="true">
+      <span class="vp-circle">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+      </span>
+    </div>`;
   video = wrap.querySelector("video");
   video.muted = true;
   video.volume = 0;
@@ -1674,6 +1764,7 @@ function runClip(slide, item, audible){
     armed = true;
     if (!isPageLive()) { hardMute(video); return; }
     if (audible && i !== current) { hardMute(video); return; }
+    if (pausedAt === i) return;                 // the viewer stopped this one
     if (audible) {
       feedEl.querySelectorAll("video").forEach(v => {
         if (v === video) return;
@@ -2106,6 +2197,7 @@ function warmAround(i){
 
 function activate(i){
   if (!isPageLive()) { stopAll(); return; }
+  if (pausedAt !== -1 && pausedAt !== i) clearPause();
   current = i;
   warmAround(i);
   feedEl.querySelectorAll(".slide").forEach((slide, idx) => {
